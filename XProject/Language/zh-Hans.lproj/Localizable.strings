@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  XProject
+
+  Created by 610715 on 2018/8/14.
+  Copyright © 2018年 610715. All rights reserved.
+*/
+
+//Tabbar
+"Tabbar_Home" = "首页";
+"Tabbar_Peijian" = "配件";
+"Tabbar_DongTai" = "动态";
+"Tabbar_FaXian" = "发现";
+"Tabbar_WoDe" = "我的";
