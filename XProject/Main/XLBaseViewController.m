@@ -6,19 +6,18 @@
 //  Copyright © 2016年 7FD75. All rights reserved.
 //
 
-#import "ZFBaseViewController.h"
+#import "XLBaseViewController.h"
 
-@interface ZFBaseViewController ()
+@interface XLBaseViewController ()
 @property (nonatomic, strong) UIView    *againRequestView;
 @property (nonatomic, strong) UIButton  *backButton;
 @end
 
-@implementation ZFBaseViewController
+@implementation XLBaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     if (IOS7UP) {
         self.tabBarController.tabBar.translucent = NO;
@@ -28,10 +27,9 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    //防止控制器的title发生偏移
-    [self setBackButtomTitleToEmpty];
+-(void)goBackAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

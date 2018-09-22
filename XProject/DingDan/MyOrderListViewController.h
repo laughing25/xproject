@@ -6,8 +6,8 @@
 //  Copyright © 2018年 610715. All rights reserved.
 //  我的订单列表
 
-#import "ZFBaseViewController.h"
+#import "XLBaseViewController.h"
 
-@interface MyOrderListViewController : ZFBaseViewController
+@interface MyOrderListViewController : XLBaseViewController
 
 @end

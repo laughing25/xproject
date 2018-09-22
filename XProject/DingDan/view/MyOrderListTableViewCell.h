@@ -7,7 +7,10 @@
 //  我的订单列表cell
 
 #import <UIKit/UIKit.h>
+#import "OrderModel.h"
 
 @interface MyOrderListTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) OrderModel *orderModel;
 
 @end

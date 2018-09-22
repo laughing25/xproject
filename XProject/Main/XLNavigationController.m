@@ -9,6 +9,7 @@
 #import "XLNavigationController.h"
 #import <sys/sysctl.h>
 #import <mach/mach.h>
+#import "XLBaseViewController.h"
 
 @interface XLNavigationController ()
 <
@@ -81,6 +82,29 @@
         viewController.hidesBottomBarWhenPushed = YES;
     }
     [super pushViewController:viewController animated:animated];
+    
+    NSArray *viewControllerArray = [self viewControllers];
+    if ([viewControllerArray count] > 1) {
+        viewController.navigationItem.hidesBackButton = YES;
+        id target = nil;
+        if ([viewController isKindOfClass:[XLBaseViewController class]]) {
+            target = viewController;
+        }else{
+            target = self;
+        }
+        NSString *imageName = @"nav_arrow_left";
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:imageName]
+                                                                                                  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                                           style:UIBarButtonItemStylePlain
+                                                                                          target:target
+                                                                                          action:@selector(goBackAction)];
+        viewController.navigationItem.leftBarButtonItem.imageInsets = UIEdgeInsetsMake(0, -8, 0, 0);
+    }
+}
+
+-(void)goBackAction
+{
+    [self popViewControllerAnimated:YES];
 }
 
 @end

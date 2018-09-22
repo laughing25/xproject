@@ -49,18 +49,15 @@
 
 #pragma mark - setter and getter
 
--(void)setModel:(id<CollectionDatasourceProtocol>)model
+-(void)setModel:(CategoryModel *)model
 {
     _model = model;
     
-//    if ([_model.dataSource isKindOfClass:[JumpModel class]]) {
-//        JumpModel *model = (JumpModel *)_model.dataSource;
-//        [self.imageView yy_setImageWithURL:[NSURL URLWithString:model.imageURL]
-//                                  placeholder:[UIImage imageNamed:@"placeholder_banner_pdf"]
-//                                      options:YYWebImageOptionProgressiveBlur | YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionIgnoreImageDecoding
-//                                   completion:nil];
-//        self.textLabel.text = model.name;
-//    }
+    [self.imageView yy_setImageWithURL:[NSURL URLWithString:_model.icoUrl]
+                              placeholder:[UIImage imageNamed:@"placeholder_banner_pdf"]
+                                  options:YYWebImageOptionProgressiveBlur | YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionIgnoreImageDecoding
+                               completion:nil];
+    self.textLabel.text = model.title;
 }
 
 - (YYAnimatedImageView *)imageView
@@ -69,7 +66,6 @@
         _imageView = ({
             YYAnimatedImageView *imageView = [[YYAnimatedImageView alloc] init];
             imageView.contentMode = UIViewContentModeScaleAspectFit;
-            imageView.backgroundColor = [UIColor grayColor];
             imageView;
         });
     }

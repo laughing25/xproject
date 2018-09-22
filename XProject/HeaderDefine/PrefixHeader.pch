@@ -29,5 +29,7 @@
 #import "UIColor+Extend.h"
 #import "UINavigationController+FDFullscreenPopGesture.h"
 #import "AccountManager.h"
+#import "YTKBaseRequest+Tools.h"
+#import "YSRequestAccessory.h"
 
 #endif /* PrefixHeader_pch */

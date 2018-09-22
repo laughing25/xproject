@@ -39,7 +39,7 @@
         [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.trailing.mas_equalTo(self.mas_trailing).mas_offset(-10);
             make.centerY.mas_equalTo(self.mas_centerY);
-            make.width.mas_equalTo(self).multipliedBy(0.2);
+            make.width.mas_equalTo(self).multipliedBy(0.3);
             make.height.mas_equalTo(self).multipliedBy(0.8);
         }];
         
@@ -58,19 +58,25 @@
             make.trailing.top.bottom.mas_equalTo(self.backView);
             make.width.mas_equalTo(self.backView).multipliedBy(0.3);
         }];
-    
     }
     return self;
 }
 
 -(void)plusButtonAction
 {
-    
+    NSInteger nums = self.numTextField.text.integerValue;
+    nums += 1;
+    self.numTextField.text = [NSString stringWithFormat:@"%ld", nums];
 }
 
 -(void)minButtonAction
 {
-    
+    NSInteger nums = self.numTextField.text.integerValue;
+    nums -= 1;
+    if (nums <= 0) {
+        nums = 1;
+    }
+    self.numTextField.text = [NSString stringWithFormat:@"%ld", nums];
 }
 
 +(NSString *)cellIdentifierl
@@ -83,7 +89,7 @@
     if (!_nameLabel) {
         _nameLabel = ({
             UILabel *label = [[UILabel alloc] init];
-            label.text = @"test";
+            label.text = @"数量";
             label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor blackColor];
             label.font = [UIFont systemFontOfSize:12];
@@ -144,6 +150,8 @@
             textField.text = @"1";
             textField.enabled = NO;
             textField.textAlignment = NSTextAlignmentCenter;
+            textField.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
+            textField.layer.borderWidth = 1;
             textField;
         });
     }

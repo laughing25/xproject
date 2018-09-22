@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZFBaseViewController : UIViewController
+@interface XLBaseViewController : UIViewController
 
 /**
  *  此方法是为了防止控制器的title发生偏移，造成这样的原因是因为返回按钮的文字描述占位
@@ -24,6 +24,8 @@
  * 返回上个控制器
  */
 - (void)popBackVC;
+
+-(void)goBackAction;
 
 @property (nonatomic, assign) BOOL firstEnter;
 

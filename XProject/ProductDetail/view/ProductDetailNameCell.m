@@ -7,6 +7,7 @@
 //
 
 #import "ProductDetailNameCell.h"
+#import "ProductModel.h"
 
 @interface ProductDetailNameCell ()
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -49,6 +50,17 @@
 +(NSString *)cellIdentifierl
 {
     return NSStringFromClass(self.class);
+}
+
+-(void)setModel:(id<CollectionDatasourceProtocol>)model
+{
+    _model = model;
+    
+    if ([_model.dataSource isKindOfClass:[ProductModel class]]) {
+        ProductModel *pModel = (ProductModel *)_model.dataSource;
+        self.nameLabel.text = pModel.productName;
+        self.priceLabel.text = [NSString stringWithFormat:@"¥ %@", pModel.salePrice];
+    }
 }
 
 - (UILabel *)nameLabel

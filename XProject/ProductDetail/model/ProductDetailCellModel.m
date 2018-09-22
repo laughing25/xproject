@@ -7,6 +7,7 @@
 //
 
 #import "ProductDetailCellModel.h"
+#import "ProductModel.h"
 
 @implementation ProductDetailCellModel
 @synthesize dataSource = _dataSource;
@@ -29,6 +30,8 @@
 {
     NSString *klassString = NSStringFromClass([self CollectionDatasourceClass]);
     if ([klassString isEqualToString:@"ProductDetailNameCell"]) {
+        ProductModel *model = (ProductModel *)self.dataSource;
+        
         return CGSizeMake(KScreenWidth, 80);
     }else if ([klassString isEqualToString:@"ProductSKUCell"]){
         return CGSizeMake(KScreenWidth, 44);

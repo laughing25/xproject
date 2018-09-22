@@ -8,6 +8,7 @@
 
 #import "YSCollectionViewBannerCell.h"
 #import "SDCycleScrollView.h"
+#import "ProductModel.h"
 
 @interface YSCollectionViewBannerCell ()
 <
@@ -59,15 +60,24 @@
     if (model == _model) return;
     
     _model = model;
-    
+    NSMutableArray *imageUrls = [[NSMutableArray alloc] init];
     if ([model.dataSource isKindOfClass:[NSArray class]]) {
         NSArray *list = (NSArray *)model.dataSource;
-        NSMutableArray *imageUrls = [[NSMutableArray alloc] init];
+        
         [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [imageUrls addObject:@"https://gloimg.zaful.com/zaful/pdm-product-pic/Clothing/2018/08/01/goods-grid-app/1533583378560336120.jpg"];
+            if ([obj isKindOfClass:[AdInfoModel class]]) {
+                AdInfoModel *model = obj;
+                [imageUrls addObject:model.img_url];
+            }
+//            [imageUrls addObject:@"https://gloimg.zaful.com/zaful/pdm-product-pic/Clothing/2018/08/01/goods-grid-app/1533583378560336120.jpg"];
         }];
-        self.bannerView.imageURLStringsGroup = [imageUrls copy];
     }
+    
+    if ([model.dataSource isKindOfClass:[ProductModel class]]) {
+        ProductModel *productModel = (ProductModel *)model.dataSource;
+        [imageUrls addObject:productModel.focusImgUrl];
+    }
+    self.bannerView.imageURLStringsGroup = [imageUrls copy];
 }
 
 -(SDCycleScrollView *)bannerView

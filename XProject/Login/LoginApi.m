@@ -38,7 +38,7 @@
 - (id)requestArgument {
     return @{
              @"username": _username,
-             @"password": _password
+             @"pass": _password
              };
 }
 
@@ -47,9 +47,5 @@
 //    NSDictionary *params = [[AccountManager shareInstance] requestHeaderParams:[self requestArgument]];
 //    return [params copy];
 //}
-
-- (NSString *)userId {
-    return [[[self responseJSONObject] objectForKey:@"userId"] stringValue];
-}
 
 @end

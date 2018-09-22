@@ -9,7 +9,6 @@
 #import "XLCollectionViewAsingleCellModel.h"
 
 @implementation XLCollectionViewAsingleCellModel
-@synthesize dataSource = _dataSource;
 @synthesize specialIdentifier = _specialIdentifier;
 
 -(NSString *)CollectionDatasourceCellIdentifier:(NSIndexPath *)indexPath

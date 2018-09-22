@@ -7,6 +7,7 @@
 //
 
 #import "ProductSKUCell.h"
+#import "ProductModel.h"
 
 @interface ProductSKUCell ()
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -27,14 +28,16 @@
         
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.top.mas_equalTo(self).mas_offset(10);
+            make.trailing.mas_equalTo(self.SKULabel.mas_leading).mas_offset(-10);
             make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-10);
         }];
-        
+
         [self.SKULabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.mas_equalTo(self.nameLabel);
-            make.leading.mas_equalTo(self.nameLabel.mas_trailing).mas_offset(10);
             make.trailing.mas_equalTo(self.mas_trailing).mas_offset(-10);
         }];
+        
+        [self.nameLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     }
     return self;
 }
@@ -42,6 +45,17 @@
 +(NSString *)cellIdentifierl
 {
     return NSStringFromClass(self.class);
+}
+
+-(void)setModel:(id<CollectionDatasourceProtocol>)model
+{
+    _model = model;
+    
+    if ([_model.dataSource isKindOfClass:[ProductModel class]]) {
+        ProductModel *pModel = (ProductModel *)_model.dataSource;
+        self.nameLabel.text = @"手机型号";
+        self.SKULabel.text = pModel.sku;
+    }
 }
 
 - (UILabel *)nameLabel

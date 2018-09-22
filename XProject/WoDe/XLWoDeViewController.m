@@ -8,7 +8,7 @@
 
 #import "XLWoDeViewController.h"
 #import "XLWodeTableHeaderView.h"
-#import "ZFAddressViewController.h"
+#import "XLAddressViewController.h"
 #import "MyOrderListViewController.h"
 #import "LoginViewController.h"
 
@@ -54,15 +54,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        ZFAddressViewController *addressVC = [[ZFAddressViewController alloc] init];
+        XLAddressViewController *addressVC = [[XLAddressViewController alloc] init];
         [self.navigationController pushViewController:addressVC animated:YES];
     }else if (indexPath.row == 1){
         MyOrderListViewController *myOrderList = [[MyOrderListViewController alloc] init];
         [self.navigationController pushViewController:myOrderList animated:YES];
     }else if (indexPath.row == 2){
-        LoginViewController *login = [[LoginViewController alloc] init];
-        [self presentViewController:login animated:YES completion:nil];
-//        [LoginViewController presentLoginViewController:self];
+        [LoginViewController presentLoginViewController:self];
     }
 }
 

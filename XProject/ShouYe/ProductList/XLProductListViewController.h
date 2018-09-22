@@ -6,9 +6,9 @@
 //  Copyright © 2018年 610715. All rights reserved.
 //  商品列表
 
-#import "ZFBaseViewController.h"
+#import "XLBaseViewController.h"
 
-@interface XLProductListViewController : ZFBaseViewController
+@interface XLProductListViewController : XLBaseViewController
 
 @property (nonatomic, copy) NSString *categoryid;
 @property (nonatomic, copy) NSString *catalogid;

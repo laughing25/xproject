@@ -21,6 +21,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.productImage];
         [self addSubview:self.productNameLabel];
         [self addSubview:self.productPriceLabel];
@@ -33,13 +34,13 @@
         }];
         
         [self.productNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.productImage.mas_top);
+            make.top.mas_equalTo(self.productImage.mas_top).mas_offset(5);
             make.leading.mas_equalTo(self.productImage.mas_trailing).mas_offset(10);
             make.trailing.mas_equalTo(self.mas_trailing).mas_offset(10);
         }];
         
         [self.productPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.productImage.mas_bottom);
+            make.bottom.mas_equalTo(self.productImage.mas_bottom).mas_offset(-5);
             make.leading.mas_equalTo(self.productImage.mas_trailing).mas_offset(10);
             make.trailing.mas_equalTo(self.mas_trailing).mas_offset(10);
         }];
@@ -48,6 +49,15 @@
 }
 
 #pragma mark - setter and getter
+
+-(void)setModel:(ProductModel *)model
+{
+    _model = model;
+    
+    [self.productImage yy_setImageWithURL:[NSURL URLWithString:_model.focusImgUrl] placeholder:nil];
+    self.productNameLabel.text = _model.productName;
+    self.productPriceLabel.text = [NSString stringWithFormat:@"价格: ¥%@", _model.salePrice];
+}
 
 -(YYAnimatedImageView *)productImage
 {

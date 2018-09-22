@@ -29,6 +29,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self.contentView addSubview:self.orderTimeLabel];
         [self.contentView addSubview:self.orderStatusLabel];
         
@@ -64,7 +65,7 @@
         }];
         
         [self.productLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.leading.mas_equalTo(self.middleContentView.mas_trailing).mas_offset(padding/2);
+            make.leading.mas_equalTo(self.productImageView.mas_trailing).mas_offset(padding/2);
             make.top.mas_equalTo(self.productImageView.mas_top);
         }];
         
@@ -78,6 +79,17 @@
 }
 
 #pragma mark - setter and getter
+
+-(void)setOrderModel:(OrderModel *)orderModel
+{
+    _orderModel = orderModel;
+    
+    [self.productImageView yy_setImageWithURL:[NSURL URLWithString:_orderModel.focusImgUrl] placeholder:nil];
+    self.orderTimeLabel.text = _orderModel.addDate;
+    self.orderStatusLabel.text = _orderModel.orderNo;
+    self.productLabel.text = _orderModel.productName;
+    self.conteLabel.text = [NSString stringWithFormat:@"共%ld件商品 价格:¥%@", 1, _orderModel.salePrice];
+}
 
 -(UILabel *)orderTimeLabel
 {
@@ -142,7 +154,7 @@
             label.text = @"test";
             label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor blackColor];
-            label.font = [UIFont systemFontOfSize:16];
+            label.font = [UIFont systemFontOfSize:13];
             label;
         });
     }

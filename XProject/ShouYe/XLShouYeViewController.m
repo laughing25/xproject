@@ -9,6 +9,10 @@
 #import "XLShouYeViewController.h"
 #import "CustomerLayout.h"
 #import "HomeDataListApi.h"
+#import "GainCategoryListApi.h"
+
+#import "AdInfoModel.h"
+#import "CategoryModel.h"
 
 #import "YSAsingleViewModule.h"
 #import "YSEquilateralSquareViewModule.h"
@@ -16,7 +20,7 @@
 #import "XLCollectionViewBannerCellModel.h"
 #import "XLCollectionViewAsingleCellModel.h"
 
-#import "XLProductListViewController.h"
+#import "ProductListParentViewController.h"
 
 @interface XLShouYeViewController ()
 <
@@ -48,11 +52,32 @@
 -(void)requestHomeData
 {
     HomeDataListApi *api = [[HomeDataListApi alloc] initWithPageIndex:@"1" pageSize:@"5"];
-    [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-        NSLog(@"%@", request.responseJSONObject);
-    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
-        
+    
+    GainCategoryListApi *categoryApi = [[GainCategoryListApi alloc] init];
+    
+    YTKChainRequest *chainRequest = [[YTKChainRequest alloc] init];
+    [chainRequest addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
+    @weakify(self)
+    [chainRequest addRequest:api callback:^(YTKChainRequest * _Nonnull chainRequest, YTKBaseRequest * _Nonnull baseRequest) {
+        @strongify(self)
+        NSArray *adModelList = [baseRequest requestResponseArrayData:[AdInfoModel class]];
+        XLCollectionViewBannerCellModel *model = [[XLCollectionViewBannerCellModel alloc] init];
+        model.dataSource = adModelList;
+        YSAsingleViewModule *bannerModule = [[YSAsingleViewModule alloc] init];
+        [bannerModule.sectionDataList addObject:model];
+        [self.dataList addObject:bannerModule];
     }];
+    
+    [chainRequest addRequest:categoryApi callback:^(YTKChainRequest * _Nonnull chainRequest, YTKBaseRequest * _Nonnull baseRequest) {
+        @strongify(self)
+        NSArray *categoryList = [baseRequest requestResponseArrayData:[CategoryModel class]];
+        YSEquilateralSquareViewModule *squareModule = [[YSEquilateralSquareViewModule alloc] init];
+        [squareModule.sectionDataList addObjectsFromArray:categoryList];
+        [self.dataList addObject:squareModule];
+        [self.collectionView reloadData];
+    }];
+    
+    [chainRequest start];
 }
 
 #pragma mark - data source
@@ -81,8 +106,14 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    XLProductListViewController *listVC = [[XLProductListViewController alloc] init];
-    [self.navigationController pushViewController:listVC animated:YES];
+    id<CustomerLayoutSectionModuleProtocol>sectionModule = self.dataList[indexPath.section];
+    id<CollectionDatasourceProtocol>cellModel = sectionModule.sectionDataList[indexPath.row];
+    if ([cellModel isKindOfClass:[CategoryModel class]]) {
+        CategoryModel *model = (CategoryModel *)cellModel;
+        ProductListParentViewController *listVC = [[ProductListParentViewController alloc] init];
+        listVC.categoryid = model.idField;
+        [self.navigationController pushViewController:listVC animated:YES];
+    }
 }
 
 #pragma mark - layout datasource
@@ -125,27 +156,27 @@
     if (!_dataList) {
         _dataList = [[NSMutableArray alloc] init];
         
-        XLCollectionViewBannerCellModel *model = [[XLCollectionViewBannerCellModel alloc] init];
-        model.dataSource = @[@1,@2,@3,@4];
-        YSAsingleViewModule *bannerModule = [[YSAsingleViewModule alloc] init];
-        [bannerModule.sectionDataList addObject:model];
-        [_dataList addObject:bannerModule];
-        
-        XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
-        asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
-        asingleCellModel.dataSource = @[@1];
-        YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
-        [asingleModule.sectionDataList addObject:asingleCellModel];
-        [_dataList addObject:asingleModule];
-        
-        YSEquilateralSquareViewModule *squareModule = [[YSEquilateralSquareViewModule alloc] init];
-        [@[@1,@2,@3,@4,@5,@6,@7,@7] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            XLCollectionViewAsingleCellModel *cellModel = [[XLCollectionViewAsingleCellModel alloc] init];
-            cellModel.dataSource = obj;
-            cellModel.specialIdentifier = [YSTopicCollectionViewCell cellIdentifierl];
-            [squareModule.sectionDataList addObject:cellModel];
-        }];
-        [_dataList addObject:squareModule];
+//        XLCollectionViewBannerCellModel *model = [[XLCollectionViewBannerCellModel alloc] init];
+//        model.dataSource = @[@1,@2,@3,@4];
+//        YSAsingleViewModule *bannerModule = [[YSAsingleViewModule alloc] init];
+//        [bannerModule.sectionDataList addObject:model];
+//        [_dataList addObject:bannerModule];
+//
+//        XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
+//        asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
+//        asingleCellModel.dataSource = @[@1];
+//        YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
+//        [asingleModule.sectionDataList addObject:asingleCellModel];
+//        [_dataList addObject:asingleModule];
+//
+//        YSEquilateralSquareViewModule *squareModule = [[YSEquilateralSquareViewModule alloc] init];
+//        [@[@1,@2,@3,@4,@5,@6,@7,@7] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            XLCollectionViewAsingleCellModel *cellModel = [[XLCollectionViewAsingleCellModel alloc] init];
+//            cellModel.dataSource = obj;
+//            cellModel.specialIdentifier = [YSTopicCollectionViewCell cellIdentifierl];
+//            [squareModule.sectionDataList addObject:cellModel];
+//        }];
+//        [_dataList addObject:squareModule];
     }
     return _dataList;
 }

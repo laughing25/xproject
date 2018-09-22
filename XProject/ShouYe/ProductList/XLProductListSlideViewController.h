@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BranchModel.h"
 
 @protocol XLProductListSlideViewControllerDelegate <NSObject>
 
--(void)XLProductListSlideViewControllerDidClick;
+-(void)XLProductListSlideViewControllerDidClick:(BranchModel *)model;
 
 @end
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CollectionCellProtocol.h"
 #import "CollectionDatasourceProtocol.h"
+#import "AdInfoModel.h"
 
 @class YSCollectionViewBannerCell;
 

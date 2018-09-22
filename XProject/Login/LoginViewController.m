@@ -21,10 +21,12 @@
 
 @implementation LoginViewController
 
-+(void)presentLoginViewController:(ZFBaseViewController *)parentViewController
++(void)presentLoginViewController:(XLBaseViewController *)parentViewController
 {
-    LoginViewController *loginVC = [[LoginViewController alloc] init];
-    [parentViewController presentViewController:loginVC animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        [parentViewController presentViewController:loginVC animated:YES completion:nil];
+    });
 }
 
 - (void)viewDidLoad {
@@ -69,6 +71,9 @@
         make.top.mas_equalTo(self.view.mas_top).mas_offset(60);
         make.width.height.mas_offset(40);
     }];
+    
+    self.accountTextView.inputTextField.text = @"xiaokou";
+    self.passwordTextView.inputTextField.text = @"123";
 }
 
 - (void)loginButtonAction
@@ -79,11 +84,12 @@
     @weakify(self)
     [loginApi startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)
-        NSLog(@"%@", request.responseJSONObject);
-        AccountModel *accountModel = [AccountModel yy_modelWithJSON:request.responseJSONObject];
-        AccountManager *manager = [AccountManager shareInstance];
-        manager.accountModel = accountModel;
-        [self dismissViewControllerAnimated:YES completion:nil];
+        if ([request requestSuccess]) {
+            AccountModel *accountModel = [AccountModel yy_modelWithJSON:[request requestResponseData]];
+            AccountManager *manager = [AccountManager shareInstance];
+            manager.accountModel = accountModel;
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         NSLog(@"fail %@", request.error);
     }];

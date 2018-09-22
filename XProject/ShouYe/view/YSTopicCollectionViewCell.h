@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "CollectionCellProtocol.h"
 #import "CollectionDatasourceProtocol.h"
+#import "CategoryModel.h"
 
 @interface YSTopicCollectionViewCell : UICollectionViewCell
 <
     CollectionCellProtocol
 >
+
+@property (nonatomic, strong) CategoryModel *model;
+
 @end

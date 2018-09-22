@@ -9,6 +9,7 @@
 #import "XLProductDetailViewController.h"
 #import "CustomerLayout.h"
 #import "GainProductDetailApi.h"
+#import "ProductModel.h"
 
 #import "YSAsingleViewModule.h"
 
@@ -30,13 +31,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.locailModel.locailAddSelector(self, @selector(setTitle:), @"Home", nil);
+    self.locailModel.locailAddSelector(self, @selector(setTitle:), @"商品详情", nil);
     self.locailModel.locailKey = @"Home";
     
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
+    
+    [self requestProductDetail];
 }
 
 #pragma mark - request
@@ -44,8 +47,52 @@
 -(void)requestProductDetail
 {
     GainProductDetailApi *api = [[GainProductDetailApi alloc] initWithProductId:self.productId];
+    [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
+    @weakify(self)
     [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-        
+        @strongify(self)
+        if ([request requestSuccess]) {
+            id params = [request requestResponseData];
+            if ([params isKindOfClass:[NSArray class]]) {
+                NSArray *list = (NSArray *)params;
+                params = list.firstObject;
+            }
+            ProductModel *productModel = [ProductModel yy_modelWithJSON:params];
+ 
+            [self.dataList removeAllObjects];
+            
+            XLCollectionViewBannerCellModel *model = [[XLCollectionViewBannerCellModel alloc] init];
+            model.dataSource = productModel;
+            YSAsingleViewModule *bannerModule = [[YSAsingleViewModule alloc] init];
+            [bannerModule.sectionDataList addObject:model];
+            [self.dataList addObject:bannerModule];
+            
+            YSAsingleViewModule *nameModule = [[YSAsingleViewModule alloc] init];
+            ProductDetailCellModel *detailCellModel = [[ProductDetailCellModel alloc] init];
+            detailCellModel.dataSource = productModel;
+            detailCellModel.specialIdentifier = [ProductDetailNameCell cellIdentifierl];
+            [nameModule.sectionDataList addObject:detailCellModel];
+            [self.dataList addObject:nameModule];
+            
+            YSAsingleViewModule *skuModule = [[YSAsingleViewModule alloc] init];
+            skuModule.minimumInteritemSpacing = 2;
+            ProductDetailCellModel *skuCellModel = [[ProductDetailCellModel alloc] init];
+            skuCellModel.dataSource = productModel;
+            skuCellModel.specialIdentifier = [ProductSKUCell cellIdentifierl];
+            [skuModule.sectionDataList addObject:skuCellModel];
+            [self.dataList addObject:skuModule];
+            
+            YSAsingleViewModule *selectModule = [[YSAsingleViewModule alloc] init];
+            ProductDetailCellModel *selectCellModel = [[ProductDetailCellModel alloc] init];
+            selectCellModel.dataSource = productModel;
+            selectCellModel.specialIdentifier = [ProductSelectNumCell cellIdentifierl];
+            [selectModule.sectionDataList addObject:selectCellModel];
+            [self.dataList addObject:selectModule];
+            
+            [self.collectionView reloadData];
+        }else{
+            NSLog(@"%@", [request requestResponseData]);
+        }
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         
     }];
@@ -114,31 +161,6 @@
 {
     if (!_dataList) {
         _dataList = [[NSMutableArray alloc] init];
-        
-        XLCollectionViewBannerCellModel *model = [[XLCollectionViewBannerCellModel alloc] init];
-        model.dataSource = @[@1,@2,@3,@4];
-        YSAsingleViewModule *bannerModule = [[YSAsingleViewModule alloc] init];
-        [bannerModule.sectionDataList addObject:model];
-        [_dataList addObject:bannerModule];
-        
-        YSAsingleViewModule *nameModule = [[YSAsingleViewModule alloc] init];
-        ProductDetailCellModel *detailCellModel = [[ProductDetailCellModel alloc] init];
-        detailCellModel.specialIdentifier = [ProductDetailNameCell cellIdentifierl];
-        [nameModule.sectionDataList addObject:detailCellModel];
-        [_dataList addObject:nameModule];
-        
-        YSAsingleViewModule *skuModule = [[YSAsingleViewModule alloc] init];
-        skuModule.minimumInteritemSpacing = 2;
-        ProductDetailCellModel *skuCellModel = [[ProductDetailCellModel alloc] init];
-        skuCellModel.specialIdentifier = [ProductSKUCell cellIdentifierl];
-        [skuModule.sectionDataList addObject:skuCellModel];
-        [_dataList addObject:skuModule];
-        
-        YSAsingleViewModule *selectModule = [[YSAsingleViewModule alloc] init];
-        ProductDetailCellModel *selectCellModel = [[ProductDetailCellModel alloc] init];
-        selectCellModel.specialIdentifier = [ProductSelectNumCell cellIdentifierl];
-        [selectModule.sectionDataList addObject:selectCellModel];
-        [_dataList addObject:selectModule];
     }
     return _dataList;
 }

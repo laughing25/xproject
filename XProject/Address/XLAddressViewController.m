@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Y001. All rights reserved.
 //
 
-#import "ZFAddressViewController.h"
+#import "XLAddressViewController.h"
 #import "ZFBottomToolView.h"
 //#import "ZFAddressEditViewController.h"
 #import "ZFAddressListTableViewCell.h"
@@ -17,7 +17,7 @@
 
 static NSString *const kZFAddressListTableViewCellIdentifier = @"kZFAddressListTableViewCellIdentifier";
 
-@interface ZFAddressViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface XLAddressViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, assign) NSInteger                             currentSelectIndex;
 @property (nonatomic, strong) UITableView                           *tableView;
@@ -26,7 +26,7 @@ static NSString *const kZFAddressListTableViewCellIdentifier = @"kZFAddressListT
 @property (nonatomic, strong) NSMutableArray<ZFAddressInfoModel *>  *dataArray;
 @end
 
-@implementation ZFAddressViewController
+@implementation XLAddressViewController
 
 #pragma mark - Life Cycle
 

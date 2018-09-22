@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Y001. All rights reserved.
 //
 
-#import "ZFBaseViewController.h"
+#import "XLBaseViewController.h"
 #import "ZFAddressInfoModel.h"
 
 typedef NS_ENUM(NSInteger, AddressInfoShowType) {
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, AddressInfoShowType) {
 
 typedef void(^AddressChooseCompletionHandler)(ZFAddressInfoModel *model);
 
-@interface ZFAddressViewController : ZFBaseViewController
+@interface XLAddressViewController : XLBaseViewController
 
 @property (nonatomic, copy) AddressChooseCompletionHandler      addressChooseCompletionHandler;
 

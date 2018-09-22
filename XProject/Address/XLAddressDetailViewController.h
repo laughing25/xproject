@@ -6,8 +6,8 @@
 //  Copyright © 2018年 610715. All rights reserved.
 //  地址详情列表
 
-#import "ZFBaseViewController.h"
+#import "XLBaseViewController.h"
 
-@interface XLAddressDetailViewController : ZFBaseViewController
+@interface XLAddressDetailViewController : XLBaseViewController
 
 @end

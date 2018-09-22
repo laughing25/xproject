@@ -6,9 +6,9 @@
 //  Copyright © 2018年 610715. All rights reserved.
 //
 
-#import "ZFBaseViewController.h"
+#import "XLBaseViewController.h"
 
-@interface XLProductDetailViewController : ZFBaseViewController
+@interface XLProductDetailViewController : XLBaseViewController
 
 @property (nonatomic, copy) NSString *productId;
 

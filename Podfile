@@ -15,5 +15,6 @@ pod 'MJRefresh'
 pod 'Masonry'
 pod 'YTKNetwork'
 pod 'SDCycleScrollView','~> 1.75'
+pod 'MBProgressHUD'
 
 end

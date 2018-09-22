@@ -6,10 +6,10 @@
 //  Copyright © 2018年 610715. All rights reserved.
 //
 
-#import "ZFBaseViewController.h"
+#import "XLBaseViewController.h"
 
-@interface LoginViewController : ZFBaseViewController
+@interface LoginViewController : XLBaseViewController
 
-+(void)presentLoginViewController:(ZFBaseViewController *)parentViewController;
++(void)presentLoginViewController:(XLBaseViewController *)parentViewController;
 
 @end

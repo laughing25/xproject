@@ -24,6 +24,9 @@
 
 -(CGSize)dataSourceSize
 {
+    if ([NSStringFromClass(self.dataSource.class) isEqualToString:@"ProductModel"]) {
+        return CGSizeMake(KScreenWidth, KScreenWidth);
+    }
     return CGSizeMake(KScreenWidth, 160.0 * DSCREEN_WIDTH_SCALE);
 }
 

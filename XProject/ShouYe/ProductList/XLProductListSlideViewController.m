@@ -8,6 +8,7 @@
 //
 
 #import "XLProductListSlideViewController.h"
+#import "GainBranchListApi.h"
 
 @interface XLProductListSlideViewController ()
 <
@@ -29,6 +30,27 @@
     [self.tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
+    
+    [self requestBranchData];
+}
+
+- (void)requestBranchData
+{
+    GainBranchListApi *api = [[GainBranchListApi alloc] init];
+    [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
+    @weakify(self)
+    [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        @strongify(self)
+        if ([request requestSuccess]) {
+            NSArray *list = [request requestResponseArrayData:[BranchModel class]];
+            if ([list count]) {
+                [self.dataList addObjectsFromArray:list];
+                [self.tableview reloadData];
+            }
+        }
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -41,20 +63,19 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.backgroundColor = tableView.backgroundColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    NSString *title = self.dataList[indexPath.row];
-    cell.textLabel.text = title;
     cell.textLabel.font = [UIFont systemFontOfSize:12];
-    cell.imageView.backgroundColor = [UIColor redColor];
+    BranchModel *model = self.dataList[indexPath.row];
+    cell.textLabel.text = model.cTitle;
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(XLProductListSlideViewControllerDidClick)]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        [self.delegate XLProductListSlideViewControllerDidClick];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(XLProductListSlideViewControllerDidClick:)]) {
+        BranchModel *model = self.dataList[indexPath.row];
+        [self.delegate XLProductListSlideViewControllerDidClick:model];
     }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(UITableView *)tableview
@@ -88,7 +109,7 @@
             view.frame = CGRectMake(0, 0, KScreenWidth * 0.75, 100);
             
             UILabel *text = [[UILabel alloc] init];
-            text.frame = CGRectMake(0, 0, view.mj_w, view.mj_h);
+            text.frame = CGRectMake(20, 0, view.mj_w - 20, view.mj_h);
             text.text = @"品牌选择";
             text.font = [UIFont systemFontOfSize:14];
             text.textColor = [UIColor whiteColor];
@@ -104,8 +125,6 @@
 {
     if (!_dataList) {
         _dataList = [[NSMutableArray alloc] init];
-        
-        _dataList = [@[@"苹果", @"三星", @"诺基亚", @"飞利浦", @"微软"] mutableCopy];
     }
     return _dataList;
 }

@@ -32,7 +32,7 @@
 }
 
 - (NSString *)requestUrl {
-    return @"api/ad/getdalist";
+    return @"api/product/getproductlist";
 }
 
 - (YTKRequestMethod)requestMethod {

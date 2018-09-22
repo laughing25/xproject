@@ -27,7 +27,7 @@
 }
 
 - (NSString *)requestUrl {
-    return @"api/getproductinfo/getinfo";
+    return @"api/ProductInfo/getinfo";
 }
 
 - (YTKRequestMethod)requestMethod {

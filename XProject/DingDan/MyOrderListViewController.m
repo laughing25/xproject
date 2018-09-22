@@ -8,6 +8,8 @@
 
 #import "MyOrderListViewController.h"
 #import "MyOrderListTableViewCell.h"
+#import "GainOrderListApi.h"
+#import "OrderModel.h"
 
 @interface MyOrderListViewController ()
 <
@@ -28,6 +30,35 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
+    
+    [self requestData];
+}
+
+#pragma mark - reuqest
+
+- (void)requestData
+{
+    GainOrderListApi *api = [[GainOrderListApi alloc] initWithOrderNum:@"201809161459245924112"];
+    [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
+    @weakify(self)
+    [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        @strongify(self)
+        NSArray *orderList = [request requestResponseArrayData:[OrderModel class]];
+        NSLog(@"%@", orderList);
+        if ([orderList count]) {
+            [self.dataList addObjectsFromArray:orderList];
+            [self.tableView reloadData];
+        }
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        
+    }];
+}
+
+#pragma mark - target
+
+- (void)footerRefresh:(MJRefreshFooter *)footer
+{
+    
 }
 
 #pragma mark - datasource
@@ -45,6 +76,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MyOrderListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    cell.orderModel = self.dataList[indexPath.row];
     return cell;
 }
 
@@ -81,6 +113,9 @@
             tableView.tableFooterView = [UIView new];
             [tableView registerClass:[MyOrderListTableViewCell class] forCellReuseIdentifier:@"Cell"];
             [tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"CellHeader"];
+            
+            tableView.mj_footer = [MJRefreshBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh:)];
+            
             tableView;
         });
     }
@@ -91,11 +126,6 @@
 {
     if (!_dataList) {
         _dataList = [[NSMutableArray alloc] init];
-        
-        [_dataList addObject:@"个人信息"];
-        [_dataList addObject:@"我的订单"];
-        [_dataList addObject:@"地址管理"];
-        [_dataList addObject:@"修改密码"];
     }
     return _dataList;
 }

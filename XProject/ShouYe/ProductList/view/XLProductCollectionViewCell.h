@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductModel.h"
 
 @interface XLProductCollectionViewCell : UICollectionViewCell
+
+@property (nonatomic, strong) ProductModel *model;
 
 @end

@@ -21,7 +21,7 @@
     // Override point for customization after application launch.
     [[CMHKLanguagesManager shareManager] initUserLanguage];
     
-    [YTKNetworkConfig sharedConfig].baseUrl = @"http://testapi.xyuninfo.com/";
+    [YTKNetworkConfig sharedConfig].baseUrl = @"http://testapi.fnwcm.com/";
     [YTKNetworkConfig sharedConfig].debugLogEnabled = YES;
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

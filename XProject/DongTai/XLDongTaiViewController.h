@@ -6,8 +6,8 @@
 //  Copyright © 2018年 610715. All rights reserved.
 //
 
-#import "ZFBaseViewController.h"
+#import "XLBaseViewController.h"
 
-@interface XLDongTaiViewController : ZFBaseViewController
+@interface XLDongTaiViewController : XLBaseViewController
 
 @end
