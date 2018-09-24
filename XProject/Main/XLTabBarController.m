@@ -13,6 +13,7 @@
 #import "XLDongTaiViewController.h"
 #import "XLFaXianViewController.h"
 #import "XLWoDeViewController.h"
+#import "LoginViewController.h"
 #import "UIColor+Extend.h"
 #import "UIImage+Color.h"
 #define TAG_HINTDOT 999
@@ -52,8 +53,8 @@
 }
 
 + (void)initialize {
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]} forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor grayColor]} forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexColorString:@"666666"]} forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexColorString:@"155bbb"]} forState:UIControlStateSelected];
 }
 
 - (void)viewDidLoad {
@@ -67,13 +68,20 @@
 
 - (void)setupControllers {
     _homeVC = [[XLShouYeViewController alloc] init];
-    [self setupChildViewController:_homeVC title:@"Tabbar_Home" imageName:@"tab_home" selectedImageName:@"tab_home_selected"];
+    [self setupChildViewController:_homeVC title:@"首页"
+                         imageName:@"tabbar_homeDisable"
+                 selectedImageName:@"tabbar_homeEnable"];
 
     _communityVC = [[XLDongTaiViewController alloc] init];
-    [self setupChildViewController:_communityVC title:@"Tabbar_DongTai" imageName:@"tab_picture" selectedImageName:@"tab_picture_selected"];
+    [self setupChildViewController:_communityVC
+                             title:@"动态"
+                         imageName:@"tabbar_topicDisable"
+                 selectedImageName:@"tabbar_topicEnable"];
 
     _accountVC = [[XLWoDeViewController alloc] init];
-    [self setupChildViewController:_accountVC title:@"Tabbar_WoDe" imageName:@"tab_profiles" selectedImageName:@"tab_profiles_selected"];
+    [self setupChildViewController:_accountVC title:@"我的"
+                         imageName:@"tabbar_mineDisable"
+                 selectedImageName:@"tabbar_mineEnable"];
 }
 
 /**
@@ -86,8 +94,7 @@
  *  @最后一步将子控制器包装成导航栏控制器
  */
 - (void)setupChildViewController:(UIViewController *)childVc title:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName {
-    childVc.locailModel.locailAddSelector(childVc, @selector(setTitle:), title, nil);
-    childVc.locailModel.locailKey = title;
+    childVc.tabBarItem.title = title;
     childVc.tabBarItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImage *selectedImage = [UIImage imageNamed:selectedImageName];
     childVc.tabBarItem.selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -96,11 +103,25 @@
     [self addChildViewController:nav];
 }
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-//    NSInteger index = [self.tabBar.items indexOfObject:item];
-//    if (self.indexFlag != index) {
-//        [self animationWithIndex:index];
-//    }
+//- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+////    NSInteger index = [self.tabBar.items indexOfObject:item];
+////    if (self.indexFlag != index) {
+////        [self animationWithIndex:index];
+////    }
+//}
+
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    XLNavigationController *navi = (XLNavigationController *)viewController;
+    if ([navi.topViewController isKindOfClass:[XLWoDeViewController class]]) {
+        if (![[AccountManager shareInstance] isLogin]) {
+            [LoginViewController presentLoginViewController:tabBarController.viewControllers.firstObject complation:^{
+                tabBarController.selectedIndex = [tabBarController.viewControllers count] - 1;
+            }];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 - (void)animationWithIndex:(NSInteger) index {

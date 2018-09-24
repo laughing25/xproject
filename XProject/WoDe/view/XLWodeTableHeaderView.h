@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface XLWodeTableHeaderView : UIView
-
+@property (nonatomic, strong) UILabel *nameLabel;
 @end

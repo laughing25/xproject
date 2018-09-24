@@ -50,6 +50,7 @@
     _model = model;
     
     self.titleLabel.text = model.title;
+    self.textField.text = model.content;
 }
 
 -(UILabel *)titleLabel

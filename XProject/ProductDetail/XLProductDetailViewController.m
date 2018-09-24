@@ -25,12 +25,14 @@
 >
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray<id<CustomerLayoutSectionModuleProtocol>>*dataList;
+@property (nonatomic, strong) UIButton *backButton;
 @end
 
 @implementation XLProductDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.fd_prefersNavigationBarHidden = YES;
     self.locailModel.locailAddSelector(self, @selector(setTitle:), @"商品详情", nil);
     self.locailModel.locailKey = @"Home";
     
@@ -38,8 +40,20 @@
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
+
+    [self.view addSubview:self.backButton];
+    [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view).mas_offset(25);
+        make.leading.mas_equalTo(self.view).mas_offset(10);
+        make.size.mas_offset(CGSizeMake(30, 30));
+    }];
     
     [self requestProductDetail];
+}
+
+-(void)backButtonAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - request
@@ -75,7 +89,7 @@
             [self.dataList addObject:nameModule];
             
             YSAsingleViewModule *skuModule = [[YSAsingleViewModule alloc] init];
-            skuModule.minimumInteritemSpacing = 2;
+            skuModule.minimumInteritemSpacing = 1;
             ProductDetailCellModel *skuCellModel = [[ProductDetailCellModel alloc] init];
             skuCellModel.dataSource = productModel;
             skuCellModel.specialIdentifier = [ProductSKUCell cellIdentifierl];
@@ -150,7 +164,7 @@
             collectionView.showsVerticalScrollIndicator = YES;
             collectionView.dataSource = self;
             collectionView.delegate = self;
-            collectionView.backgroundColor = [UIColor whiteColor];
+            collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
             collectionView;
         });
     }
@@ -163,6 +177,19 @@
         _dataList = [[NSMutableArray alloc] init];
     }
     return _dataList;
+}
+
+-(UIButton *)backButton
+{
+    if (!_backButton) {
+        _backButton = ({
+            UIButton *button = [[UIButton alloc] init];
+            [button addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
+            [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+            button;
+        });
+    }
+    return _backButton;
 }
 
 @end

@@ -20,6 +20,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self addSubview:self.cellImageView];
         [self addSubview:self.titleLabel];
         
@@ -42,13 +43,23 @@
 
 #pragma mark - setter and getter
 
+-(void)setModel:(AdInfoModel *)model
+{
+    _model = model;
+    
+    if (model.img_url.length) {
+        self.cellImageView.backgroundColor = [UIColor whiteColor];
+        [self.cellImageView yy_setImageWithURL:[NSURL URLWithString:model.img_url] placeholder:nil];
+    }
+    self.titleLabel.text = model.title;
+}
+
 -(YYAnimatedImageView *)cellImageView
 {
     if (!_cellImageView) {
         _cellImageView = ({
             YYAnimatedImageView *image = [[YYAnimatedImageView alloc] init];
-            image.layer.borderWidth = 1;
-            image.layer.borderColor = [UIColor blackColor].CGColor;
+            image.backgroundColor = [UIColor groupTableViewBackgroundColor];
             image;
         });
     }

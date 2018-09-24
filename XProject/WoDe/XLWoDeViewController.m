@@ -11,6 +11,8 @@
 #import "XLAddressViewController.h"
 #import "MyOrderListViewController.h"
 #import "LoginViewController.h"
+#import "XLMineTableViewCell.h"
+#import "XLAddressDetailViewController.h"
 
 @interface XLWoDeViewController ()
 <
@@ -26,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.locailModel.locailAddSelector(self, @selector(setTitle:), @"Mine", nil);
+    self.locailModel.locailAddSelector(self.navigationItem, @selector(setTitle:), @"我的", nil);
     [self.view addSubview:self.tableView];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -41,26 +43,32 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    XLMineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     NSString *title = self.dataList[indexPath.row];
-    cell.textLabel.text = title;
-    cell.textLabel.font = [UIFont systemFontOfSize:12];
-    cell.imageView.backgroundColor = [UIColor redColor];
+    cell.titleLabel.text = title;
+    cell.icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"r%ld", indexPath.row+1]];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        XLAddressViewController *addressVC = [[XLAddressViewController alloc] init];
-        [self.navigationController pushViewController:addressVC animated:YES];
+        XLAddressDetailViewController *detail = [[XLAddressDetailViewController alloc] init];
+        [self.navigationController pushViewController:detail animated:YES];
     }else if (indexPath.row == 1){
         MyOrderListViewController *myOrderList = [[MyOrderListViewController alloc] init];
         [self.navigationController pushViewController:myOrderList animated:YES];
     }else if (indexPath.row == 2){
-        [LoginViewController presentLoginViewController:self];
+        XLAddressViewController *addressVC = [[XLAddressViewController alloc] init];
+        [self.navigationController pushViewController:addressVC animated:YES];
+    }else if (indexPath.row == 3){
+        @weakify(self)
+        [LoginViewController presentLoginViewController:self complation:^{
+            @strongify(self)
+            self.tableHeaderView.nameLabel.text = [AccountManager shareInstance].accountModel.user_name;
+        }];
     }
 }
 
@@ -76,12 +84,12 @@
             tableView.showsHorizontalScrollIndicator = NO;
             tableView.estimatedSectionFooterHeight = UITableViewAutomaticDimension;
             tableView.sectionFooterHeight = UITableViewAutomaticDimension;
-            tableView.rowHeight = 44;
+            tableView.rowHeight = 52;
             tableView.delegate = self;
             tableView.dataSource = self;
             tableView.tableHeaderView = self.tableHeaderView;
             tableView.tableFooterView = [UIView new];
-            [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+            [tableView registerClass:[XLMineTableViewCell class] forCellReuseIdentifier:@"Cell"];
             tableView;
         });
     }
@@ -104,7 +112,7 @@
 - (XLWodeTableHeaderView *)tableHeaderView
 {
     if (!_tableHeaderView) {
-        _tableHeaderView = [[XLWodeTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 150)];
+        _tableHeaderView = [[XLWodeTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenWidth * 0.5)];
     }
     return _tableHeaderView;
 }

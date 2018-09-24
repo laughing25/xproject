@@ -40,6 +40,10 @@
 - (id)requestResponseData
 {
     id data = [self.responseJSONObject objectForKey:@"Data"];
+    if ([data isKindOfClass:[NSArray class]]) {
+        NSArray *list = (NSArray *)data;
+        data = list.firstObject;
+    }
     if (data) {
         return data;
     }

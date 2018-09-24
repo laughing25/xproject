@@ -82,6 +82,11 @@
 		FA34C8D9215532C100EC773D /* CWDrawerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = FA34C8D3215532C000EC773D /* CWDrawerTransition.m */; };
 		FA34C8DA215532C100EC773D /* CWLateralSlideConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = FA34C8D5215532C000EC773D /* CWLateralSlideConfiguration.m */; };
 		FA34C8DD215532EA00EC773D /* XLProductListSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA34C8DC215532EA00EC773D /* XLProductListSlideViewController.m */; };
+		FA35C7D22157812700BEE500 /* XLMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35C7D12157812700BEE500 /* XLMineTableViewCell.m */; };
+		FA35C7D52157DF4B00BEE500 /* ProductDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35C7D42157DF4B00BEE500 /* ProductDetailBottomView.m */; };
+		FA35C7D8215882F500BEE500 /* GainUserInfoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35C7D7215882F500BEE500 /* GainUserInfoApi.m */; };
+		FA35C7DB2158859B00BEE500 /* XLAddressDetailInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35C7DA2158859B00BEE500 /* XLAddressDetailInfoModel.m */; };
+		FA35C7DE2158983100BEE500 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35C7DD2158983100BEE500 /* WKWebViewController.m */; };
 		FA3C2D882153C84700D9A0B6 /* ProductSelectNumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C2D872153C84700D9A0B6 /* ProductSelectNumCell.m */; };
 		FA3C2D8B2153CDB400D9A0B6 /* HomeDataListApi.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C2D8A2153CDB400D9A0B6 /* HomeDataListApi.m */; };
 		FA3C2D8E2153D5AA00D9A0B6 /* GainProductListApi.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C2D8D2153D5AA00D9A0B6 /* GainProductListApi.m */; };
@@ -274,6 +279,16 @@
 		FA34C8D5215532C000EC773D /* CWLateralSlideConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWLateralSlideConfiguration.m; sourceTree = "<group>"; };
 		FA34C8DB215532EA00EC773D /* XLProductListSlideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLProductListSlideViewController.h; sourceTree = "<group>"; };
 		FA34C8DC215532EA00EC773D /* XLProductListSlideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLProductListSlideViewController.m; sourceTree = "<group>"; };
+		FA35C7D02157812700BEE500 /* XLMineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLMineTableViewCell.h; sourceTree = "<group>"; };
+		FA35C7D12157812700BEE500 /* XLMineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLMineTableViewCell.m; sourceTree = "<group>"; };
+		FA35C7D32157DF4B00BEE500 /* ProductDetailBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductDetailBottomView.h; sourceTree = "<group>"; };
+		FA35C7D42157DF4B00BEE500 /* ProductDetailBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductDetailBottomView.m; sourceTree = "<group>"; };
+		FA35C7D6215882F500BEE500 /* GainUserInfoApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GainUserInfoApi.h; sourceTree = "<group>"; };
+		FA35C7D7215882F500BEE500 /* GainUserInfoApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GainUserInfoApi.m; sourceTree = "<group>"; };
+		FA35C7D92158859B00BEE500 /* XLAddressDetailInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLAddressDetailInfoModel.h; sourceTree = "<group>"; };
+		FA35C7DA2158859B00BEE500 /* XLAddressDetailInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLAddressDetailInfoModel.m; sourceTree = "<group>"; };
+		FA35C7DC2158983100BEE500 /* WKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
+		FA35C7DD2158983100BEE500 /* WKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
 		FA3C2D862153C84700D9A0B6 /* ProductSelectNumCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductSelectNumCell.h; sourceTree = "<group>"; };
 		FA3C2D872153C84700D9A0B6 /* ProductSelectNumCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductSelectNumCell.m; sourceTree = "<group>"; };
 		FA3C2D892153CDB400D9A0B6 /* HomeDataListApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeDataListApi.h; sourceTree = "<group>"; };
@@ -436,6 +451,8 @@
 				739107F92121946400CCAEE8 /* XLTabBarController.m */,
 				739108012121955000CCAEE8 /* XLNavigationController.h */,
 				739108022121955000CCAEE8 /* XLNavigationController.m */,
+				FA35C7DC2158983100BEE500 /* WKWebViewController.h */,
+				FA35C7DD2158983100BEE500 /* WKWebViewController.m */,
 				7391080C2121A20B00CCAEE8 /* XLBaseViewController.h */,
 				7391080D2121A20B00CCAEE8 /* XLBaseViewController.m */,
 			);
@@ -622,6 +639,8 @@
 				FA30D8F8215290D1000D2F9F /* ProductSKUCell.m */,
 				FA3C2D862153C84700D9A0B6 /* ProductSelectNumCell.h */,
 				FA3C2D872153C84700D9A0B6 /* ProductSelectNumCell.m */,
+				FA35C7D32157DF4B00BEE500 /* ProductDetailBottomView.h */,
+				FA35C7D42157DF4B00BEE500 /* ProductDetailBottomView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -719,6 +738,8 @@
 			children = (
 				73FE3F85212598DE00381CFA /* XLWodeTableHeaderView.h */,
 				73FE3F86212598DE00381CFA /* XLWodeTableHeaderView.m */,
+				FA35C7D02157812700BEE500 /* XLMineTableViewCell.h */,
+				FA35C7D12157812700BEE500 /* XLMineTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -730,6 +751,8 @@
 				73FE3F8E21259BCA00381CFA /* XLAddressViewController.m */,
 				73FE3FAB2125AB6400381CFA /* XLAddressDetailViewController.h */,
 				73FE3FAC2125AB6400381CFA /* XLAddressDetailViewController.m */,
+				FA35C7D6215882F500BEE500 /* GainUserInfoApi.h */,
+				FA35C7D7215882F500BEE500 /* GainUserInfoApi.m */,
 				73FE3F8921259BCA00381CFA /* model */,
 				73FE3F8A21259BCA00381CFA /* view */,
 			);
@@ -743,6 +766,8 @@
 				73FE3F9121259BED00381CFA /* ZFAddressInfoModel.m */,
 				73FE3FB12125AB9E00381CFA /* XLAddressDetailCellModel.h */,
 				73FE3FB22125AB9E00381CFA /* XLAddressDetailCellModel.m */,
+				FA35C7D92158859B00BEE500 /* XLAddressDetailInfoModel.h */,
+				FA35C7DA2158859B00BEE500 /* XLAddressDetailInfoModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1084,6 +1109,7 @@
 				73C43A85215623AF009F053A /* BranchModel.m in Sources */,
 				FA59470721513B9E0038EECA /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				73FE3F9021259BCA00381CFA /* XLAddressViewController.m in Sources */,
+				FA35C7DE2158983100BEE500 /* WKWebViewController.m in Sources */,
 				73FE3F6A21255E8900381CFA /* CustomerWaterFallSectionModule.m in Sources */,
 				FA34C8DD215532EA00EC773D /* XLProductListSlideViewController.m in Sources */,
 				FA34C8D9215532C100EC773D /* CWDrawerTransition.m in Sources */,
@@ -1096,9 +1122,11 @@
 				73FE3FB32125AB9E00381CFA /* XLAddressDetailCellModel.m in Sources */,
 				73C43A7721561179009F053A /* WMProgressView.m in Sources */,
 				7398DF64213E0C7100F66BD6 /* XLCollectionViewAsingleCellModel.m in Sources */,
+				FA35C7D22157812700BEE500 /* XLMineTableViewCell.m in Sources */,
 				73FE3F7221255EC200381CFA /* YSCustomerThemeMultipleModule.m in Sources */,
 				73C43A7921561179009F053A /* WMPageController.m in Sources */,
 				FA3C2D972153E61700D9A0B6 /* ProductDetailModel.m in Sources */,
+				FA35C7D8215882F500BEE500 /* GainUserInfoApi.m in Sources */,
 				73C43A7421561179009F053A /* UIViewController+WMPageController.m in Sources */,
 				FA5946F8215125FD0038EECA /* LoginViewController.m in Sources */,
 				FA3C2D8B2153CDB400D9A0B6 /* HomeDataListApi.m in Sources */,
@@ -1127,6 +1155,7 @@
 				738D90DD21226464000544AF /* CustomerMathTools.m in Sources */,
 				73C43A5C2155DC10009F053A /* YSRequestAccessory.m in Sources */,
 				73FE3FA72125A5A000381CFA /* ZFAddressListTableViewCell.m in Sources */,
+				FA35C7D52157DF4B00BEE500 /* ProductDetailBottomView.m in Sources */,
 				73B279512146101B003034F0 /* XLProductCollectionViewCell.m in Sources */,
 				FA5947042151388E0038EECA /* AccountManager.m in Sources */,
 				73C43A7821561179009F053A /* WMScrollView.m in Sources */,
@@ -1134,6 +1163,7 @@
 				7391081A2121A2F500CCAEE8 /* XLFaXianViewController.m in Sources */,
 				73B2795721464259003034F0 /* XLProductDetailViewController.m in Sources */,
 				73FE3F9621259CF900381CFA /* ZFBottomToolView.m in Sources */,
+				FA35C7DB2158859B00BEE500 /* XLAddressDetailInfoModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

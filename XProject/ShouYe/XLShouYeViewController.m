@@ -37,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.locailModel.locailAddSelector(self, @selector(setTitle:), @"Home", nil);
+    self.locailModel.locailAddSelector(self.navigationItem, @selector(setTitle:), @"我的", nil);
     self.locailModel.locailKey = @"Home";
     
     [self.view addSubview:self.collectionView];

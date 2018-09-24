@@ -36,7 +36,8 @@
     //more button
     UIButton *rightNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightNavBtn setFrame:CGRectMake(0, 0, NavBarButtonSize, NavBarButtonSize)];
-    [rightNavBtn setBackgroundColor:[UIColor redColor]];
+    [rightNavBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+    rightNavBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
     [rightNavBtn addTarget:self action:@selector(rightSearchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:rightNavBtn];
     self.navigationItem.rightBarButtonItems = @[buttonItem];

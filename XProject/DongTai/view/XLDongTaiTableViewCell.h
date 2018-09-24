@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AdInfoModel.h"
 
 @interface XLDongTaiTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) AdInfoModel *model;
 
 @end

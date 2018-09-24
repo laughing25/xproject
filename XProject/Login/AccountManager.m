@@ -48,4 +48,20 @@
     return [headerParams copy];
 }
 
+-(void)setAccountModel:(AccountModel *)accountModel
+{
+    _accountModel = accountModel;
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kLoginKey];
+}
+
+-(BOOL)isLogin
+{
+    BOOL login = [[NSUserDefaults standardUserDefaults] boolForKey:kLoginKey];
+    if (login && ZFToString([AccountManager shareInstance].accountModel.userId).length) {
+        return YES;
+    }
+    return NO;
+}
+
 @end

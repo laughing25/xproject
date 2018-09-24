@@ -114,7 +114,7 @@
             [tableView registerClass:[MyOrderListTableViewCell class] forCellReuseIdentifier:@"Cell"];
             [tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"CellHeader"];
             
-            tableView.mj_footer = [MJRefreshBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh:)];
+            tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh:)];
             
             tableView;
         });

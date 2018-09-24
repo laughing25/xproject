@@ -8,8 +8,11 @@
 
 #import "XLBaseViewController.h"
 
+typedef void(^loginResult)(void);
+
 @interface LoginViewController : XLBaseViewController
 
-+(void)presentLoginViewController:(XLBaseViewController *)parentViewController;
++(void)presentLoginViewController:(XLBaseViewController *)parentViewController complation:(loginResult)result;
+@property (nonatomic, copy) loginResult result;
 
 @end

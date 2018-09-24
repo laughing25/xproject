@@ -9,6 +9,8 @@
 #import "XLAddressDetailViewController.h"
 #import "XLAddressDetailTableViewCell.h"
 #import "ZFBottomToolView.h"
+#import "GainUserInfoApi.h"
+#import "XLAddressDetailInfoModel.h"
 
 @interface XLAddressDetailViewController ()
 <
@@ -24,14 +26,55 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.locailModel.locailAddSelector(self, @selector(setTitle:), @"Mine", nil);
+    self.locailModel.locailAddSelector(self, @selector(setTitle:), @"我的信息", nil);
     [self.view addSubview:self.tableView];
-    
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
+    
+    [self requestUserInfoData];
 }
+
+#pragma mark - request
+
+-(void)requestUserInfoData
+{
+    GainUserInfoApi *api = [[GainUserInfoApi alloc] init];
+    [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
+    @weakify(self)
+    [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        @strongify(self)
+        if ([request requestSuccess]) {
+            XLAddressDetailInfoModel *infoModel = [XLAddressDetailInfoModel yy_modelWithJSON:[request requestResponseData]];
+            XLAddressDetailCellModel *cellModel = [[XLAddressDetailCellModel alloc] init];
+            cellModel.title = @"名字";
+            cellModel.content = infoModel.user_name;
+            
+            XLAddressDetailCellModel *cellModel1 = [[XLAddressDetailCellModel alloc] init];
+            cellModel1.title = @"电话号码";
+            cellModel1.content = infoModel.userId;
+            
+            XLAddressDetailCellModel *cellModel2 = [[XLAddressDetailCellModel alloc] init];
+            cellModel2.title = @"地址";
+            cellModel2.content = infoModel.address;
+            
+            XLAddressDetailCellModel *cellModel3 = [[XLAddressDetailCellModel alloc] init];
+            cellModel3.title = @"地址2";
+            cellModel2.content = infoModel.address;
+            
+            [self.dataList addObject:cellModel];
+            [self.dataList addObject:cellModel1];
+            [self.dataList addObject:cellModel2];
+            [self.dataList addObject:cellModel3];
+            [self.tableView reloadData];
+        }
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        
+    }];
+}
+
+#pragma mark - data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -88,22 +131,6 @@
 {
     if (!_dataList) {
         _dataList = [[NSMutableArray alloc] init];
-
-        XLAddressDetailCellModel *cellModel = [[XLAddressDetailCellModel alloc] init];
-        cellModel.title = @"名字";
-        
-        XLAddressDetailCellModel *cellModel1 = [[XLAddressDetailCellModel alloc] init];
-        cellModel1.title = @"电话号码";
-        
-        XLAddressDetailCellModel *cellModel2 = [[XLAddressDetailCellModel alloc] init];
-        cellModel2.title = @"地址";
-        
-        XLAddressDetailCellModel *cellModel3 = [[XLAddressDetailCellModel alloc] init];
-        cellModel3.title = @"地址2";
-        [_dataList addObject:cellModel];
-        [_dataList addObject:cellModel1];
-        [_dataList addObject:cellModel2];
-        [_dataList addObject:cellModel3];
     }
     return _dataList;
 }

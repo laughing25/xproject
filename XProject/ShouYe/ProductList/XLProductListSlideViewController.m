@@ -64,6 +64,7 @@
     cell.backgroundColor = tableView.backgroundColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.font = [UIFont systemFontOfSize:12];
+    cell.textLabel.textColor = [UIColor whiteColor];
     BranchModel *model = self.dataList[indexPath.row];
     cell.textLabel.text = model.cTitle;
     return cell;

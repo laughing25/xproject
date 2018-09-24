@@ -48,7 +48,7 @@ static NSString *const kZFAddressListTableViewCellIdentifier = @"kZFAddressListT
 
 #pragma mark  <ZFInitViewProtocol>
 - (void)zfInitView {
-    self.title = @"Address_VC_Title";
+    self.title = @"地址管理";
     self.view.backgroundColor = ColorHex_Alpha(0xF7F7F7, 1.0);
     
     if (self.showType == AddressInfoShowTypeCart) {

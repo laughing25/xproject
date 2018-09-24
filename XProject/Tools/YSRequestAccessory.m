@@ -32,17 +32,8 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self)
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view ? self.view : [UIApplication sharedApplication].keyWindow animated:YES];
-        
-        // Configure for text only and offset down
-        hud.mode = MBProgressHUDModeIndeterminate;
-        if (![NSStringUtils isEmptyString:self.title]) {
-            hud.label.text = self.title;
-        } else {
-            //        hud.labelText = @"Loading...";
-        }
-        // 改变背景框颜色
-        hud.bezelView.color = [UIColor clearColor];
         hud.removeFromSuperViewOnHide = YES;
+        hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
         self.hud = hud;
         [hud showAnimated:YES];
     });

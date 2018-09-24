@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "AccountModel.h"
 
+#define kLoginKey @"kLoginKey"
+
 @interface AccountManager : NSObject
 
 +(instancetype)shareInstance;
@@ -16,6 +18,8 @@
 -(nullable NSDictionary *)requestParams;
 
 -(nullable NSDictionary *)requestHeaderParams:(NSDictionary *)requestParams;
+
+-(BOOL)isLogin;
 
 @property (nonatomic, strong) AccountModel *accountModel;
 
