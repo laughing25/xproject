@@ -87,6 +87,8 @@
 		FA35C7D8215882F500BEE500 /* GainUserInfoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35C7D7215882F500BEE500 /* GainUserInfoApi.m */; };
 		FA35C7DB2158859B00BEE500 /* XLAddressDetailInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35C7DA2158859B00BEE500 /* XLAddressDetailInfoModel.m */; };
 		FA35C7DE2158983100BEE500 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35C7DD2158983100BEE500 /* WKWebViewController.m */; };
+		FA395783215BD3E6000BE03E /* XLHeaderCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA395782215BD3E6000BE03E /* XLHeaderCollectionViewCell.m */; };
+		FA395786215BD63F000BE03E /* CheckOrderApi.m in Sources */ = {isa = PBXBuildFile; fileRef = FA395785215BD63F000BE03E /* CheckOrderApi.m */; };
 		FA3C2D882153C84700D9A0B6 /* ProductSelectNumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C2D872153C84700D9A0B6 /* ProductSelectNumCell.m */; };
 		FA3C2D8B2153CDB400D9A0B6 /* HomeDataListApi.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C2D8A2153CDB400D9A0B6 /* HomeDataListApi.m */; };
 		FA3C2D8E2153D5AA00D9A0B6 /* GainProductListApi.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C2D8D2153D5AA00D9A0B6 /* GainProductListApi.m */; };
@@ -289,6 +291,10 @@
 		FA35C7DA2158859B00BEE500 /* XLAddressDetailInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLAddressDetailInfoModel.m; sourceTree = "<group>"; };
 		FA35C7DC2158983100BEE500 /* WKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
 		FA35C7DD2158983100BEE500 /* WKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
+		FA395781215BD3E6000BE03E /* XLHeaderCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLHeaderCollectionViewCell.h; sourceTree = "<group>"; };
+		FA395782215BD3E6000BE03E /* XLHeaderCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLHeaderCollectionViewCell.m; sourceTree = "<group>"; };
+		FA395784215BD63F000BE03E /* CheckOrderApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckOrderApi.h; sourceTree = "<group>"; };
+		FA395785215BD63F000BE03E /* CheckOrderApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckOrderApi.m; sourceTree = "<group>"; };
 		FA3C2D862153C84700D9A0B6 /* ProductSelectNumCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductSelectNumCell.h; sourceTree = "<group>"; };
 		FA3C2D872153C84700D9A0B6 /* ProductSelectNumCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductSelectNumCell.m; sourceTree = "<group>"; };
 		FA3C2D892153CDB400D9A0B6 /* HomeDataListApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeDataListApi.h; sourceTree = "<group>"; };
@@ -622,6 +628,8 @@
 				73B2795621464259003034F0 /* XLProductDetailViewController.m */,
 				FA3C2D922153E55A00D9A0B6 /* GainProductDetailApi.h */,
 				FA3C2D932153E55A00D9A0B6 /* GainProductDetailApi.m */,
+				FA395784215BD63F000BE03E /* CheckOrderApi.h */,
+				FA395785215BD63F000BE03E /* CheckOrderApi.m */,
 				FA3C2D952153E61700D9A0B6 /* ProductDetailModel.h */,
 				FA3C2D962153E61700D9A0B6 /* ProductDetailModel.m */,
 				73B2795421464244003034F0 /* model */,
@@ -690,6 +698,8 @@
 				73FE3F7821256C7C00381CFA /* YSTopicCollectionViewCell.m */,
 				73FE3F7A2125730C00381CFA /* XLTitleCollectionViewCell.h */,
 				73FE3F7B2125730C00381CFA /* XLTitleCollectionViewCell.m */,
+				FA395781215BD3E6000BE03E /* XLHeaderCollectionViewCell.h */,
+				FA395782215BD3E6000BE03E /* XLHeaderCollectionViewCell.m */,
 				73AE8011213D0D05002F99E3 /* YSCollectionViewBannerCell.h */,
 				73AE8012213D0D06002F99E3 /* YSCollectionViewBannerCell.m */,
 			);
@@ -1123,6 +1133,7 @@
 				73C43A7721561179009F053A /* WMProgressView.m in Sources */,
 				7398DF64213E0C7100F66BD6 /* XLCollectionViewAsingleCellModel.m in Sources */,
 				FA35C7D22157812700BEE500 /* XLMineTableViewCell.m in Sources */,
+				FA395786215BD63F000BE03E /* CheckOrderApi.m in Sources */,
 				73FE3F7221255EC200381CFA /* YSCustomerThemeMultipleModule.m in Sources */,
 				73C43A7921561179009F053A /* WMPageController.m in Sources */,
 				FA3C2D972153E61700D9A0B6 /* ProductDetailModel.m in Sources */,
@@ -1144,6 +1155,7 @@
 				73C43A592155D50F009F053A /* YTKBaseRequest+Tools.m in Sources */,
 				73FE3FB02125AB8000381CFA /* XLAddressDetailTableViewCell.m in Sources */,
 				738A57FF20F4852B00B2F8BC /* main.m in Sources */,
+				FA395783215BD3E6000BE03E /* XLHeaderCollectionViewCell.m in Sources */,
 				FA30D8F321528CD8000D2F9F /* ProductDetailNameCell.m in Sources */,
 				739108062121973E00CCAEE8 /* XLCFunctionTool.m in Sources */,
 				73B27932214609A7003034F0 /* XLProductListViewController.m in Sources */,

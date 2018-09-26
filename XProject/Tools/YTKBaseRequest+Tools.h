@@ -16,4 +16,6 @@
 
 - (id)requestResponseData;
 
+-(void)showToaster:(NSString *)message;
+
 @end

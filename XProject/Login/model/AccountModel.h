@@ -17,6 +17,6 @@
 @property (nonatomic, copy) NSString *city;
 @property (nonatomic, copy) NSString *county;
 @property (nonatomic, copy) NSString *remark;
-
+@property (nonatomic, copy) NSString *password;
 
 @end

@@ -64,8 +64,6 @@
     if (!_productImage) {
         _productImage = ({
             YYAnimatedImageView *image = [[YYAnimatedImageView alloc] init];
-            image.layer.borderWidth = 1;
-            image.layer.borderColor = [UIColor blackColor].CGColor;
             image;
         });
     }

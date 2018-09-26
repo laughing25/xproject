@@ -14,8 +14,8 @@
 @class YSCollectionViewBannerCell;
 
 @protocol YSCollectionViewBannerCellDelegate<CollectionCellDelegate>
-
-- (void)ysCollectionViewBannerCell:(YSCollectionViewBannerCell *)cell jumpModel:(NSObject *)model;
+@optional
+- (void)ysCollectionViewBannerCell:(YSCollectionViewBannerCell *)cell jumpModel:(AdInfoModel *)model;
 
 @end
 

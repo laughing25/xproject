@@ -1,20 +1,21 @@
 //
-//  XLTitleCollectionViewCell.m
+//  XLHeaderCollectionViewCell.m
 //  XProject
 //
-//  Created by 610715 on 2018/8/16.
+//  Created by MOMO on 2018/9/26.
 //  Copyright © 2018年 610715. All rights reserved.
 //
 
-#import "XLTitleCollectionViewCell.h"
+#import "XLHeaderCollectionViewCell.h"
 
-@interface XLTitleCollectionViewCell ()
+@interface XLHeaderCollectionViewCell ()
 
+@property (nonatomic, strong) UIView *padderView;
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 
-@implementation XLTitleCollectionViewCell
+@implementation XLHeaderCollectionViewCell
 @synthesize model = _model;
 @synthesize delegate = _delegate;
 
@@ -22,7 +23,15 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self addSubview:self.padderView];
         [self addSubview:self.titleLabel];
+        
+        [self.padderView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.mas_equalTo(self).mas_offset(12);
+            make.width.mas_offset(4);
+            make.height.mas_equalTo(self.mas_height).multipliedBy(0.8);
+            make.centerY.mas_equalTo(self);
+        }];
         
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self);
@@ -44,12 +53,18 @@
 {
     _model = model;
     
-    if (![_model.dataSource isKindOfClass:[TitleModel class]]) {
-        return;
+    if ([_model.dataSource isKindOfClass:[NSString class]]) {
+        self.titleLabel.text = (NSString *)_model.dataSource;
     }
-    TitleModel *titleModel = (TitleModel *)model.dataSource;
-    self.titleLabel.text = titleModel.title;
-    self.titleLabel.textAlignment = titleModel.alignment;
+}
+
+-(UIView *)padderView
+{
+    if (!_padderView) {
+        _padderView = [[UIView alloc] init];
+        _padderView.backgroundColor = [UIColor redColor];
+    }
+    return _padderView;
 }
 
 - (UILabel *)titleLabel
@@ -66,9 +81,5 @@
     }
     return _titleLabel;
 }
-
-@end
-
-@implementation TitleModel
 
 @end

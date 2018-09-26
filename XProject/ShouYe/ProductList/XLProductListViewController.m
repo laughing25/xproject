@@ -53,6 +53,8 @@
 -(void)requestProductList
 {
     NSString *index = [NSString stringWithFormat:@"%ld", self.pageIndex];
+    self.catalogid = @"4";
+    self.categoryid = @"8";
     GainProductListApi *api = [[GainProductListApi alloc] initWithPageIndex:index categoryid:self.categoryid catalogid:self.catalogid];
     [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
@@ -61,10 +63,15 @@
         NSArray *dataList = [request requestResponseArrayData:[ProductModel class]];
         if ([dataList count]) {
             self.pageIndex++;
+            if ([self.collectionView.mj_header isRefreshing]) {
+                [self.dataList removeAllObjects];
+            }
             [self.dataList addObjectsFromArray:dataList];
             [self.collectionView reloadData];
             [self.collectionView.mj_footer endRefreshing];
+            [self.collectionView.mj_header endRefreshing];
         }else{
+            [self.collectionView.mj_header endRefreshing];
             [self.collectionView.mj_footer endRefreshingWithNoMoreData];
         }
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -96,6 +103,12 @@
 
 #pragma mark - target
 
+-(void)headerRefresh:(MJRefreshHeader *)header
+{
+    self.pageIndex = 1;
+    [self requestProductList];
+}
+
 -(void)footerRefresh:(MJRefreshFooter *)footer
 {
     [self requestProductList];
@@ -120,6 +133,10 @@
             [collectionView registerClass:[XLProductCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
             
             collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh:)];
+            
+            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh:)];
+            header.ignoredScrollViewContentInsetTop = 15;
+            collectionView.mj_header = header;
             
             collectionView;
         });

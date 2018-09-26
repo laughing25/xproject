@@ -150,6 +150,7 @@
             textField.text = @"1";
             textField.enabled = NO;
             textField.textAlignment = NSTextAlignmentCenter;
+            textField.font = [UIFont systemFontOfSize:12];
             textField.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
             textField.layer.borderWidth = 1;
             textField;

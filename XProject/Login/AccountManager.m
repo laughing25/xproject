@@ -52,13 +52,28 @@
 {
     _accountModel = accountModel;
     
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kLoginKey];
+    [[NSUserDefaults standardUserDefaults] setObject:accountModel.user_name forKey:kUserName];
+    [[NSUserDefaults standardUserDefaults] setObject:accountModel.password forKey:kPassword];
+}
+
+-(NSString *)oldPassword
+{
+    NSString *pw = @"";
+    pw = [[NSUserDefaults standardUserDefaults] objectForKey:kPassword];
+    return ZFToString(pw);
+}
+
+-(NSString *)oldUserId
+{
+    NSString *un = @"";
+    un = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
+    return ZFToString(un);
 }
 
 -(BOOL)isLogin
 {
-    BOOL login = [[NSUserDefaults standardUserDefaults] boolForKey:kLoginKey];
-    if (login && ZFToString([AccountManager shareInstance].accountModel.userId).length) {
+    NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
+    if (ZFToString(userName).length) {
         return YES;
     }
     return NO;

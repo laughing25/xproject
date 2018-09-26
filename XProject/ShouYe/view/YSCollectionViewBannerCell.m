@@ -38,14 +38,14 @@
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
-//    if ([self.model.dataSource isKindOfClass:[NSArray class]]) {
-//        NSArray *list = (NSArray *)self.model.dataSource;
-//        if (list.count > index) {
-//            if (self.delegate && [self.delegate respondsToSelector:@selector(ysCollectionViewBannerCell:jumpModel:)]) {
-//                [self.delegate ysCollectionViewBannerCell:self jumpModel:list[index]];
-//            }
-//        }
-//    }
+    if ([self.model.dataSource isKindOfClass:[NSArray class]]) {
+        NSArray *list = (NSArray *)self.model.dataSource;
+        if (list.count > index) {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(ysCollectionViewBannerCell:jumpModel:)]) {
+                [self.delegate ysCollectionViewBannerCell:self jumpModel:list[index]];
+            }
+        }
+    }
 }
 
 +(NSString *)cellIdentifierl

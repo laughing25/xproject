@@ -41,6 +41,11 @@
 {
     _model = model;
     
+    if ([_model.dataSource isKindOfClass:[NSString class]]) {
+        [self.prodcutImage yy_setImageWithURL:[NSURL URLWithString:(NSString *)_model.dataSource]
+                                           placeholder:[UIImage imageNamed:@"placeholder_banner_pdf"]];
+    }
+    
 //    if ([_model.dataSource isKindOfClass:[JumpModel class]]) {
 //        JumpModel *model = (JumpModel *)_model.dataSource;
 //        [self.prodcutImage yy_setImageWithURL:[NSURL URLWithString:model.imageURL]

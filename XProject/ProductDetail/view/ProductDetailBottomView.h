@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductModel.h"
 
+typedef void(^buyNowBlock)(void);
 @interface ProductDetailBottomView : UIView
+
+@property (nonatomic, copy) buyNowBlock buyBlock;
+@property (nonatomic, strong) ProductModel *model;
 
 @end

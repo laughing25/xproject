@@ -9,12 +9,17 @@
 #import "XLProductDetailViewController.h"
 #import "CustomerLayout.h"
 #import "GainProductDetailApi.h"
+#import "CheckOrderApi.h"
 #import "ProductModel.h"
 
 #import "YSAsingleViewModule.h"
 
 #import "XLCollectionViewBannerCellModel.h"
 #import "ProductDetailCellModel.h"
+#import "XLCollectionViewAsingleCellModel.h"
+
+#import "ProductDetailBottomView.h"
+#import "LoginViewController.h"
 
 @interface XLProductDetailViewController ()
 <
@@ -26,6 +31,7 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray<id<CustomerLayoutSectionModuleProtocol>>*dataList;
 @property (nonatomic, strong) UIButton *backButton;
+@property (nonatomic, strong) ProductDetailBottomView *bottomView;
 @end
 
 @implementation XLProductDetailViewController
@@ -38,7 +44,15 @@
     
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(self.view);
+        make.leading.top.trailing.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.view.mas_bottom).mas_offset(-49);
+    }];
+    
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.collectionView.mas_bottom);
+        make.bottom.mas_equalTo(self.view.mas_bottom);
+        make.leading.trailing.mas_equalTo(self.view);
     }];
 
     [self.view addSubview:self.backButton];
@@ -71,8 +85,10 @@
                 NSArray *list = (NSArray *)params;
                 params = list.firstObject;
             }
+            
             ProductModel *productModel = [ProductModel yy_modelWithJSON:params];
- 
+            self.bottomView.model = productModel;
+
             [self.dataList removeAllObjects];
             
             XLCollectionViewBannerCellModel *model = [[XLCollectionViewBannerCellModel alloc] init];
@@ -103,6 +119,25 @@
             [selectModule.sectionDataList addObject:selectCellModel];
             [self.dataList addObject:selectModule];
             
+            XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
+            asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
+            TitleModel *titleModel = [[TitleModel alloc] init];
+            titleModel.title = @"详情描述";
+            titleModel.alignment = NSTextAlignmentCenter;
+            asingleCellModel.dataSource = titleModel;
+            YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
+            [asingleModule.sectionDataList addObject:asingleCellModel];
+            [self.dataList addObject:asingleModule];
+            
+            NSString *images = @"http://testadmin.fnwcm.com/upload/201809/20/201809202355468953.jpg";
+            for (int i = 0; i < 5; i++) {
+                YSAsingleViewModule *imageModule = [[YSAsingleViewModule alloc] init];
+                XLCollectionViewAsingleCellModel *imageCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
+                imageCellModel.dataSource = images;
+                [imageModule.sectionDataList addObject:imageCellModel];
+                [self.dataList addObject:imageModule];
+            }
+            
             [self.collectionView reloadData];
         }else{
             NSLog(@"%@", [request requestResponseData]);
@@ -110,6 +145,26 @@
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         
     }];
+}
+
+-(void)buyNow
+{
+    if ([[AccountManager shareInstance] isLogin]) {
+        NSArray *list = @[@{@"ProductID":@"21",@"Price":@"160",@"Quantity":@"1"}];
+        CheckOrderApi *api = [[CheckOrderApi alloc] initWithProductId:list];
+        [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
+        [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+            if ([request requestSuccess]) {
+                [request showToaster:@"下单成功"];
+            }
+        } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+            
+        }];
+    }else{
+        [LoginViewController presentLoginViewController:self complation:^{
+            
+        }];
+    }
 }
 
 #pragma mark - data source
@@ -146,10 +201,10 @@
 
 #pragma mark - cell delegate
 
--(void)ysCollectionViewBannerCell:(YSCollectionViewBannerCell *)cell jumpModel:(NSObject *)model
-{
-    
-}
+//-(void)ysCollectionViewBannerCell:(YSCollectionViewBannerCell *)cell jumpModel:(AdInfoModel *)model
+//{
+//
+//}
 
 #pragma mark - setter and getter
 
@@ -165,6 +220,7 @@
             collectionView.dataSource = self;
             collectionView.delegate = self;
             collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            collectionView.contentInset = UIEdgeInsetsMake(0, 0, 5, 0);
             collectionView;
         });
     }
@@ -190,6 +246,20 @@
         });
     }
     return _backButton;
+}
+
+-(ProductDetailBottomView *)bottomView
+{
+    if (!_bottomView) {
+        _bottomView = [[ProductDetailBottomView alloc] init];
+        _bottomView.hidden = YES;
+        @weakify(self)
+        _bottomView.buyBlock = ^{
+            @strongify(self)
+            [self buyNow];
+        };
+    }
+    return _bottomView;
 }
 
 @end

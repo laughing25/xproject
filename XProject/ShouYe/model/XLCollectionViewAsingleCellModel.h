@@ -10,6 +10,7 @@
 #import "YSAsingleCollectionViewCell.h"
 #import "YSTopicCollectionViewCell.h"
 #import "XLTitleCollectionViewCell.h"
+#import "XLHeaderCollectionViewCell.h"
 
 @interface XLCollectionViewAsingleCellModel : NSObject
 <

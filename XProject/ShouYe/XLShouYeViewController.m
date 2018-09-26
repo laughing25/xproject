@@ -66,6 +66,14 @@
         YSAsingleViewModule *bannerModule = [[YSAsingleViewModule alloc] init];
         [bannerModule.sectionDataList addObject:model];
         [self.dataList addObject:bannerModule];
+        
+//        XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
+//        asingleCellModel.specialIdentifier = [XLHeaderCollectionViewCell cellIdentifierl];
+//        asingleCellModel.dataSource = @"分类";
+//        YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
+//        asingleModule.minimumInteritemSpacing = 2;
+//        [asingleModule.sectionDataList addObject:asingleCellModel];
+//        [self.dataList addObject:asingleModule];
     }];
     
     [chainRequest addRequest:categoryApi callback:^(YTKChainRequest * _Nonnull chainRequest, YTKBaseRequest * _Nonnull baseRequest) {
@@ -126,9 +134,9 @@
 
 #pragma mark - cell delegate
 
--(void)ysCollectionViewBannerCell:(YSCollectionViewBannerCell *)cell jumpModel:(NSObject *)model
+-(void)ysCollectionViewBannerCell:(YSCollectionViewBannerCell *)cell jumpModel:(AdInfoModel *)model
 {
-    
+    NSLog(@"%@", model.link_url);
 }
 
 #pragma mark - setter and getter

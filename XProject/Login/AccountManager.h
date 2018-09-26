@@ -10,6 +10,8 @@
 #import "AccountModel.h"
 
 #define kLoginKey @"kLoginKey"
+#define kUserName @"kUserName"
+#define kPassword @"kPassword"
 
 @interface AccountManager : NSObject
 
@@ -20,6 +22,10 @@
 -(nullable NSDictionary *)requestHeaderParams:(NSDictionary *)requestParams;
 
 -(BOOL)isLogin;
+
+-(NSString *)oldUserId;
+
+-(NSString *)oldPassword;
 
 @property (nonatomic, strong) AccountModel *accountModel;
 

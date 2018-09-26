@@ -7,6 +7,7 @@
 //
 
 #import "YTKBaseRequest+Tools.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @implementation YTKBaseRequest (Tools)
 
@@ -20,7 +21,11 @@
     if (status == 200) {
         return YES;
     }
-    NSLog(@"request message %@", [params objectForKey:@"Info"]);
+    NSString *message = [params objectForKey:@"Info"];
+    NSLog(@"request message %@", message);
+    if (ZFToString(message).length) {
+        [self showToaster:message];
+    }
     return NO;
 }
 
@@ -49,7 +54,23 @@
     }
     return @{};
 }
-    
 
+-(void)showToaster:(NSString *)message
+{
+    MBProgressHUD *hud = [WINDOW viewWithTag:1004];
+    if (!hud) {
+        hud = [[MBProgressHUD alloc] initWithView:WINDOW];
+        hud.tag = 1004;
+    }
+    hud.mode = MBProgressHUDModeText;
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.bezelView.backgroundColor = [UIColor blackColor];
+    hud.label.textColor = [UIColor whiteColor];
+    hud.userInteractionEnabled = NO;
+    hud.label.text = message;
+    [WINDOW addSubview:hud];
+    [hud showAnimated:YES];
+    [hud hideAnimated:YES afterDelay:2];
+}
 
 @end

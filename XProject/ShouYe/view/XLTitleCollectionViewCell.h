@@ -15,3 +15,10 @@
     CollectionCellProtocol
 >
 @end
+
+@interface TitleModel : NSObject
+
+@property (nonatomic, assign) NSTextAlignment alignment;
+@property (nonatomic, copy) NSString *title;
+
+@end

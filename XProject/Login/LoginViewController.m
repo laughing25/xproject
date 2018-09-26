@@ -91,13 +91,14 @@
 - (void)loginButtonAction
 {
     NSString *account = self.accountTextView.inputTextField.text;
-    NSString *password = self.passwordTextView.inputTextField.text;
+    __block NSString *password = self.passwordTextView.inputTextField.text;
     LoginApi *loginApi = [[LoginApi alloc] initWithlogin:account password:password];
     @weakify(self)
     [loginApi startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)
         if ([request requestSuccess]) {
             AccountModel *accountModel = [AccountModel yy_modelWithJSON:[request requestResponseData]];
+            accountModel.password = password;
             AccountManager *manager = [AccountManager shareInstance];
             manager.accountModel = accountModel;
             if (self.result) {

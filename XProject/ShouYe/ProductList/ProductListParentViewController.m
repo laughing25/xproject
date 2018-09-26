@@ -12,6 +12,7 @@
 #import "CategoryModel.h"
 #import "UIViewController+CWLateralSlide.h"
 #import "XLProductListSlideViewController.h"
+#import "GainBranchListApi.h"
 
 @interface ProductListParentViewController ()
 <
@@ -32,20 +33,34 @@
     [self addChildViewController:self.pageController];
     [self.view addSubview:self.pageController.view];
     [self.pageController didMoveToParentViewController:self];
-    
+    [self requestData];
     //more button
-    UIButton *rightNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightNavBtn setFrame:CGRectMake(0, 0, NavBarButtonSize, NavBarButtonSize)];
-    [rightNavBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
-    rightNavBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
-    [rightNavBtn addTarget:self action:@selector(rightSearchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:rightNavBtn];
-    self.navigationItem.rightBarButtonItems = @[buttonItem];
+//    UIButton *rightNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [rightNavBtn setFrame:CGRectMake(0, 0, NavBarButtonSize, NavBarButtonSize)];
+//    [rightNavBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+//    rightNavBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
+//    [rightNavBtn addTarget:self action:@selector(rightSearchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:rightNavBtn];
+//    self.navigationItem.rightBarButtonItems = @[buttonItem];
 }
 
 - (void)requestData
 {
-    
+    GainBranchListApi *api = [[GainBranchListApi alloc] init];
+    [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
+    @weakify(self)
+    [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        @strongify(self)
+        if ([request requestSuccess]) {
+            NSArray *list = [request requestResponseArrayData:[BranchModel class]];
+            if ([list count]) {
+                [self.dataArray addObjectsFromArray:list];
+                [self.pageController reloadData];
+            }
+        }
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        
+    }];
 }
 
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
@@ -53,8 +68,8 @@
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
-    CategoryModel *model = self.dataArray[index];
-    return model.title;
+    BranchModel *model = self.dataArray[index];
+    return model.cTitle;
 }
 
 - (CGRect)pageController:(nonnull WMPageController *)pageController preferredFrameForContentView:(nonnull WMScrollView *)contentView {
@@ -68,8 +83,9 @@
 
 - (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index
 {
+    BranchModel *model = self.dataArray[index];
     XLProductListViewController *list = [[XLProductListViewController alloc] init];
-    list.categoryid = @"10";
+    list.categoryid = model.branchId;
     return list;
 }
 
@@ -114,13 +130,6 @@
 {
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
-        
-        for (int i = 0; i < 10; i++) {
-            NSString *title = [NSString stringWithFormat:@"iphone%d", i];
-            CategoryModel *model = [[CategoryModel alloc] init];
-            model.title = title;
-            [_dataArray addObject:model];
-        }
     }
     return _dataArray;
 }

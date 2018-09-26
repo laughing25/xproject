@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "XLTabBarController.h"
-#import "YTKUrlArgumentsFilter.h"
+#import "LoginApi.h"
 
 @interface AppDelegate ()
 
@@ -27,13 +27,36 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
- 
-    XLTabBarController *tabbar = [[XLTabBarController alloc] init];
-    self.window.rootViewController = tabbar;
     
+    UIViewController *rootViewController = [[UIViewController alloc] init];
+    rootViewController.view.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = rootViewController;
+ 
+    AccountManager *account = [AccountManager shareInstance];
+    if ([account isLogin]) {
+        @weakify(self)
+        LoginApi *api = [[LoginApi alloc] initWithlogin:account.oldUserId password:account.oldPassword];
+        [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+            @strongify(self)
+            AccountModel *accountModel = [AccountModel yy_modelWithJSON:[request requestResponseData]];
+            accountModel.password = account.oldPassword;
+            account.accountModel = accountModel;
+            [self enterHomePage];
+        } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+            @strongify(self)
+            [self enterHomePage];
+        }];
+    }else{
+        [self enterHomePage];
+    }
     return YES;
 }
 
+- (void)enterHomePage
+{
+    XLTabBarController *tabbar = [[XLTabBarController alloc] init];
+    self.window.rootViewController = tabbar;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
