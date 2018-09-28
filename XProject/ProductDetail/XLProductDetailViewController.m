@@ -26,12 +26,14 @@
     UICollectionViewDelegate,
     UICollectionViewDataSource,
     CustomerLayoutDatasource,
-    YSCollectionViewBannerCellDelegate
+    YSCollectionViewBannerCellDelegate,
+    ProductSelectNumCellDelegate
 >
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray<id<CustomerLayoutSectionModuleProtocol>>*dataList;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) ProductDetailBottomView *bottomView;
+@property (nonatomic, assign) NSInteger selectNums;
 @end
 
 @implementation XLProductDetailViewController
@@ -41,7 +43,7 @@
     self.fd_prefersNavigationBarHidden = YES;
     self.locailModel.locailAddSelector(self, @selector(setTitle:), @"商品详情", nil);
     self.locailModel.locailKey = @"Home";
-    
+    self.selectNums = 1;
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.top.trailing.mas_equalTo(self.view);
@@ -150,7 +152,9 @@
 -(void)buyNow
 {
     if ([[AccountManager shareInstance] isLogin]) {
-        NSArray *list = @[@{@"ProductID":@"21",@"Price":@"160",@"Quantity":@"1"}];
+        NSArray *list = @[@{@"ProductID":self.bottomView.model.productId,
+                            @"Price":self.bottomView.model.salePrice,
+                            @"Quantity":[NSString stringWithFormat:@"%ld", self.selectNums]}];
         CheckOrderApi *api = [[CheckOrderApi alloc] initWithProductId:list];
         [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
         [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -201,10 +205,10 @@
 
 #pragma mark - cell delegate
 
-//-(void)ysCollectionViewBannerCell:(YSCollectionViewBannerCell *)cell jumpModel:(AdInfoModel *)model
-//{
-//
-//}
+-(void)ProductSelectNumCellSelectNums:(NSInteger)num
+{
+    self.selectNums = num;
+}
 
 #pragma mark - setter and getter
 

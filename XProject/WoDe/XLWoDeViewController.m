@@ -30,7 +30,6 @@
     [super viewDidLoad];
     self.locailModel.locailAddSelector(self.navigationItem, @selector(setTitle:), @"我的", nil);
     [self.view addSubview:self.tableView];
-    
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
@@ -54,21 +53,19 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        XLAddressDetailViewController *detail = [[XLAddressDetailViewController alloc] init];
-        [self.navigationController pushViewController:detail animated:YES];
-    }else if (indexPath.row == 1){
+    if (indexPath.row == 0){
         MyOrderListViewController *myOrderList = [[MyOrderListViewController alloc] init];
         [self.navigationController pushViewController:myOrderList animated:YES];
+    }else if (indexPath.row == 1){
+        XLAddressDetailViewController *detail = [[XLAddressDetailViewController alloc] init];
+        [self.navigationController pushViewController:detail animated:YES];
     }else if (indexPath.row == 2){
-        XLAddressViewController *addressVC = [[XLAddressViewController alloc] init];
-        [self.navigationController pushViewController:addressVC animated:YES];
-    }else if (indexPath.row == 3){
-        @weakify(self)
-        [LoginViewController presentLoginViewController:self complation:^{
-            @strongify(self)
-            self.tableHeaderView.nameLabel.text = [AccountManager shareInstance].accountModel.user_name;
-        }];
+        
+//        @weakify(self)
+//        [LoginViewController presentLoginViewController:self complation:^{
+//            @strongify(self)
+//            self.tableHeaderView.nameLabel.text = [AccountManager shareInstance].accountModel.user_name;
+//        }];
     }
 }
 
@@ -101,7 +98,7 @@
     if (!_dataList) {
         _dataList = [[NSMutableArray alloc] init];
         
-        [_dataList addObject:@"个人信息"];
+//        [_dataList addObject:@"个人信息"];
         [_dataList addObject:@"我的订单"];
         [_dataList addObject:@"地址管理"];
         [_dataList addObject:@"修改密码"];

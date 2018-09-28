@@ -11,11 +11,14 @@
 #import "XLProductCollectionViewCell.h"
 #import "GainProductListApi.h"
 #import "ProductModel.h"
+#import "XLProductListSlideViewController.h"
+#import "UIViewController+CWLateralSlide.h"
 
 @interface XLProductListViewController ()
 <
     UICollectionViewDelegate,
-    UICollectionViewDataSource
+    UICollectionViewDataSource,
+    XLProductListSlideViewControllerDelegate
 >
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *dataList;
@@ -37,13 +40,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.locailModel.locailAddSelector(self, @selector(setTitle:), @"产品", nil);
-    self.locailModel.locailKey = @"产品";
     
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
+    
+    //more button
+    UIButton *rightNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightNavBtn setFrame:CGRectMake(0, 0, NavBarButtonSize, NavBarButtonSize)];
+    [rightNavBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+    rightNavBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
+    [rightNavBtn addTarget:self action:@selector(rightSearchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:rightNavBtn];
+    self.navigationItem.rightBarButtonItems = @[buttonItem];
     
     [self requestProductList];
 }
@@ -53,8 +63,6 @@
 -(void)requestProductList
 {
     NSString *index = [NSString stringWithFormat:@"%ld", self.pageIndex];
-    self.catalogid = @"4";
-    self.categoryid = @"8";
     GainProductListApi *api = [[GainProductListApi alloc] initWithPageIndex:index categoryid:self.categoryid catalogid:self.catalogid];
     [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
@@ -102,6 +110,24 @@
 }
 
 #pragma mark - target
+
+-(void)rightSearchBtnClick:(UIButton *)sender
+{
+    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration defaultConfiguration];
+    conf.direction = CWDrawerTransitionFromRight;
+    conf.showAnimDuration = .3f;
+    
+    XLProductListSlideViewController *vc = [[XLProductListSlideViewController alloc] init];
+    vc.delegate = self;
+    [self cw_showDrawerViewController:vc animationType:CWDrawerAnimationTypeMask configuration:conf];
+}
+
+-(void)XLProductListSlideViewControllerDidClick:(BranchModel *)model
+{
+    self.categoryid = model.wid;
+    self.catalogid = model.branchId;
+    [self requestProductList];
+}
 
 -(void)headerRefresh:(MJRefreshHeader *)header
 {

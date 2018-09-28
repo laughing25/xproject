@@ -10,16 +10,24 @@
 #import "XLAddressDetailTableViewCell.h"
 #import "ZFBottomToolView.h"
 #import "GainUserInfoApi.h"
+#import "ChangeInfoApi.h"
 #import "XLAddressDetailInfoModel.h"
+#import "XLAddressListModel.h"
+#import "CityListViewController.h"
 
 @interface XLAddressDetailViewController ()
 <
     UITableViewDelegate,
-    UITableViewDataSource
+    UITableViewDataSource,
+    CityListViewControllerDelegate
 >
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataList;
+@property (nonatomic, strong) NSMutableArray <XLAddressDetailCellModel *>*dataList;
 @property (nonatomic, strong) ZFBottomToolView *addAddressView;
+@property (nonatomic, strong) UIButton *bottomButton;
+@property (nonatomic, strong) XLAddressDetailInfoModel *infoModel;
+@property (nonatomic, strong) NSArray *cityList;
+@property (nonatomic, strong) UIPickerView *pickerView;
 @end
 
 @implementation XLAddressDetailViewController
@@ -28,9 +36,17 @@
     [super viewDidLoad];
     self.locailModel.locailAddSelector(self, @selector(setTitle:), @"我的信息", nil);
     [self.view addSubview:self.tableView];
-    
+    [self.view addSubview:self.bottomButton];
+    self.cityList = [[NSArray alloc] init];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(self.view);
+        make.top.leading.trailing.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.bottomButton.mas_top);
+    }];
+    
+    [self.bottomButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view);
+        make.leading.trailing.mas_equalTo(self.view);
+        make.height.mas_offset(44);
     }];
     
     [self requestUserInfoData];
@@ -47,24 +63,32 @@
         @strongify(self)
         if ([request requestSuccess]) {
             XLAddressDetailInfoModel *infoModel = [XLAddressDetailInfoModel yy_modelWithJSON:[request requestResponseData]];
+            self.infoModel = infoModel;
             XLAddressDetailCellModel *cellModel = [[XLAddressDetailCellModel alloc] init];
             cellModel.title = @"名字";
             cellModel.content = infoModel.user_name;
+            cellModel.type = AddressDetailCellType_CanEdit;
+            cellModel.keyboardType = UIKeyboardTypeASCIICapable;
             
-            XLAddressDetailCellModel *cellModel1 = [[XLAddressDetailCellModel alloc] init];
-            cellModel1.title = @"电话号码";
-            cellModel1.content = infoModel.userId;
+//            XLAddressDetailCellModel *cellModel1 = [[XLAddressDetailCellModel alloc] init];
+//            cellModel1.title = @"电话号码";
+//            cellModel1.content = infoModel.userId;
+//            cellModel1.type = AddressDetailCellType_CanEdit;
+//            cellModel1.keyboardType = UIKeyboardTypePhonePad;
             
             XLAddressDetailCellModel *cellModel2 = [[XLAddressDetailCellModel alloc] init];
-            cellModel2.title = @"地址";
-            cellModel2.content = infoModel.address;
+            cellModel2.title = @"城市";
+            cellModel2.content = infoModel.city;
+            cellModel2.type = AddressDetailCellType_UnEdit;
             
             XLAddressDetailCellModel *cellModel3 = [[XLAddressDetailCellModel alloc] init];
-            cellModel3.title = @"地址2";
-            cellModel2.content = infoModel.address;
+            cellModel3.title = @"地址";
+            cellModel3.content = infoModel.address;
+            cellModel3.type = AddressDetailCellType_CanEdit;
+            cellModel3.keyboardType = UIKeyboardTypeASCIICapable;
             
             [self.dataList addObject:cellModel];
-            [self.dataList addObject:cellModel1];
+//            [self.dataList addObject:cellModel1];
             [self.dataList addObject:cellModel2];
             [self.dataList addObject:cellModel3];
             [self.tableView reloadData];
@@ -86,6 +110,40 @@
     XLAddressDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.model = self.dataList[indexPath.row];
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 1) {
+        CityListViewController *city = [[CityListViewController alloc] init];
+        city.delegate = self;
+        [self.navigationController pushViewController:city animated:YES];
+    }
+}
+
+-(void)CityListViewControllerDidSelectCity:(XLAddressListModel *)model
+{
+    XLAddressDetailTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    XLAddressDetailCellModel *cellModel = self.dataList[2];
+    cellModel.content = model.name;
+    cell.model = cellModel;
+    self.infoModel.countryId = model.cityId;
+}
+
+#pragma mark - target
+
+- (void)changeUserInfo
+{
+    self.infoModel.user_name = self.dataList[0].content;
+    self.infoModel.address = self.dataList[2].content;
+    ChangeInfoApi *api = [[ChangeInfoApi alloc] initWithModel:self.infoModel];
+    [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
+    [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        NSString *message = request.responseJSONObject[@"Info"];
+        [request showToaster:message];
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        [request showToaster:@"修改失败"];
+    }];
 }
 
 #pragma mark - setter and getter
@@ -112,20 +170,20 @@
     return _tableView;
 }
 
-- (ZFBottomToolView *)addAddressView {
-    if (!_addAddressView) {
-        _addAddressView = [[ZFBottomToolView alloc] initWithFrame:CGRectZero];
-        _addAddressView.bottomTitle = @"Address_VC_Add_Address";
-        _addAddressView.showTopShadowline = YES;
-        _addAddressView.hidden = YES;
-//        @weakify(self);
-        _addAddressView.bottomButtonBlock = ^{
-//            @strongify(self);
-//            [self editAddressAction:nil];
-        };
-    }
-    return _addAddressView;
-}
+//- (ZFBottomToolView *)addAddressView {
+//    if (!_addAddressView) {
+//        _addAddressView = [[ZFBottomToolView alloc] initWithFrame:CGRectZero];
+//        _addAddressView.bottomTitle = @"Address_VC_Add_Address";
+//        _addAddressView.showTopShadowline = YES;
+//        _addAddressView.hidden = YES;
+////        @weakify(self);
+//        _addAddressView.bottomButtonBlock = ^{
+////            @strongify(self);
+////            [self editAddressAction:nil];
+//        };
+//    }
+//    return _addAddressView;
+//}
 
 -(NSMutableArray *)dataList
 {
@@ -133,6 +191,21 @@
         _dataList = [[NSMutableArray alloc] init];
     }
     return _dataList;
+}
+
+-(UIButton *)bottomButton
+{
+    if (!_bottomButton) {
+        _bottomButton = ({
+            UIButton *button = [[UIButton alloc] init];
+            button.backgroundColor = [UIColor colorWithHexColorString:@"276ecd"];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [button setTitle:@"修改" forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(changeUserInfo) forControlEvents:UIControlEventTouchUpInside];
+            button;
+        });
+    }
+    return _bottomButton;
 }
 
 @end

@@ -67,6 +67,9 @@
     NSInteger nums = self.numTextField.text.integerValue;
     nums += 1;
     self.numTextField.text = [NSString stringWithFormat:@"%ld", nums];
+    if ([self.delegate respondsToSelector:@selector(ProductSelectNumCellSelectNums:)]) {
+        [self.delegate ProductSelectNumCellSelectNums:nums];
+    }
 }
 
 -(void)minButtonAction
@@ -77,6 +80,9 @@
         nums = 1;
     }
     self.numTextField.text = [NSString stringWithFormat:@"%ld", nums];
+    if ([self.delegate respondsToSelector:@selector(ProductSelectNumCellSelectNums:)]) {
+        [self.delegate ProductSelectNumCellSelectNums:nums];
+    }
 }
 
 +(NSString *)cellIdentifierl

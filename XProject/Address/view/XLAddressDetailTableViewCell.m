@@ -9,7 +9,9 @@
 #import "XLAddressDetailTableViewCell.h"
 
 @interface XLAddressDetailTableViewCell ()
-
+<
+    UITextFieldDelegate
+>
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UITextField *textField;
 
@@ -43,12 +45,29 @@
     return self;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.model.content = textField.text;
+}
+
 #pragma mark - setter and getter
 
 -(void)setModel:(XLAddressDetailCellModel *)model
 {
     _model = model;
     
+    if (_model.type == AddressDetailCellType_CanEdit) {
+        self.textField.enabled = YES;
+    }else{
+        self.textField.enabled = NO;
+    }
+    self.textField.keyboardType = model.keyboardType;
     self.titleLabel.text = model.title;
     self.textField.text = model.content;
 }
@@ -76,6 +95,8 @@
             textField.placeholder = @"plcae holder";
             textField.font = [UIFont systemFontOfSize:12];
             textField.borderStyle = UITextBorderStyleNone;
+            textField.keyboardType = UIKeyboardTypeDefault;
+            textField.delegate = self;
             textField;
         });
     }

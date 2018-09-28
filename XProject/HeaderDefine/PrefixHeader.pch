@@ -31,5 +31,6 @@
 #import "AccountManager.h"
 #import "YTKBaseRequest+Tools.h"
 #import "YSRequestAccessory.h"
+#import "IQKeyboardManager.h"
 
 #endif /* PrefixHeader_pch */

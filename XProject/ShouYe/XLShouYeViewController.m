@@ -20,7 +20,8 @@
 #import "XLCollectionViewBannerCellModel.h"
 #import "XLCollectionViewAsingleCellModel.h"
 
-#import "ProductListParentViewController.h"
+//#import "ProductListParentViewController.h"
+#import "XLProductListViewController.h"
 
 @interface XLShouYeViewController ()
 <
@@ -118,8 +119,9 @@
     id<CollectionDatasourceProtocol>cellModel = sectionModule.sectionDataList[indexPath.row];
     if ([cellModel isKindOfClass:[CategoryModel class]]) {
         CategoryModel *model = (CategoryModel *)cellModel;
-        ProductListParentViewController *listVC = [[ProductListParentViewController alloc] init];
+        XLProductListViewController *listVC = [[XLProductListViewController alloc] init];
         listVC.categoryid = model.idField;
+        listVC.title = model.title;
         [self.navigationController pushViewController:listVC animated:YES];
     }
 }

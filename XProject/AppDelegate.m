@@ -23,6 +23,7 @@
     
     [YTKNetworkConfig sharedConfig].baseUrl = @"http://testapi.fnwcm.com/";
     [YTKNetworkConfig sharedConfig].debugLogEnabled = YES;
+    [IQKeyboardManager sharedManager].enable = YES;
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];

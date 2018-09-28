@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "CollectionCellProtocol.h"
 
+@protocol ProductSelectNumCellDelegate <CollectionCellDelegate>
+
+- (void)ProductSelectNumCellSelectNums:(NSInteger)num;
+
+@end
+
 @interface ProductSelectNumCell : UICollectionViewCell
 <
     CollectionCellProtocol
 >
+
+@property (nonatomic, weak) id<ProductSelectNumCellDelegate>delegate;
+
 @end

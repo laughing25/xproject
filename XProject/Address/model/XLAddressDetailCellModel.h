@@ -18,5 +18,6 @@ typedef NS_ENUM(NSInteger) {
 @property (nonatomic, assign) AddressDetailCellType type;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *content;
+@property (nonatomic, assign) UIKeyboardType keyboardType;
 
 @end

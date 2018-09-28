@@ -16,4 +16,6 @@
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *city;
 
+@property (nonatomic, copy) NSString *countryId;
+
 @end

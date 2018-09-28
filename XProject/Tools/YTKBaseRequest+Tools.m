@@ -67,7 +67,7 @@
     hud.bezelView.backgroundColor = [UIColor blackColor];
     hud.label.textColor = [UIColor whiteColor];
     hud.userInteractionEnabled = NO;
-    hud.label.text = message;
+    hud.label.text = ZFToString(message);
     [WINDOW addSubview:hud];
     [hud showAnimated:YES];
     [hud hideAnimated:YES afterDelay:2];
