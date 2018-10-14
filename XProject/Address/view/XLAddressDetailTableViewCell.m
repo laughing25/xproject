@@ -97,6 +97,7 @@
             textField.borderStyle = UITextBorderStyleNone;
             textField.keyboardType = UIKeyboardTypeDefault;
             textField.delegate = self;
+            textField.autocorrectionType = UITextAutocorrectionTypeNo;
             textField;
         });
     }

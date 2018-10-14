@@ -58,7 +58,7 @@
     
     if ([_model.dataSource isKindOfClass:[ProductModel class]]) {
         ProductModel *pModel = (ProductModel *)_model.dataSource;
-        self.nameLabel.text = pModel.productName;
+        self.nameLabel.text = pModel.shortDesc;
         self.priceLabel.text = [NSString stringWithFormat:@"¥ %@", pModel.salePrice];
     }
 }
@@ -71,7 +71,7 @@
             label.text = @"test";
             label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor blackColor];
-            label.font = [UIFont systemFontOfSize:12];
+            label.font = [UIFont systemFontOfSize:14];
             label;
         });
     }
@@ -85,8 +85,8 @@
             UILabel *label = [[UILabel alloc] init];
             label.text = @"test";
             label.textAlignment = NSTextAlignmentLeft;
-            label.textColor = [UIColor blackColor];
-            label.font = [UIFont systemFontOfSize:12];
+            label.textColor = [UIColor redColor];
+            label.font = [UIFont systemFontOfSize:14];
             label;
         });
     }

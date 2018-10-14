@@ -27,7 +27,7 @@
     if ([NSStringFromClass(self.dataSource.class) isEqualToString:@"ProductModel"]) {
         return CGSizeMake(KScreenWidth, KScreenWidth);
     }
-    return CGSizeMake(KScreenWidth, 160.0 * DSCREEN_WIDTH_SCALE);
+    return CGSizeMake(KScreenWidth, KScreenWidth * 0.55);
 }
 
 -(void)registerCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath specialIdentifier:(NSString *)specialIdentifier

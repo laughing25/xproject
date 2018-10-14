@@ -68,7 +68,7 @@
             cellModel.title = @"名字";
             cellModel.content = infoModel.user_name;
             cellModel.type = AddressDetailCellType_CanEdit;
-            cellModel.keyboardType = UIKeyboardTypeASCIICapable;
+            cellModel.keyboardType = UIKeyboardTypeDefault;
             
 //            XLAddressDetailCellModel *cellModel1 = [[XLAddressDetailCellModel alloc] init];
 //            cellModel1.title = @"电话号码";
@@ -85,7 +85,7 @@
             cellModel3.title = @"地址";
             cellModel3.content = infoModel.address;
             cellModel3.type = AddressDetailCellType_CanEdit;
-            cellModel3.keyboardType = UIKeyboardTypeASCIICapable;
+            cellModel3.keyboardType = UIKeyboardTypeDefault;
             
             [self.dataList addObject:cellModel];
 //            [self.dataList addObject:cellModel1];

@@ -54,20 +54,23 @@
         [self.middleContentView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).mas_offset(padding);
             make.leading.trailing.mas_equalTo(contentView);
+            make.height.mas_offset(110);
         }];
         
         [self.productImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.leading.mas_equalTo(self.middleContentView).mas_offset(padding);
-            make.top.mas_equalTo(self.middleContentView).mas_offset(padding);
-            make.bottom.mas_equalTo(self.middleContentView.mas_bottom).mas_offset(-padding);
-            make.height.mas_offset(50);
+            make.leading.mas_equalTo(self.middleContentView).mas_offset(padding+5);
+            make.centerY.mas_equalTo(self.middleContentView);
+            make.height.mas_offset(80);
             make.width.mas_equalTo(self.productImageView.mas_height);
         }];
         
         [self.productLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.mas_equalTo(self.productImageView.mas_trailing).mas_offset(padding/2);
+            make.trailing.mas_equalTo(self.contentView.mas_trailing).mas_offset(-padding/2);
             make.top.mas_equalTo(self.productImageView.mas_top);
         }];
+        
+        self.productLabel.preferredMaxLayoutWidth = KScreenWidth - 80 - padding*2;
         
         [self.conteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.trailing.mas_equalTo(contentView.mas_trailing).mas_offset(-padding);
@@ -85,10 +88,10 @@
     _orderModel = orderModel;
     
     [self.productImageView yy_setImageWithURL:[NSURL URLWithString:_orderModel.focusImgUrl] placeholder:nil];
-    self.orderTimeLabel.text = _orderModel.addDate;
-    self.orderStatusLabel.text = _orderModel.orderNo;
-    self.productLabel.text = _orderModel.productName;
-    self.conteLabel.text = [NSString stringWithFormat:@"共%ld件商品 价格:¥%@", 1, _orderModel.salePrice];
+    self.orderTimeLabel.text = [NSString stringWithFormat:@"下单日期: %@", _orderModel.addDate];
+//    self.orderStatusLabel.text = _orderModel.OrderNo;
+    self.productLabel.text = _orderModel.shortDesc;
+    self.conteLabel.text = [NSString stringWithFormat:@"共%ld件商品  价格: ¥%@", 1, _orderModel.salePrice];
 }
 
 -(UILabel *)orderTimeLabel
@@ -98,8 +101,8 @@
             UILabel *label = [[UILabel alloc] init];
             label.text = @"test";
             label.textAlignment = NSTextAlignmentLeft;
-            label.textColor = [UIColor blackColor];
-            label.font = [UIFont systemFontOfSize:16];
+            label.textColor = [UIColor grayColor];
+            label.font = [UIFont systemFontOfSize:12];
             label;
         });
     }
@@ -111,9 +114,8 @@
     if (!_orderStatusLabel) {
         _orderStatusLabel = ({
             UILabel *label = [[UILabel alloc] init];
-            label.text = @"test";
-            label.textAlignment = NSTextAlignmentLeft;
-            label.textColor = [UIColor blackColor];
+            label.textAlignment = NSTextAlignmentRight;
+            label.textColor = [UIColor grayColor];
             label.font = [UIFont systemFontOfSize:16];
             label;
         });
@@ -138,8 +140,8 @@
     if (!_productImageView) {
         _productImageView = ({
             YYAnimatedImageView *image = [[YYAnimatedImageView alloc] init];
-            image.layer.borderWidth = 1;
-            image.layer.borderColor = [UIColor blackColor].CGColor;
+//            image.layer.borderWidth = 1;
+//            image.layer.borderColor = [UIColor blackColor].CGColor;
             image;
         });
     }

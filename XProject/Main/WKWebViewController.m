@@ -30,7 +30,7 @@
         make.edges.mas_equalTo(self.view);
     }];
     
-    self.url = @"https://www.baidu.com";
+//    self.url = @"https://www.baidu.com";
     if (ZFToString(self.url).length) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:self.url]];
         request.timeoutInterval = 30;

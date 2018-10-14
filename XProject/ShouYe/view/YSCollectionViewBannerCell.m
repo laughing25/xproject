@@ -75,7 +75,8 @@
     
     if ([model.dataSource isKindOfClass:[ProductModel class]]) {
         ProductModel *productModel = (ProductModel *)model.dataSource;
-        [imageUrls addObject:productModel.focusImgUrl];
+        NSArray *urlList = [productModel.thumbnailsUrll componentsSeparatedByString:@","];
+        [imageUrls addObjectsFromArray:urlList];
     }
     self.bannerView.imageURLStringsGroup = [imageUrls copy];
 }
@@ -87,6 +88,8 @@
             SDCycleScrollView *scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:[UIImage imageNamed:@"placeholder_banner_pdf"]];
             scrollView.autoScrollTimeInterval = 3.0; // 间隔时间
             scrollView.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+            scrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+            scrollView.backgroundColor = [UIColor groupTableViewBackgroundColor];
             scrollView;
         });
     }

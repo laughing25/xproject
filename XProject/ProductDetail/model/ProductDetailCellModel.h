@@ -16,4 +16,7 @@
 <
     CollectionDatasourceProtocol
 >
+
+@property (nonatomic, assign) CGSize modelSize;
+
 @end

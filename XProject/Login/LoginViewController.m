@@ -75,11 +75,11 @@
     }];
     
     UIButton *closeButton = [[UIButton alloc] init];
-    closeButton.backgroundColor = [UIColor blackColor];
+    [closeButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [closeButton addTarget:self action:@selector(closeButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeButton];
     [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.mas_equalTo(self.view.mas_leading).mas_offset(30);
+        make.leading.mas_equalTo(self.view.mas_leading).mas_offset(15);
         make.top.mas_equalTo(self.view.mas_top).mas_offset(30);
         make.width.height.mas_offset(30);
     }];
@@ -177,6 +177,7 @@
         _passwordTextView = ({
             LoginInputTextView *view = [[LoginInputTextView alloc] init];
             view.inputTextField.placeholder = @"请输入密码";
+            view.inputTextField.secureTextEntry = YES;
             view.iconImage.image = [UIImage imageNamed:@"password"];
             view;
         });

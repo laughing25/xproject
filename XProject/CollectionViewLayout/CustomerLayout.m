@@ -8,6 +8,8 @@
 
 #import "CustomerLayout.h"
 
+#define defaultBottomPadding 20
+
 @interface CustomerLayout ()
 
 ///按分区存放的attributes
@@ -24,32 +26,82 @@
 
 @property (nonatomic, strong) NSMutableDictionary *headerSectionHeight;
 @property (nonatomic, strong) NSMutableDictionary *footerSectionHeight;
+
+@property (nonatomic, assign) NSInteger reloadSection;
+
 @end
 
 @implementation CustomerLayout
+
+-(instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        self.reloadSection = -1;
+    }
+    return self;
+}
+
+-(void)inserSection:(NSInteger)section
+{
+    _reloadSection = section;
+}
+
+-(void)reloadSection:(NSInteger)section
+{
+    _reloadSection = section;
+}
 
 -(void)prepareLayout
 {
     [super prepareLayout];
     
-    [self.attributesList removeAllObjects];
-    [self.allAttributesItemList removeAllObjects];
-    [self.columnHeights removeAllObjects];
-    [self.visibleItems removeAllObjects];
-    [self.headerSectionHeight removeAllObjects];
-    [self.footerSectionHeight removeAllObjects];
+    NSInteger startSection = 0;
+    if (_reloadSection >= 0) {
+        __block NSInteger allcount = 0;
+        startSection = _reloadSection;
+        _reloadSection = -1;
+        [self.attributesList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (idx >= startSection) {
+                NSArray *list = (NSArray *)obj;
+                allcount += [list count];
+            }
+        }];
+        
+        NSRange removeAllRange = NSMakeRange(self.allAttributesItemList.count - allcount, allcount);
+        
+        [self.allAttributesItemList removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:removeAllRange]];
+        
+        NSRange removeRange = NSMakeRange(startSection, self.attributesList.count - startSection);
+        
+        [self.attributesList removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:removeRange]];
+        
+        NSRange columnHeightRemoveRange = NSMakeRange(startSection, self.columnHeights.count - startSection);
+        
+        [self.columnHeights removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:columnHeightRemoveRange]];
+        
+        [self.visibleItems removeAllObjects];
+    }else{
+        [self.attributesList removeAllObjects];
+        [self.allAttributesItemList removeAllObjects];
+        [self.columnHeights removeAllObjects];
+        [self.visibleItems removeAllObjects];
+        [self.headerSectionHeight removeAllObjects];
+        [self.footerSectionHeight removeAllObjects];
+    }
     
     NSInteger sections = [self.collectionView numberOfSections];
-
+    
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(customerLayoutDatasource:sectionNum:)]) {
-        for (int i = 0; i < sections; i++) {
+        for (NSInteger i = startSection; i < sections; i++) {
             
             id <CustomerLayoutSectionModuleProtocol> sectionModule = [self.dataSource customerLayoutDatasource:self.collectionView sectionNum:i];
-
+            
             CGFloat sectionHeight = 0;
             NSMutableArray *sectionAttributes = [[NSMutableArray alloc] init];
-            if ([self.dataSource respondsToSelector:@selector(customerLayoutSectionHeight:layout:indexPath:)]) {
-                sectionHeight = [self.dataSource customerLayoutSectionHeight:self.collectionView layout:self indexPath:[NSIndexPath indexPathForRow:0 inSection:sections]];
+            if ([self.dataSource respondsToSelector:@selector(customerLayoutSectionHeightHeight:layout:indexPath:)]) {
+                sectionHeight = [self.dataSource customerLayoutSectionHeightHeight:self.collectionView layout:self indexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
                 if (sectionHeight) {
                     //section header
                     UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:CustomerLayoutHeader withIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
@@ -57,18 +109,34 @@
                     headerAttributes.frame = CGRectMake(0, lastSectionHeight, self.collectionView.frame.size.width, sectionHeight);
                     [self.allAttributesItemList addObject:headerAttributes];
                     self.headerSectionHeight[@(i)] = @(sectionHeight);
+                    sectionHeight = CGRectGetMaxY(headerAttributes.frame);
                 }
             }
-            
-            NSInteger rows = [self.collectionView numberOfItemsInSection:i];
             
             //获取上一个section的bottom
             CGFloat lastSectionHeight = MAX(sectionHeight, [[self.columnHeights lastObject] floatValue]);
             
-            NSArray *sectionAttributelist = [sectionModule childRowsCalculateFramesWithBottomOffset:lastSectionHeight section:i rows:rows];
+            NSArray *sectionAttributelist = [sectionModule childRowsCalculateFramesWithBottomOffset:lastSectionHeight section:i];
             [sectionAttributes addObjectsFromArray:sectionAttributelist];
             
             self.columnHeights[i] = @([sectionModule sectionBottom]);
+ 
+            CGFloat sectionFooter = 0;
+            if ([self.dataSource respondsToSelector:@selector(customerLayoutSectionFooterHeight:layout:indexPath:)]) {
+                sectionFooter = [self.dataSource customerLayoutSectionFooterHeight:self.collectionView layout:self indexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
+                if (sectionFooter) {
+                    //section footer
+                    UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:CustomerLayoutFooter withIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
+                    CGFloat lastSectionHeight = [[self.columnHeights lastObject] floatValue];
+                    headerAttributes.frame = CGRectMake(0, lastSectionHeight, self.collectionView.frame.size.width, sectionFooter);
+                    [self.allAttributesItemList addObject:headerAttributes];
+                    self.footerSectionHeight[@(i)] = @(sectionFooter);
+                    self.columnHeights[i] = @(CGRectGetMaxY(headerAttributes.frame));
+                }
+            }
+            
+            lastSectionHeight = MAX(sectionFooter, [[self.columnHeights lastObject] floatValue]);
+
             [self.attributesList addObject:sectionAttributes];
             [self.allAttributesItemList addObjectsFromArray:sectionAttributes];
         }
@@ -78,10 +146,16 @@
     NSInteger itemCounts = [self.allAttributesItemList count];
     while (idx < itemCounts) {
         CGRect rect1 = ((UICollectionViewLayoutAttributes *)self.allAttributesItemList[idx]).frame;
-        idx = MIN(idx + 20, itemCounts) - 1;
+        idx = MIN(idx + defaultBottomPadding, itemCounts) - 1;
         CGRect rect2 = ((UICollectionViewLayoutAttributes *)self.allAttributesItemList[idx]).frame;
         [self.visibleItems addObject:[NSValue valueWithCGRect:CGRectUnion(rect1, rect2)]];
         idx++;
+    }
+    
+    if ([self.attributesList count]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(customerLayoutDidLayoutDone)]) {
+            [self.delegate customerLayoutDidLayoutDone];
+        }
     }
 }
 
@@ -93,13 +167,13 @@
     
     for (i = 0; i < self.visibleItems.count; i++) {
         if (CGRectIntersectsRect(rect, [self.visibleItems[i] CGRectValue])) {
-            begin = i * 20;
+            begin = i * defaultBottomPadding;
             break;
         }
     }
     for (i = self.visibleItems.count - 1; i >= 0; i--) {
         if (CGRectIntersectsRect(rect, [self.visibleItems[i] CGRectValue])) {
-            end = MIN((i + 1) * 20, self.allAttributesItemList.count);
+            end = MIN((i + 1) * defaultBottomPadding, self.allAttributesItemList.count);
             break;
         }
     }
@@ -148,10 +222,6 @@
     CGSize contentSize = self.collectionView.bounds.size;
     contentSize.height = [[self.columnHeights lastObject] floatValue];
     
-    if ([self.dataSource respondsToSelector:@selector(customerLayoutContentSizeHeight:)]) {
-        [self.dataSource customerLayoutContentSizeHeight:contentSize.height];
-    }
-    
     return contentSize;
 }
 
@@ -164,10 +234,29 @@
     return NO;
 }
 
--(CGFloat)maxContentOffsetY
+-(CGFloat)customerLastSectionFirstViewTop
 {
-    CGFloat height = [[self.columnHeights lastObject] floatValue];
-    return height;
+    if ([self.attributesList count] - 2 <= 0) {
+        return 0;
+    }
+    NSInteger count = [self.attributesList count];
+    NSArray *attributesRows = self.attributesList[count - 2];
+    UICollectionViewLayoutAttributes *attributes = [attributesRows firstObject];
+    return CGRectGetMinY(attributes.frame);
+}
+
+- (CGRect)customerSectionFirstAttribute:(NSInteger)section
+{
+    if ([self.attributesList count]) {
+        NSInteger count = [self.attributesList count];
+        if (section < count) {
+            NSArray *attributesRows = self.attributesList[section];
+            UICollectionViewLayoutAttributes *attributes = [attributesRows firstObject];
+            return attributes.frame;
+        }
+        return CGRectZero;
+    }
+    return CGRectZero;
 }
 
 

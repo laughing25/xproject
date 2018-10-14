@@ -23,21 +23,24 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.padderView];
         [self addSubview:self.titleLabel];
         
         [self.padderView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.mas_equalTo(self).mas_offset(12);
             make.width.mas_offset(4);
-            make.height.mas_equalTo(self.mas_height).multipliedBy(0.8);
+            make.height.mas_equalTo(self.mas_height).multipliedBy(0.5);
             make.centerY.mas_equalTo(self);
         }];
         
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self);
-            make.leading.mas_equalTo(self).mas_offset(5);
+            make.leading.mas_equalTo(self.padderView.mas_trailing).mas_offset(5);
             make.trailing.mas_equalTo(self.mas_trailing).mas_offset(-5);
         }];
+        
+        self.padderView.layer.cornerRadius = 2;
     }
     return self;
 }
@@ -72,10 +75,9 @@
     if (!_titleLabel) {
         _titleLabel = ({
             UILabel *label = [[UILabel alloc] init];
-            label.text = @"test";
             label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor blackColor];
-            label.font = [UIFont systemFontOfSize:12];
+            label.font = [UIFont systemFontOfSize:17];
             label;
         });
     }

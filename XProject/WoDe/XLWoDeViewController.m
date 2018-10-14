@@ -13,6 +13,7 @@
 #import "LoginViewController.h"
 #import "XLMineTableViewCell.h"
 #import "XLAddressDetailViewController.h"
+#import "ChangePasswordViewController.h"
 
 @interface XLWoDeViewController ()
 <
@@ -60,7 +61,8 @@
         XLAddressDetailViewController *detail = [[XLAddressDetailViewController alloc] init];
         [self.navigationController pushViewController:detail animated:YES];
     }else if (indexPath.row == 2){
-        
+        ChangePasswordViewController *changepw = [[ChangePasswordViewController alloc] init];
+        [self.navigationController pushViewController:changepw animated:YES];
 //        @weakify(self)
 //        [LoginViewController presentLoginViewController:self complation:^{
 //            @strongify(self)

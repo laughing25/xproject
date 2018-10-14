@@ -57,6 +57,8 @@
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
+        }else{
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)
@@ -119,9 +121,11 @@
             tableView.showsHorizontalScrollIndicator = NO;
             tableView.estimatedSectionFooterHeight = UITableViewAutomaticDimension;
             tableView.sectionFooterHeight = UITableViewAutomaticDimension;
+            tableView.estimatedRowHeight = 140;
             tableView.rowHeight = UITableViewAutomaticDimension;
             tableView.delegate = self;
             tableView.dataSource = self;
+            tableView.tableFooterView = [UIView new];
             [tableView registerClass:[XLDongTaiTableViewCell class] forCellReuseIdentifier:@"Cell"];
             
             tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefreshAction)];

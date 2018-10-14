@@ -18,6 +18,7 @@
 #import "ProductDetailCellModel.h"
 #import "XLCollectionViewAsingleCellModel.h"
 
+#import "WebViewCollectionViewCell.h"
 #import "ProductDetailBottomView.h"
 #import "LoginViewController.h"
 
@@ -27,13 +28,15 @@
     UICollectionViewDataSource,
     CustomerLayoutDatasource,
     YSCollectionViewBannerCellDelegate,
-    ProductSelectNumCellDelegate
+    ProductSelectNumCellDelegate,
+    WebViewCollectionViewCellDelegate
 >
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray<id<CustomerLayoutSectionModuleProtocol>>*dataList;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) ProductDetailBottomView *bottomView;
 @property (nonatomic, assign) NSInteger selectNums;
+@property (nonatomic, strong) CustomerLayout *layout;
 @end
 
 @implementation XLProductDetailViewController
@@ -131,14 +134,12 @@
             [asingleModule.sectionDataList addObject:asingleCellModel];
             [self.dataList addObject:asingleModule];
             
-            NSString *images = @"http://testadmin.fnwcm.com/upload/201809/20/201809202355468953.jpg";
-            for (int i = 0; i < 5; i++) {
-                YSAsingleViewModule *imageModule = [[YSAsingleViewModule alloc] init];
-                XLCollectionViewAsingleCellModel *imageCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
-                imageCellModel.dataSource = images;
-                [imageModule.sectionDataList addObject:imageCellModel];
-                [self.dataList addObject:imageModule];
-            }
+            YSAsingleViewModule *webModule = [[YSAsingleViewModule alloc] init];
+            ProductDetailCellModel *webCellModel = [[ProductDetailCellModel alloc] init];
+            webCellModel.specialIdentifier = NSStringFromClass([WebViewCollectionViewCell class]);
+            webCellModel.dataSource = productModel;
+            [webModule.sectionDataList addObject:webCellModel];
+            [self.dataList addObject:webModule];
             
             [self.collectionView reloadData];
         }else{
@@ -165,9 +166,7 @@
             
         }];
     }else{
-        [LoginViewController presentLoginViewController:self complation:^{
-            
-        }];
+        [LoginViewController presentLoginViewController:self complation:^{}];
     }
 }
 
@@ -210,6 +209,19 @@
     self.selectNums = num;
 }
 
+-(void)WebViewCollectionViewCellReloadHeight:(UICollectionViewCell *)cell height:(CGFloat)height
+{
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    id<CustomerLayoutSectionModuleProtocol>sectionModule = self.dataList[indexPath.section];
+    id<CollectionDatasourceProtocol>cellModel = sectionModule.sectionDataList[indexPath.row];
+    if ([cellModel isKindOfClass:[ProductDetailCellModel class]]) {
+        ProductDetailCellModel *productCellModel = (ProductDetailCellModel *)cellModel;
+        productCellModel.modelSize = CGSizeMake(KScreenWidth, height);
+        [self.layout reloadSection:indexPath.section];
+        [self.collectionView reloadData];
+    }    
+}
+
 #pragma mark - setter and getter
 
 - (UICollectionView *)collectionView
@@ -218,7 +230,7 @@
         _collectionView = ({
             CustomerLayout *layout = [[CustomerLayout alloc] init];
             layout.dataSource = self;
-            
+            self.layout = layout;
             UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
             collectionView.showsVerticalScrollIndicator = YES;
             collectionView.dataSource = self;

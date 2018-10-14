@@ -22,6 +22,8 @@
 
 //#import "ProductListParentViewController.h"
 #import "XLProductListViewController.h"
+#import "WKWebViewController.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
 
 @interface XLShouYeViewController ()
 <
@@ -38,9 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.locailModel.locailAddSelector(self.navigationItem, @selector(setTitle:), @"我的", nil);
-    self.locailModel.locailKey = @"Home";
-    
+    self.fd_prefersNavigationBarHidden = YES;
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
@@ -65,16 +65,17 @@
         XLCollectionViewBannerCellModel *model = [[XLCollectionViewBannerCellModel alloc] init];
         model.dataSource = adModelList;
         YSAsingleViewModule *bannerModule = [[YSAsingleViewModule alloc] init];
+        bannerModule.minimumInteritemSpacing = 14;
         [bannerModule.sectionDataList addObject:model];
         [self.dataList addObject:bannerModule];
         
-//        XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
-//        asingleCellModel.specialIdentifier = [XLHeaderCollectionViewCell cellIdentifierl];
-//        asingleCellModel.dataSource = @"分类";
-//        YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
-//        asingleModule.minimumInteritemSpacing = 2;
-//        [asingleModule.sectionDataList addObject:asingleCellModel];
-//        [self.dataList addObject:asingleModule];
+        XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
+        asingleCellModel.specialIdentifier = [XLHeaderCollectionViewCell cellIdentifierl];
+        asingleCellModel.dataSource = @"选择配件";
+        YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
+        asingleModule.minimumInteritemSpacing = 1;
+        [asingleModule.sectionDataList addObject:asingleCellModel];
+        [self.dataList addObject:asingleModule];
     }];
     
     [chainRequest addRequest:categoryApi callback:^(YTKChainRequest * _Nonnull chainRequest, YTKBaseRequest * _Nonnull baseRequest) {
@@ -138,7 +139,9 @@
 
 -(void)ysCollectionViewBannerCell:(YSCollectionViewBannerCell *)cell jumpModel:(AdInfoModel *)model
 {
-    NSLog(@"%@", model.link_url);
+    WKWebViewController *web = [[WKWebViewController alloc] init];
+    web.url = model.link_url;
+    [self.navigationController pushViewController:web animated:YES];
 }
 
 #pragma mark - setter and getter
@@ -154,7 +157,8 @@
             collectionView.showsVerticalScrollIndicator = YES;
             collectionView.dataSource = self;
             collectionView.delegate = self;
-            collectionView.backgroundColor = [UIColor whiteColor];
+            collectionView.alwaysBounceVertical = YES;
+            collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
             collectionView;
         });
     }

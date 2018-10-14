@@ -27,7 +27,7 @@
     return self;
 }
 
--(NSArray *)childRowsCalculateFramesWithBottomOffset:(CGFloat)bottomoffset section:(NSInteger)section rows:(NSInteger)rows
+-(NSArray *)childRowsCalculateFramesWithBottomOffset:(CGFloat)bottomoffset section:(NSInteger)section
 {
     NSMutableArray *attributeList = [NSMutableArray arrayWithCapacity:1];
     

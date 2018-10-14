@@ -58,10 +58,11 @@
 -(void)showToaster:(NSString *)message
 {
     MBProgressHUD *hud = [WINDOW viewWithTag:1004];
-    if (!hud) {
-        hud = [[MBProgressHUD alloc] initWithView:WINDOW];
-        hud.tag = 1004;
+    if (hud) {
+        [hud hideAnimated:NO];
     }
+    hud = [[MBProgressHUD alloc] initWithView:WINDOW];
+    hud.tag = 1004;
     hud.mode = MBProgressHUDModeText;
     hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
     hud.bezelView.backgroundColor = [UIColor blackColor];

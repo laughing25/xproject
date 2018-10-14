@@ -67,6 +67,8 @@
             UITextField *textField = [[UITextField alloc] init];
             textField.font = [UIFont systemFontOfSize:12];
             textField.textColor = [UIColor whiteColor];
+            textField.autocorrectionType = UITextAutocorrectionTypeNo;
+            textField.keyboardType = UIKeyboardTypeASCIICapable;
             textField;
         });
     }

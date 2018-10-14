@@ -18,6 +18,7 @@
 >
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataList;
+@property (nonatomic, assign) NSInteger pageIndex;
 @end
 
 @implementation MyOrderListViewController
@@ -38,13 +39,12 @@
 
 - (void)requestData
 {
-    GainOrderListApi *api = [[GainOrderListApi alloc] initWithOrderNum:@"201809161459245924112"];
+    GainOrderListApi *api = [[GainOrderListApi alloc] initWithOrderNum:@""];
     [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
     [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)
         NSArray *orderList = [request requestResponseArrayData:[OrderModel class]];
-        NSLog(@"%@", orderList);
         if ([orderList count]) {
             [self.dataList addObjectsFromArray:orderList];
             [self.tableView reloadData];
@@ -76,7 +76,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MyOrderListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.orderModel = self.dataList[indexPath.row];
+    cell.orderModel = self.dataList[indexPath.section];
     return cell;
 }
 
@@ -114,7 +114,7 @@
             [tableView registerClass:[MyOrderListTableViewCell class] forCellReuseIdentifier:@"Cell"];
             [tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"CellHeader"];
             
-            tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh:)];
+//            tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh:)];
             
             tableView;
         });

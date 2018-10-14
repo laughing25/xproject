@@ -30,13 +30,17 @@
 {
     NSString *klassString = NSStringFromClass([self CollectionDatasourceClass]);
     if ([klassString isEqualToString:@"ProductDetailNameCell"]) {
-        ProductModel *model = (ProductModel *)self.dataSource;
-        
+//        ProductModel *model = (ProductModel *)self.dataSource;
         return CGSizeMake(KScreenWidth, 80);
     }else if ([klassString isEqualToString:@"ProductSKUCell"]){
         return CGSizeMake(KScreenWidth, 44);
     }else if ([klassString isEqualToString:@"ProductSelectNumCell"]){
         return CGSizeMake(KScreenWidth, 44);
+    }else if ([klassString isEqualToString:@"WebViewCollectionViewCell"]){
+        if (CGSizeEqualToSize(self.modelSize, CGSizeZero)) {
+            return CGSizeMake(KScreenWidth, 80);
+        }
+        return self.modelSize;
     }
     return CGSizeMake(KScreenWidth, 60);
 }

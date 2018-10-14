@@ -34,7 +34,7 @@
         
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.cellImageView.mas_top);
-            make.trailing.mas_equalTo(self.cellImageView.mas_leading).mas_offset(10);
+            make.trailing.mas_equalTo(self.cellImageView.mas_leading).mas_offset(-10);
             make.leading.mas_equalTo(self.mas_leading).mas_offset(10);
         }];
     }

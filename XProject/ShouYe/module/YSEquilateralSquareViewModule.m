@@ -29,8 +29,9 @@
     return self;
 }
 
--(NSArray *)childRowsCalculateFramesWithBottomOffset:(CGFloat)bottomoffset section:(NSInteger)section rows:(NSInteger)rows
+-(NSArray *)childRowsCalculateFramesWithBottomOffset:(CGFloat)bottomoffset section:(NSInteger)section
 {
+    NSInteger rows = [self rowsNumInSection];
     NSMutableArray *attributeList = [NSMutableArray arrayWithCapacity:rows];
 
     CGFloat screenWidth = KScreenWidth;

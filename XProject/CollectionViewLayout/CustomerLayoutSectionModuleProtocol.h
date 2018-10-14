@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger) {
 
 -(UICollectionViewLayoutAttributes *)headerFooterKind:(NSString *)kind bottomOffset:(CGFloat)bottomOffset section:(NSUInteger)section;
 
--(NSArray *)childRowsCalculateFramesWithBottomOffset:(CGFloat)bottomoffset section:(NSInteger)section rows:(NSInteger)rows;
+-(NSArray *)childRowsCalculateFramesWithBottomOffset:(CGFloat)bottomoffset section:(NSInteger)section;
 
 -(CGFloat)rowsNumInSection;
 

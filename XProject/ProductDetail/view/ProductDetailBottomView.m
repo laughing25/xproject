@@ -36,6 +36,15 @@
             make.top.bottom.mas_equalTo(self);
             make.width.mas_equalTo(self.mas_width).multipliedBy(0.35);
         }];
+        
+        UIView *line = [UIView new];
+        line.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        [self addSubview:line];
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.trailing.mas_equalTo(self);
+            make.top.mas_equalTo(self.mas_top);
+            make.height.mas_offset(1);
+        }];
     }
     return self;
 }

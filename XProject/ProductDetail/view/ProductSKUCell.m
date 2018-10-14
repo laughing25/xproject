@@ -54,7 +54,7 @@
     if ([_model.dataSource isKindOfClass:[ProductModel class]]) {
         ProductModel *pModel = (ProductModel *)_model.dataSource;
         self.nameLabel.text = @"手机型号";
-        self.SKULabel.text = pModel.sku;
+        self.SKULabel.text = pModel.productName;
     }
 }
 

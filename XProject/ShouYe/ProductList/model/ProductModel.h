@@ -23,7 +23,7 @@
 @property (nonatomic, copy) NSString *shortDesc;
 @property (nonatomic, copy) NSString *descriptions;
 @property (nonatomic, copy) NSString *focusImgUrl;
-@property (nonatomic, copy) NSString *thumbnailsUrl;
+@property (nonatomic, copy) NSString *thumbnailsUrll;
 @property (nonatomic, copy) NSString *costPrice;
 @property (nonatomic, copy) NSString *marketPrice;
 @property (nonatomic, copy) NSString *salePrice;

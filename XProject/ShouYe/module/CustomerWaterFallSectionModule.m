@@ -30,8 +30,9 @@
     return self;
 }
 
--(NSArray *)childRowsCalculateFramesWithBottomOffset:(CGFloat)bottomoffset section:(NSInteger)section rows:(NSInteger)rows
+-(NSArray *)childRowsCalculateFramesWithBottomOffset:(CGFloat)bottomoffset section:(NSInteger)section
 {
+    NSInteger rows = [self.sectionDataList count];
     NSMutableArray *attributeList = [NSMutableArray arrayWithCapacity:rows];
     
     [self.columnHeights removeAllObjects];

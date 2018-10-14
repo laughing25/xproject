@@ -106,6 +106,8 @@
 		FA37D7CD215E6F8C00088A3E /* IQUIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA37D7BE215E6F8C00088A3E /* IQUIViewController+Additions.m */; };
 		FA37D7CE215E6F8C00088A3E /* IQKeyboardReturnKeyHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FA37D7C0215E6F8C00088A3E /* IQKeyboardReturnKeyHandler.m */; };
 		FA37D7D1215E71E900088A3E /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA37D7D0215E71E900088A3E /* ChangePasswordViewController.m */; };
+		FA37D7D4215FA11900088A3E /* ChangePasswordApi.m in Sources */ = {isa = PBXBuildFile; fileRef = FA37D7D3215FA11900088A3E /* ChangePasswordApi.m */; };
+		FA37D7D721631B0600088A3E /* WebViewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA37D7D621631B0600088A3E /* WebViewCollectionViewCell.m */; };
 		FA395783215BD3E6000BE03E /* XLHeaderCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA395782215BD3E6000BE03E /* XLHeaderCollectionViewCell.m */; };
 		FA395786215BD63F000BE03E /* CheckOrderApi.m in Sources */ = {isa = PBXBuildFile; fileRef = FA395785215BD63F000BE03E /* CheckOrderApi.m */; };
 		FA3C2D882153C84700D9A0B6 /* ProductSelectNumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C2D872153C84700D9A0B6 /* ProductSelectNumCell.m */; };
@@ -349,6 +351,10 @@
 		FA37D7C0215E6F8C00088A3E /* IQKeyboardReturnKeyHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardReturnKeyHandler.m; sourceTree = "<group>"; };
 		FA37D7CF215E71E900088A3E /* ChangePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		FA37D7D0215E71E900088A3E /* ChangePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		FA37D7D2215FA11900088A3E /* ChangePasswordApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordApi.h; sourceTree = "<group>"; };
+		FA37D7D3215FA11900088A3E /* ChangePasswordApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordApi.m; sourceTree = "<group>"; };
+		FA37D7D521631B0600088A3E /* WebViewCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewCollectionViewCell.h; sourceTree = "<group>"; };
+		FA37D7D621631B0600088A3E /* WebViewCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewCollectionViewCell.m; sourceTree = "<group>"; };
 		FA395781215BD3E6000BE03E /* XLHeaderCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLHeaderCollectionViewCell.h; sourceTree = "<group>"; };
 		FA395782215BD3E6000BE03E /* XLHeaderCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLHeaderCollectionViewCell.m; sourceTree = "<group>"; };
 		FA395784215BD63F000BE03E /* CheckOrderApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckOrderApi.h; sourceTree = "<group>"; };
@@ -606,6 +612,8 @@
 				7391081C2121A2FF00CCAEE8 /* XLWoDeViewController.m */,
 				FA37D7CF215E71E900088A3E /* ChangePasswordViewController.h */,
 				FA37D7D0215E71E900088A3E /* ChangePasswordViewController.m */,
+				FA37D7D2215FA11900088A3E /* ChangePasswordApi.h */,
+				FA37D7D3215FA11900088A3E /* ChangePasswordApi.m */,
 				73FE3F83212598CE00381CFA /* model */,
 				73FE3F84212598CE00381CFA /* view */,
 			);
@@ -708,6 +716,8 @@
 				FA30D8F8215290D1000D2F9F /* ProductSKUCell.m */,
 				FA3C2D862153C84700D9A0B6 /* ProductSelectNumCell.h */,
 				FA3C2D872153C84700D9A0B6 /* ProductSelectNumCell.m */,
+				FA37D7D521631B0600088A3E /* WebViewCollectionViewCell.h */,
+				FA37D7D621631B0600088A3E /* WebViewCollectionViewCell.m */,
 				FA35C7D32157DF4B00BEE500 /* ProductDetailBottomView.h */,
 				FA35C7D42157DF4B00BEE500 /* ProductDetailBottomView.m */,
 			);
@@ -1242,6 +1252,7 @@
 				FA34C8DA215532C100EC773D /* CWLateralSlideConfiguration.m in Sources */,
 				FA34C8D8215532C100EC773D /* CWLateralSlideAnimator.m in Sources */,
 				73C43A7F215611EC009F053A /* ProductListParentViewController.m in Sources */,
+				FA37D7D4215FA11900088A3E /* ChangePasswordApi.m in Sources */,
 				FA37D7CE215E6F8C00088A3E /* IQKeyboardReturnKeyHandler.m in Sources */,
 				73C43A532155D0B1009F053A /* GainOrderListApi.m in Sources */,
 				73C43A7621561179009F053A /* WMMenuView.m in Sources */,
@@ -1340,6 +1351,7 @@
 				73B2795721464259003034F0 /* XLProductDetailViewController.m in Sources */,
 				73FE3F9621259CF900381CFA /* ZFBottomToolView.m in Sources */,
 				FA35C7DB2158859B00BEE500 /* XLAddressDetailInfoModel.m in Sources */,
+				FA37D7D721631B0600088A3E /* WebViewCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1506,6 +1518,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8VQ23CCF6X;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/XProject/HeaderDefine/PrefixHeader.pch";
 				INFOPLIST_FILE = XProject/Info.plist;
@@ -1514,7 +1527,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xl.XProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phoneparts.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1527,6 +1540,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8VQ23CCF6X;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/XProject/HeaderDefine/PrefixHeader.pch";
 				INFOPLIST_FILE = XProject/Info.plist;
@@ -1535,7 +1549,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xl.XProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phoneparts.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
