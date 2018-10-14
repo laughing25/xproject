@@ -37,10 +37,10 @@
     CGFloat screenWidth = KScreenWidth;
     CGFloat width = screenWidth / self.customerColumn;
     
-    BOOL rightToLeft = YES;
-    
-    //总行数
-    int tempRow = 0;
+//    BOOL rightToLeft = YES;
+//
+//    //总行数
+//    int tempRow = 0;
     for (int i = 0; i < rows; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:section];
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
@@ -49,25 +49,38 @@
         if (height == 0) {
             height = width;
         }
-        if (i % self.customerColumn == 0) {
-            tempRow++;
-        }
-        float x = 0.0;
-        if (tempRow * self.customerColumn <= rows) {
-            NSInteger tempRowCount = rows <= self.customerColumn ? rows : self.customerColumn;
-            x = screenWidth / 2.0 - (tempRowCount / 2.0 * width) + i % tempRowCount * width;
-        }else{
-            NSInteger tempRowCount = self.customerColumn - (tempRow * self.customerColumn - rows);
-            x = screenWidth / 2.0 - (tempRowCount / 2.0 * width) + i % tempRowCount * width;
-        }
-        if (rightToLeft) {
-            x = screenWidth - x - width;
-        }
-        attributes.frame = CGRectMake(x, (i / self.customerColumn) * height + bottomoffset, width, height);
-
+        attributes.frame = CGRectMake((i % self.customerColumn) * width, (i / self.customerColumn) * height + bottomoffset, width, height);
         self.bottomOffset = CGRectGetMaxY(attributes.frame);
         [attributeList addObject:attributes];
     }
+    
+//    for (int i = 0; i < rows; i++) {
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:section];
+//        UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+//        id<CollectionDatasourceProtocol>cellModel = self.sectionDataList[i];
+//        CGFloat height = [cellModel dataSourceSize].height;
+//        if (height == 0) {
+//            height = width;
+//        }
+//        if (i % self.customerColumn == 0) {
+//            tempRow++;
+//        }
+//        float x = 0.0;
+//        if (tempRow * self.customerColumn <= rows) {
+//            NSInteger tempRowCount = rows <= self.customerColumn ? rows : self.customerColumn;
+//            x = screenWidth / 2.0 - (tempRowCount / 2.0 * width) + i % tempRowCount * width;
+//        }else{
+//            NSInteger tempRowCount = self.customerColumn - (tempRow * self.customerColumn - rows);
+//            x = screenWidth / 2.0 - (tempRowCount / 2.0 * width) + i % tempRowCount * width;
+//        }
+//        if (rightToLeft) {
+//            x = screenWidth - x - width;
+//        }
+//        attributes.frame = CGRectMake(x, (i / self.customerColumn) * height + bottomoffset, width, height);
+//
+//        self.bottomOffset = CGRectGetMaxY(attributes.frame);
+//        [attributeList addObject:attributes];
+//    }
     
     return [attributeList copy];
 }
