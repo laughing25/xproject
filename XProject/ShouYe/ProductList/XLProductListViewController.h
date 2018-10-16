@@ -11,6 +11,5 @@
 @interface XLProductListViewController : XLBaseViewController
 
 @property (nonatomic, copy) NSString *categoryid;
-@property (nonatomic, copy) NSString *catalogid;
 
 @end

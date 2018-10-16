@@ -50,13 +50,11 @@
 
 #pragma mark - setter and getter
 
--(void)setModel:(ProductModel *)model
+-(void)setModel:(ProductBranchModel *)model
 {
     _model = model;
-    
-    [self.productImage yy_setImageWithURL:[NSURL URLWithString:_model.focusImgUrl] placeholder:nil];
-    self.productNameLabel.text = _model.productName;
-    self.productPriceLabel.text = [NSString stringWithFormat:@"价格: ¥%@", _model.salePrice];
+    [self.productImage yy_setImageWithURL:[NSURL URLWithString:_model.ico_url] placeholder:nil];
+    self.productNameLabel.text = _model.title;
 }
 
 -(YYAnimatedImageView *)productImage
@@ -75,7 +73,6 @@
     if (!_productNameLabel) {
         _productNameLabel = ({
             UILabel *label = [[UILabel alloc] init];
-            label.text = @"test";
             label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor blackColor];
             label.font = [UIFont systemFontOfSize:12];

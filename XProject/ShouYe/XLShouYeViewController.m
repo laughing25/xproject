@@ -121,7 +121,7 @@
     if ([cellModel isKindOfClass:[CategoryModel class]]) {
         CategoryModel *model = (CategoryModel *)cellModel;
         XLProductListViewController *listVC = [[XLProductListViewController alloc] init];
-        listVC.categoryid = model.idField;
+        listVC.categoryid = [NSString stringWithFormat:@"%ld", model.wid];
         listVC.title = model.title;
         [self.navigationController pushViewController:listVC animated:YES];
     }

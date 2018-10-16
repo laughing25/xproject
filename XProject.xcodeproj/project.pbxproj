@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3FF72725994877353F02EA7D /* Pods_XProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8AD7D7CD28AF76A2086887 /* Pods_XProject.framework */; };
+		4BD77A5F217613C50045E8D4 /* GainProductBranchListApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A5E217613C50045E8D4 /* GainProductBranchListApi.m */; };
+		4BD77A62217617010045E8D4 /* ProductBranchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A61217617010045E8D4 /* ProductBranchModel.m */; };
 		738A57F120F4852A00B2F8BC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 738A57F020F4852A00B2F8BC /* AppDelegate.m */; };
 		738A57F920F4852B00B2F8BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 738A57F820F4852B00B2F8BC /* Assets.xcassets */; };
 		738A57FF20F4852B00B2F8BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 738A57FE20F4852B00B2F8BC /* main.m */; };
@@ -142,6 +144,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4BD77A5D217613C50045E8D4 /* GainProductBranchListApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GainProductBranchListApi.h; sourceTree = "<group>"; };
+		4BD77A5E217613C50045E8D4 /* GainProductBranchListApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GainProductBranchListApi.m; sourceTree = "<group>"; };
+		4BD77A60217617010045E8D4 /* ProductBranchModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductBranchModel.h; sourceTree = "<group>"; };
+		4BD77A61217617010045E8D4 /* ProductBranchModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductBranchModel.m; sourceTree = "<group>"; };
 		738A57EC20F4852A00B2F8BC /* XProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		738A57EF20F4852A00B2F8BC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		738A57F020F4852A00B2F8BC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -664,6 +670,8 @@
 				FA3C2D8D2153D5AA00D9A0B6 /* GainProductListApi.m */,
 				73C43A802156234D009F053A /* GainBranchListApi.h */,
 				73C43A812156234D009F053A /* GainBranchListApi.m */,
+				4BD77A5D217613C50045E8D4 /* GainProductBranchListApi.h */,
+				4BD77A5E217613C50045E8D4 /* GainProductBranchListApi.m */,
 				73B2792E21460967003034F0 /* model */,
 				73B2792F21460967003034F0 /* view */,
 			);
@@ -677,6 +685,8 @@
 				FA3C2D902153DC8500D9A0B6 /* ProductModel.m */,
 				73C43A83215623AF009F053A /* BranchModel.h */,
 				73C43A84215623AF009F053A /* BranchModel.m */,
+				4BD77A60217617010045E8D4 /* ProductBranchModel.h */,
+				4BD77A61217617010045E8D4 /* ProductBranchModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1291,7 +1301,9 @@
 				73FE3F6A21255E8900381CFA /* CustomerWaterFallSectionModule.m in Sources */,
 				FA34C8DD215532EA00EC773D /* XLProductListSlideViewController.m in Sources */,
 				FA34C8D9215532C100EC773D /* CWDrawerTransition.m in Sources */,
+				4BD77A62217617010045E8D4 /* ProductBranchModel.m in Sources */,
 				73C43A5F2155EAFD009F053A /* GainCategoryListApi.m in Sources */,
+				4BD77A5F217613C50045E8D4 /* GainProductBranchListApi.m in Sources */,
 				FA34C8D6215532C100EC773D /* CWInteractiveTransition.m in Sources */,
 				FA594701215132C50038EECA /* AccountModel.m in Sources */,
 				73FE3F7C2125730C00381CFA /* XLTitleCollectionViewCell.m in Sources */,

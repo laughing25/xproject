@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProductModel.h"
+#import "ProductBranchModel.h"
 
 @interface XLProductCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) ProductModel *model;
+@property (nonatomic, strong) ProductBranchModel *model;
 
 @end

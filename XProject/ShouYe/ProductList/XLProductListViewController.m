@@ -10,7 +10,8 @@
 #import "XLProductDetailViewController.h"
 #import "XLProductCollectionViewCell.h"
 #import "GainProductListApi.h"
-#import "ProductModel.h"
+#import "GainProductBranchListApi.h"
+#import "ProductBranchModel.h"
 #import "XLProductListSlideViewController.h"
 #import "UIViewController+CWLateralSlide.h"
 
@@ -32,7 +33,6 @@
     self = [super init];
     if (self) {
         self.categoryid = @"";
-        self.catalogid = @"";
         self.pageIndex = 1;
     }
     return self;
@@ -47,13 +47,13 @@
     }];
     
     //more button
-    UIButton *rightNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightNavBtn setFrame:CGRectMake(0, 0, NavBarButtonSize, NavBarButtonSize)];
-    [rightNavBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
-    rightNavBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
-    [rightNavBtn addTarget:self action:@selector(rightSearchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:rightNavBtn];
-    self.navigationItem.rightBarButtonItems = @[buttonItem];
+//    UIButton *rightNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [rightNavBtn setFrame:CGRectMake(0, 0, NavBarButtonSize, NavBarButtonSize)];
+//    [rightNavBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+//    rightNavBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
+//    [rightNavBtn addTarget:self action:@selector(rightSearchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:rightNavBtn];
+//    self.navigationItem.rightBarButtonItems = @[buttonItem];
     
     [self requestProductList];
 }
@@ -62,15 +62,14 @@
 
 -(void)requestProductList
 {
-    NSString *index = [NSString stringWithFormat:@"%ld", self.pageIndex];
-    GainProductListApi *api = [[GainProductListApi alloc] initWithPageIndex:index categoryid:self.categoryid catalogid:self.catalogid];
+    self.categoryid = @"12";
+    GainProductBranchListApi *api = [[GainProductBranchListApi alloc] initWithPid:self.categoryid];
     [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
     [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)
-        NSArray *dataList = [request requestResponseArrayData:[ProductModel class]];
+        NSArray *dataList = [request requestResponseArrayData:[ProductBranchModel class]];
         if ([dataList count]) {
-            self.pageIndex++;
             if ([self.collectionView.mj_header isRefreshing]) {
                 [self.dataList removeAllObjects];
             }
@@ -104,8 +103,8 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     XLProductDetailViewController *detailVC = [[XLProductDetailViewController alloc] init];
-    ProductModel *model = self.dataList[indexPath.row];
-    detailVC.productId = model.productId;
+    ProductBranchModel *model = self.dataList[indexPath.row];
+    detailVC.productId = model.pid;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
@@ -125,7 +124,6 @@
 -(void)XLProductListSlideViewControllerDidClick:(BranchModel *)model
 {
     self.categoryid = model.wid;
-    self.catalogid = model.branchId;
     [self requestProductList];
 }
 
@@ -158,11 +156,11 @@
             collectionView.showsVerticalScrollIndicator = NO;
             [collectionView registerClass:[XLProductCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
             
-            collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh:)];
-            
-            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh:)];
-            header.ignoredScrollViewContentInsetTop = 15;
-            collectionView.mj_header = header;
+//            collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh:)];
+//
+//            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh:)];
+//            header.ignoredScrollViewContentInsetTop = 15;
+//            collectionView.mj_header = header;
             
             collectionView;
         });
