@@ -62,7 +62,6 @@
 
 -(void)requestProductList
 {
-    self.categoryid = @"12";
     GainProductBranchListApi *api = [[GainProductBranchListApi alloc] initWithPid:self.categoryid];
     [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
@@ -77,7 +76,7 @@
             [self.collectionView reloadData];
             [self.collectionView.mj_footer endRefreshing];
             [self.collectionView.mj_header endRefreshing];
-        }else{
+        }else{	
             [self.collectionView.mj_header endRefreshing];
             [self.collectionView.mj_footer endRefreshingWithNoMoreData];
         }
@@ -104,7 +103,7 @@
 {
     XLProductDetailViewController *detailVC = [[XLProductDetailViewController alloc] init];
     ProductBranchModel *model = self.dataList[indexPath.row];
-    detailVC.productId = model.pid;
+    detailVC.productId = @"26";//model.pid;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

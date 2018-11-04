@@ -10,6 +10,9 @@
 		3FF72725994877353F02EA7D /* Pods_XProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8AD7D7CD28AF76A2086887 /* Pods_XProject.framework */; };
 		4BD77A5F217613C50045E8D4 /* GainProductBranchListApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A5E217613C50045E8D4 /* GainProductBranchListApi.m */; };
 		4BD77A62217617010045E8D4 /* ProductBranchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A61217617010045E8D4 /* ProductBranchModel.m */; };
+		4BD77A68218B3A9D0045E8D4 /* ProductDetailSkuModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A67218B3A9D0045E8D4 /* ProductDetailSkuModule.m */; };
+		4BD77A6B218B3E980045E8D4 /* ProductDetailSkuCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A6A218B3E980045E8D4 /* ProductDetailSkuCellModel.m */; };
+		4BD77A6E218B3F020045E8D4 /* ProductSkuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A6D218B3F020045E8D4 /* ProductSkuCollectionViewCell.m */; };
 		738A57F120F4852A00B2F8BC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 738A57F020F4852A00B2F8BC /* AppDelegate.m */; };
 		738A57F920F4852B00B2F8BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 738A57F820F4852B00B2F8BC /* Assets.xcassets */; };
 		738A57FF20F4852B00B2F8BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 738A57FE20F4852B00B2F8BC /* main.m */; };
@@ -148,6 +151,12 @@
 		4BD77A5E217613C50045E8D4 /* GainProductBranchListApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GainProductBranchListApi.m; sourceTree = "<group>"; };
 		4BD77A60217617010045E8D4 /* ProductBranchModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductBranchModel.h; sourceTree = "<group>"; };
 		4BD77A61217617010045E8D4 /* ProductBranchModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductBranchModel.m; sourceTree = "<group>"; };
+		4BD77A66218B3A9D0045E8D4 /* ProductDetailSkuModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductDetailSkuModule.h; sourceTree = "<group>"; };
+		4BD77A67218B3A9D0045E8D4 /* ProductDetailSkuModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductDetailSkuModule.m; sourceTree = "<group>"; };
+		4BD77A69218B3E980045E8D4 /* ProductDetailSkuCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductDetailSkuCellModel.h; sourceTree = "<group>"; };
+		4BD77A6A218B3E980045E8D4 /* ProductDetailSkuCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductDetailSkuCellModel.m; sourceTree = "<group>"; };
+		4BD77A6C218B3F020045E8D4 /* ProductSkuCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductSkuCollectionViewCell.h; sourceTree = "<group>"; };
+		4BD77A6D218B3F020045E8D4 /* ProductSkuCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductSkuCollectionViewCell.m; sourceTree = "<group>"; };
 		738A57EC20F4852A00B2F8BC /* XProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		738A57EF20F4852A00B2F8BC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		738A57F020F4852A00B2F8BC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -417,6 +426,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4BD77A65218B3A7D0045E8D4 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				4BD77A66218B3A9D0045E8D4 /* ProductDetailSkuModule.h */,
+				4BD77A67218B3A9D0045E8D4 /* ProductDetailSkuModule.m */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
 		738A57E320F4852A00B2F8BC = {
 			isa = PBXGroup;
 			children = (
@@ -711,6 +729,7 @@
 				FA395785215BD63F000BE03E /* CheckOrderApi.m */,
 				FA3C2D952153E61700D9A0B6 /* ProductDetailModel.h */,
 				FA3C2D962153E61700D9A0B6 /* ProductDetailModel.m */,
+				4BD77A65218B3A7D0045E8D4 /* Module */,
 				73B2795421464244003034F0 /* model */,
 				73B2795321464244003034F0 /* view */,
 			);
@@ -726,6 +745,8 @@
 				FA30D8F8215290D1000D2F9F /* ProductSKUCell.m */,
 				FA3C2D862153C84700D9A0B6 /* ProductSelectNumCell.h */,
 				FA3C2D872153C84700D9A0B6 /* ProductSelectNumCell.m */,
+				4BD77A6C218B3F020045E8D4 /* ProductSkuCollectionViewCell.h */,
+				4BD77A6D218B3F020045E8D4 /* ProductSkuCollectionViewCell.m */,
 				FA37D7D521631B0600088A3E /* WebViewCollectionViewCell.h */,
 				FA37D7D621631B0600088A3E /* WebViewCollectionViewCell.m */,
 				FA35C7D32157DF4B00BEE500 /* ProductDetailBottomView.h */,
@@ -739,6 +760,8 @@
 			children = (
 				FA30D8F421528E45000D2F9F /* ProductDetailCellModel.h */,
 				FA30D8F521528E45000D2F9F /* ProductDetailCellModel.m */,
+				4BD77A69218B3E980045E8D4 /* ProductDetailSkuCellModel.h */,
+				4BD77A6A218B3E980045E8D4 /* ProductDetailSkuCellModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1277,6 +1300,7 @@
 				73FE3FAD2125AB6400381CFA /* XLAddressDetailViewController.m in Sources */,
 				73AE801F213D1426002F99E3 /* MyOrderListTableViewCell.m in Sources */,
 				73AE8016213D0E45002F99E3 /* XLCollectionViewBannerCellModel.m in Sources */,
+				4BD77A6B218B3E980045E8D4 /* ProductDetailSkuCellModel.m in Sources */,
 				739107FA2121946400CCAEE8 /* XLTabBarController.m in Sources */,
 				FA37D7C9215E6F8C00088A3E /* IQNSArray+Sort.m in Sources */,
 				FA34C8D7215532C100EC773D /* UIViewController+CWLateralSlide.m in Sources */,
@@ -1314,6 +1338,7 @@
 				7398DF64213E0C7100F66BD6 /* XLCollectionViewAsingleCellModel.m in Sources */,
 				FA35C7D22157812700BEE500 /* XLMineTableViewCell.m in Sources */,
 				FA395786215BD63F000BE03E /* CheckOrderApi.m in Sources */,
+				4BD77A6E218B3F020045E8D4 /* ProductSkuCollectionViewCell.m in Sources */,
 				73FE3F7221255EC200381CFA /* YSCustomerThemeMultipleModule.m in Sources */,
 				73C43A7921561179009F053A /* WMPageController.m in Sources */,
 				FA3C2D972153E61700D9A0B6 /* ProductDetailModel.m in Sources */,
@@ -1333,6 +1358,7 @@
 				FA5946FB215127000038EECA /* LoginApi.m in Sources */,
 				FA3C2D912153DC8500D9A0B6 /* ProductModel.m in Sources */,
 				73C43A592155D50F009F053A /* YTKBaseRequest+Tools.m in Sources */,
+				4BD77A68218B3A9D0045E8D4 /* ProductDetailSkuModule.m in Sources */,
 				73FE3FB02125AB8000381CFA /* XLAddressDetailTableViewCell.m in Sources */,
 				FA37D7C2215E6F8C00088A3E /* IQToolbar.m in Sources */,
 				738A57FF20F4852B00B2F8BC /* main.m in Sources */,

@@ -87,7 +87,6 @@
     if (!_productPriceLabel) {
         _productPriceLabel = ({
             UILabel *label = [[UILabel alloc] init];
-            label.text = @"test";
             label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor blackColor];
             label.font = [UIFont systemFontOfSize:12];

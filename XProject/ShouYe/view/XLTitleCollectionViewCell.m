@@ -50,6 +50,7 @@
     TitleModel *titleModel = (TitleModel *)model.dataSource;
     self.titleLabel.text = titleModel.title;
     self.titleLabel.textAlignment = titleModel.alignment;
+    self.titleLabel.textColor = titleModel.titleColor;
 }
 
 - (UILabel *)titleLabel
@@ -70,5 +71,14 @@
 @end
 
 @implementation TitleModel
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.titleColor = [UIColor blackColor];
+    }
+    return self;
+}
 
 @end

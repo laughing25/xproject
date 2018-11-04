@@ -13,10 +13,12 @@
 #import "ProductModel.h"
 
 #import "YSAsingleViewModule.h"
+#import "ProductDetailSkuModule.h"
 
 #import "XLCollectionViewBannerCellModel.h"
 #import "ProductDetailCellModel.h"
 #import "XLCollectionViewAsingleCellModel.h"
+#import "ProductDetailSkuCellModel.h"
 
 #import "WebViewCollectionViewCell.h"
 #import "ProductDetailBottomView.h"
@@ -79,6 +81,7 @@
 
 -(void)requestProductDetail
 {
+    self.productId = @"27";
     GainProductDetailApi *api = [[GainProductDetailApi alloc] initWithProductId:self.productId];
     [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
@@ -109,21 +112,34 @@
             [nameModule.sectionDataList addObject:detailCellModel];
             [self.dataList addObject:nameModule];
             
-            YSAsingleViewModule *skuModule = [[YSAsingleViewModule alloc] init];
-            skuModule.minimumInteritemSpacing = 1;
-            ProductDetailCellModel *skuCellModel = [[ProductDetailCellModel alloc] init];
-            skuCellModel.dataSource = productModel;
-            skuCellModel.specialIdentifier = [ProductSKUCell cellIdentifierl];
-            [skuModule.sectionDataList addObject:skuCellModel];
-            [self.dataList addObject:skuModule];
+//            YSAsingleViewModule *skuModule = [[YSAsingleViewModule alloc] init];
+//            skuModule.minimumInteritemSpacing = 1;
+//            ProductDetailCellModel *skuCellModel = [[ProductDetailCellModel alloc] init];
+//            skuCellModel.dataSource = productModel;
+//            skuCellModel.specialIdentifier = [ProductSKUCell cellIdentifierl];
+//            [skuModule.sectionDataList addObject:skuCellModel];
+//            [self.dataList addObject:skuModule];
             
-            YSAsingleViewModule *selectModule = [[YSAsingleViewModule alloc] init];
-            ProductDetailCellModel *selectCellModel = [[ProductDetailCellModel alloc] init];
-            selectCellModel.dataSource = productModel;
-            selectCellModel.specialIdentifier = [ProductSelectNumCell cellIdentifierl];
-            [selectModule.sectionDataList addObject:selectCellModel];
-            [self.dataList addObject:selectModule];
-            
+//            YSAsingleViewModule *selectModule = [[YSAsingleViewModule alloc] init];
+//            ProductDetailCellModel *selectCellModel = [[ProductDetailCellModel alloc] init];
+//            selectCellModel.dataSource = productModel;
+//            selectCellModel.specialIdentifier = [ProductSelectNumCell cellIdentifierl];
+//            [selectModule.sectionDataList addObject:selectCellModel];
+//            [self.dataList addObject:selectModule];
+            for (int i = 0; i < 5; i++) {
+                ProductDetailSkuModule *skuModule = [[ProductDetailSkuModule alloc] init];
+                skuModule.minimumInteritemSpacing = 10;
+                for (int j = 0; j < 5; j++) {
+                    NSInteger random = arc4random()%10 + 5;
+                    ProductDetailSkuCellModel *cellModel = [[ProductDetailSkuCellModel alloc] init];
+                    cellModel.specialIdentifier = NSStringFromClass(ProductSkuCollectionViewCell.class);
+                    NSString *sku = @"这是一个SKU这是一个SKU这是一个SKU这是一个SKU这是一个SKU这是一个SKU";
+                    cellModel.skuName = [sku substringWithRange:NSMakeRange(0, random)];
+                    [skuModule.sectionDataList addObject:cellModel];
+                }
+                [self.dataList addObject:skuModule];
+            }
+
             XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
             asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
             TitleModel *titleModel = [[TitleModel alloc] init];
@@ -194,6 +210,25 @@
     return (UICollectionViewCell *)cell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<CustomerLayoutSectionModuleProtocol>sectionModule = self.dataList[indexPath.section];
+    id<CollectionDatasourceProtocol>cellModel = sectionModule.sectionDataList[indexPath.row];
+    if ([cellModel isKindOfClass:[ProductDetailSkuCellModel class]]) {
+        [sectionModule.sectionDataList enumerateObjectsUsingBlock:^(id<CollectionDatasourceProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ProductDetailSkuCellModel *skuModel = (ProductDetailSkuCellModel *)obj;
+            if (idx == indexPath.row) {
+                skuModel.isSelect = YES;
+            }else{
+                skuModel.isSelect = NO;
+            }
+        }];
+        [self.layout reloadSection:indexPath.section];
+        [collectionView reloadData];
+        return;
+    }
+}
+
 #pragma mark - layout datasource
 
 -(id<CustomerLayoutSectionModuleProtocol>)customerLayoutDatasource:(UICollectionView *)collectionView sectionNum:(NSInteger)section
@@ -235,7 +270,7 @@
             collectionView.showsVerticalScrollIndicator = YES;
             collectionView.dataSource = self;
             collectionView.delegate = self;
-            collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            collectionView.backgroundColor = [UIColor whiteColor];
             collectionView.contentInset = UIEdgeInsetsMake(0, 0, 5, 0);
             collectionView;
         });
