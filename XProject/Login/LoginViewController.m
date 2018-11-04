@@ -53,7 +53,7 @@
         make.leading.mas_equalTo(self.view.mas_leading).mas_offset(25);
         make.trailing.mas_equalTo(self.view.mas_trailing).mas_offset(-25);
         make.bottom.mas_equalTo(self.view.mas_bottom).mas_offset(-60);
-        make.height.mas_offset(55);
+        make.height.mas_offset(44);
     }];
     
     [self.backgroundImage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -135,11 +135,11 @@
     if (!_loginButton) {
         _loginButton = ({
             UIButton *button = [[UIButton alloc] init];
-            button.backgroundColor = [UIColor redColor];
+            button.backgroundColor = [UIColor colorWithHexColorString:@"4D4DFF"];
             [button setTitle:@"登录" forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button addTarget:self action:@selector(loginButtonAction) forControlEvents:UIControlEventTouchUpInside];
-            button.layer.cornerRadius = 55/2;
+            button.layer.cornerRadius = 5;
             button;
         });
     }
