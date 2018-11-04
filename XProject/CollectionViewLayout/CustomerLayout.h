@@ -63,6 +63,11 @@ static NSString * CollectionViewSectionBackground = @"CollectionViewSectionBackg
  */
 -(void)reloadSection:(NSInteger)section;
 
+/*
+    刷新某个cell,去匹配当前cell，如果发现cell的高度未发生变化，则沿用当前的布局格式，不重新布局
+ */
+-(void)reloadIndexPath:(NSIndexPath *)indexPath;
+
 -(CGFloat)customerLastSectionFirstViewTop;
 
 /*
