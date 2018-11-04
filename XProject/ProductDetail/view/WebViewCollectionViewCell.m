@@ -65,11 +65,11 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (self.delegate && [self.delegate respondsToSelector:@selector(WebViewCollectionViewCellReloadHeight:height:)]) {
                     [self.activityView stopAnimating];
-                    self.webView.frame = CGRectMake(0, 0, self.webView.frame.size.width, heightStr.floatValue);
-                    [self.delegate WebViewCollectionViewCellReloadHeight:self height:heightStr.floatValue * rotia];
+                    self.webHeight = heightStr.floatValue * rotia;
+                    self.webView.frame = CGRectMake(0, 0, self.webView.frame.size.width, self.webHeight);
+                    [self.delegate WebViewCollectionViewCellReloadHeight:self height:self.webHeight];
                 }
             });
-            
         }];
     }];
 }
@@ -82,7 +82,13 @@
             ProductDetailCellModel *cellModel = _model;
             if (!cellModel.isReload) {
                 ProductModel *product = (ProductModel *)_model.dataSource;
-                [self.webView loadHTMLString:product.descriptions baseURL:nil];
+                if (self.webHeight > 0) {
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(WebViewCollectionViewCellReloadHeight:height:)]) {
+                        [self.delegate WebViewCollectionViewCellReloadHeight:self height:self.webHeight];
+                    }
+                }else{
+                    [self.webView loadHTMLString:product.descriptions baseURL:nil];
+                }
             }
         }
     }

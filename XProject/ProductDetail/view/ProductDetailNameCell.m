@@ -58,12 +58,11 @@
     
     if ([_model.dataSource isKindOfClass:[ProductModel class]]) {
         ProductModel *pModel = (ProductModel *)_model.dataSource;
-        if (pModel.shortDesc.length) {
-            self.nameLabel.text = pModel.shortDesc;
+        if (pModel.productName.length) {
+            self.nameLabel.text = pModel.productName;
         }else{
             self.nameLabel.text = @"商品名";
         }
-        self.priceLabel.text = [NSString stringWithFormat:@"¥ %@", pModel.salePrice];
     }
 }
 

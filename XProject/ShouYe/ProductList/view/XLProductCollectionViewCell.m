@@ -13,7 +13,7 @@
 @property (nonatomic, strong) YYAnimatedImageView *productImage;
 @property (nonatomic, strong) UILabel *productNameLabel;
 @property (nonatomic, strong) UILabel *productPriceLabel;
-
+@property (nonatomic, strong) UILabel *productDesLabel;
 @end
 
 @implementation XLProductCollectionViewCell
@@ -25,6 +25,7 @@
         [self addSubview:self.productImage];
         [self addSubview:self.productNameLabel];
         [self addSubview:self.productPriceLabel];
+        [self addSubview:self.productDesLabel];
         
         [self.productImage mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.mas_equalTo(self);
@@ -44,6 +45,12 @@
             make.leading.mas_equalTo(self.productImage.mas_trailing).mas_offset(10);
             make.trailing.mas_equalTo(self.mas_trailing).mas_offset(10);
         }];
+        
+        [self.productDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.mas_equalTo(self.productNameLabel);
+            make.trailing.mas_equalTo(self.mas_trailing).mas_offset(-10);
+            make.top.mas_equalTo(self.productNameLabel.mas_bottom).mas_offset(10);
+        }];
     }
     return self;
 }
@@ -55,6 +62,7 @@
     _model = model;
     [self.productImage yy_setImageWithURL:[NSURL URLWithString:_model.ico_url] placeholder:nil];
     self.productNameLabel.text = _model.title;
+    self.productDesLabel.text = _model.class_content;
 }
 
 -(YYAnimatedImageView *)productImage
@@ -94,6 +102,21 @@
         });
     }
     return _productPriceLabel;
+}
+
+-(UILabel *)productDesLabel
+{
+    if (!_productDesLabel) {
+        _productDesLabel = ({
+            UILabel *label = [[UILabel alloc] init];
+            label.textAlignment = NSTextAlignmentLeft;
+            label.textColor = [UIColor colorWithHexColorString:@"666666"];
+            label.font = [UIFont systemFontOfSize:12];
+            label.numberOfLines = 3;
+            label;
+        });
+    }
+    return _productDesLabel;
 }
 
 @end

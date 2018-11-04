@@ -39,6 +39,7 @@
 @property (nonatomic, assign) NSInteger selectNums;
 @property (nonatomic, strong) CustomerLayout *layout;
 @property (nonatomic, strong) NSMutableArray<ProductAttrItemModel *> *selectAttrItemList;
+@property (nonatomic, assign) CGFloat productDetailheight;
 @end
 
 @implementation XLProductDetailViewController
@@ -49,6 +50,7 @@
     self.locailModel.locailAddSelector(self, @selector(setTitle:), @"商品详情", nil);
     self.locailModel.locailKey = @"Home";
     self.selectNums = 1;
+    self.productDetailheight = 0;
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.top.trailing.mas_equalTo(self.view);
@@ -81,7 +83,6 @@
 
 -(void)requestProductDetail
 {
-    self.productId = @"30";
     GainProductDetailApi *api = [[GainProductDetailApi alloc] initWithProductId:self.productId];
     [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
@@ -111,14 +112,42 @@
             detailCellModel.specialIdentifier = [ProductDetailNameCell cellIdentifierl];
             [nameModule.sectionDataList addObject:detailCellModel];
             [self.dataList addObject:nameModule];
-
-            for (int i = 0; i < [productModel.productattrlist count]; i++) {
-                ProductAttrModel *attrModel = productModel.productattrlist[i];
-                
+ 
+//            for (int i = 0; i < [productModel.productattrlist count]; i++) {
+//                ProductAttrModel *attrModel = productModel.productattrlist[i];
+//
+//                XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
+//                asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
+//                TitleModel *titleModel = [[TitleModel alloc] init];
+//                titleModel.title = attrModel.AttrName;
+//                titleModel.alignment = NSTextAlignmentLeft;
+//                titleModel.titleColor = [UIColor colorWithHexColorString:@"666666"];
+//                titleModel.backgroundColor = [UIColor whiteColor];
+//                asingleCellModel.dataSource = titleModel;
+//                YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
+//                [asingleModule.sectionDataList addObject:asingleCellModel];
+//                [self.dataList addObject:asingleModule];
+//
+//                ProductDetailSkuModule *skuModule = [[ProductDetailSkuModule alloc] init];
+//                skuModule.minimumInteritemSpacing = 10;
+//                for (int j = 0; j < [attrModel.list count]; j++) {
+//                    ProductAttrItemModel *attrItemModel = attrModel.list[j];
+//                    ProductDetailSkuCellModel *cellModel = [[ProductDetailSkuCellModel alloc] init];
+//                    cellModel.specialIdentifier = NSStringFromClass(ProductSkuCollectionViewCell.class);
+//                    NSString *sku = [NSString stringWithFormat:@"%@(¥%@)", attrItemModel.AttrValue, attrItemModel.AttrPrice];
+//                    cellModel.skuName = sku;
+//                    cellModel.dataSource = attrItemModel;
+//                    [skuModule.sectionDataList addObject:cellModel];
+//                }
+//                [self.dataList addObject:skuModule];
+//            }
+            
+            for (int i = 0; i < 10; i++) {
+                ProductAttrModel *attrModel = [[ProductAttrModel alloc] init];
                 XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
                 asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
                 TitleModel *titleModel = [[TitleModel alloc] init];
-                titleModel.title = attrModel.AttrName;
+                titleModel.title = @"测试名字";//attrModel.AttrName;
                 titleModel.alignment = NSTextAlignmentLeft;
                 titleModel.titleColor = [UIColor colorWithHexColorString:@"666666"];
                 titleModel.backgroundColor = [UIColor whiteColor];
@@ -126,11 +155,13 @@
                 YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
                 [asingleModule.sectionDataList addObject:asingleCellModel];
                 [self.dataList addObject:asingleModule];
-                
+
                 ProductDetailSkuModule *skuModule = [[ProductDetailSkuModule alloc] init];
                 skuModule.minimumInteritemSpacing = 10;
-                for (int j = 0; j < [attrModel.list count]; j++) {
-                    ProductAttrItemModel *attrItemModel = attrModel.list[j];
+                for (int j = 0; j < 5; j++) {
+                    ProductAttrItemModel *attrItemModel = [[ProductAttrItemModel alloc] init];
+                    attrItemModel.AttrValue = @"测试SKU";
+                    attrItemModel.AttrPrice = @"128";
                     ProductDetailSkuCellModel *cellModel = [[ProductDetailSkuCellModel alloc] init];
                     cellModel.specialIdentifier = NSStringFromClass(ProductSkuCollectionViewCell.class);
                     NSString *sku = [NSString stringWithFormat:@"%@(¥%@)", attrItemModel.AttrValue, attrItemModel.AttrPrice];
@@ -244,13 +275,19 @@
     return module;
 }
 
+static bool image = true;
 -(CustomerBackgroundAttributes *)customerLayoutSectionAttributes:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)layout indexPath:(NSIndexPath *)indexPath
 {
     id<CustomerLayoutSectionModuleProtocol>sectionModule = self.dataList[indexPath.section];
     id<CollectionDatasourceProtocol>cellModel = sectionModule.sectionDataList[indexPath.row];
     if ([cellModel isKindOfClass:[ProductDetailSkuCellModel class]]) {
         CustomerBackgroundAttributes *attribues = [CustomerBackgroundAttributes layoutAttributesForDecorationViewOfKind:CollectionViewSectionBackground withIndexPath:indexPath];
-        attribues.backgroundColor = [UIColor whiteColor];
+        CGFloat red = arc4random()%255 / 255.0;
+        CGFloat green = arc4random()%255 / 255.0;
+        CGFloat blue = arc4random()%255 / 255.0;
+        attribues.backgroundColor = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+        image = !image;
+        attribues.backgroundImage = image ?[UIImage imageNamed:@"my_bgimg"] : [UIImage imageNamed:@"loginBg"];
         attribues.bottomOffset = 1;
         return attribues;
     }
@@ -268,6 +305,9 @@
 {
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     id<CustomerLayoutSectionModuleProtocol>sectionModule = self.dataList[indexPath.section];
+    if (!indexPath) {
+        sectionModule = [self.dataList lastObject];
+    }
     id<CollectionDatasourceProtocol>cellModel = sectionModule.sectionDataList[indexPath.row];
     if ([cellModel isKindOfClass:[ProductDetailCellModel class]]) {
         ProductDetailCellModel *productCellModel = (ProductDetailCellModel *)cellModel;

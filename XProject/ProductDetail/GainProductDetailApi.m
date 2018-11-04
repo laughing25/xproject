@@ -36,7 +36,7 @@
 
 - (id)requestArgument {
     return @{
-             @"productid": self.productId
+             @"categoryId": self.productId
              };
 }
 

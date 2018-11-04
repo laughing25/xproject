@@ -103,7 +103,7 @@
 {
     XLProductDetailViewController *detailVC = [[XLProductDetailViewController alloc] init];
     ProductBranchModel *model = self.dataList[indexPath.row];
-    detailVC.productId = @"26";//model.pid;
+    detailVC.productId = model.pid;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

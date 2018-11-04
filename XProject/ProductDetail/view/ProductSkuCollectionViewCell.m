@@ -23,6 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorWithHexColorString:@"f4f4f4"];
+        self.layer.cornerRadius = 5;
         [self addSubview:self.nameLabel];
         
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

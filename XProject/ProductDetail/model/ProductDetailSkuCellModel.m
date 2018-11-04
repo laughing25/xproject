@@ -37,7 +37,7 @@
 -(CGSize)dataSourceSize
 {
     if (self.skuName) {
-        CGFloat height = 40;
+        CGFloat height = 35;
         CGFloat width = [self.skuName boundingRectWithSize:CGSizeMake(MAXFLOAT, height) options:NSStringDrawingUsesLineFragmentOrigin attributes:[self sizeAttributes] context:nil].size.width + 10 + 10;
         return CGSizeMake(width, height);
     }

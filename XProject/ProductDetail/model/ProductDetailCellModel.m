@@ -31,9 +31,8 @@
     NSString *klassString = NSStringFromClass([self CollectionDatasourceClass]);
     if ([klassString isEqualToString:@"ProductDetailNameCell"]) {
         ProductModel *model = (ProductModel *)self.dataSource;
-        if (model.shortDesc) {
-            model.shortDesc = @"s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名";
-            CGFloat height = [model.shortDesc boundingRectWithSize:CGSizeMake(KScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[self sizeAttributes] context:nil].size.height + 10 + 10 + 10;
+        if (model.productName) {
+            CGFloat height = [model.productName boundingRectWithSize:CGSizeMake(KScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[self sizeAttributes] context:nil].size.height + 10 + 10 + 10;
             return CGSizeMake(KScreenWidth, height);
         }
         return CGSizeMake(KScreenWidth, 50);
