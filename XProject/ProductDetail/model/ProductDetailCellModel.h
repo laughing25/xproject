@@ -18,5 +18,6 @@
 >
 
 @property (nonatomic, assign) CGSize modelSize;
+@property (nonatomic, assign) BOOL isReload;
 
 @end

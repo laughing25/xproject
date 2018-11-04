@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomerLayoutSectionModuleProtocol.h"
+#import "CustomerBackgroundAttributes.h"
+
+static NSString * CollectionViewSectionBackground = @"CollectionViewSectionBackground";
 
 @protocol CustomerLayoutDatasource <NSObject>
 
@@ -23,6 +26,12 @@
  * 返回section footer 高度的方法
  */
 -(CGFloat)customerLayoutSectionFooterHeight:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)layout indexPath:(NSIndexPath *)indexPath;
+
+/**
+ * 返回section 的自定义背景attributes
+ */
+-(CustomerBackgroundAttributes *)customerLayoutSectionAttributes:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)layout indexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @protocol CustomerLayoutDelegate <NSObject>

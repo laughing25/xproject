@@ -26,8 +26,8 @@
         
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self);
-            make.leading.mas_equalTo(self).mas_offset(5);
-            make.trailing.mas_equalTo(self.mas_trailing).mas_offset(-5);
+            make.leading.mas_equalTo(self).mas_offset(10);
+            make.trailing.mas_equalTo(self.mas_trailing).mas_offset(-10);
         }];
     }
     return self;
@@ -51,6 +51,7 @@
     self.titleLabel.text = titleModel.title;
     self.titleLabel.textAlignment = titleModel.alignment;
     self.titleLabel.textColor = titleModel.titleColor;
+    self.backgroundColor = titleModel.backgroundColor;
 }
 
 - (UILabel *)titleLabel
@@ -77,6 +78,7 @@
     self = [super init];
     if (self) {
         self.titleColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }
     return self;
 }

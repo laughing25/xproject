@@ -13,6 +13,8 @@
 		4BD77A68218B3A9D0045E8D4 /* ProductDetailSkuModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A67218B3A9D0045E8D4 /* ProductDetailSkuModule.m */; };
 		4BD77A6B218B3E980045E8D4 /* ProductDetailSkuCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A6A218B3E980045E8D4 /* ProductDetailSkuCellModel.m */; };
 		4BD77A6E218B3F020045E8D4 /* ProductSkuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A6D218B3F020045E8D4 /* ProductSkuCollectionViewCell.m */; };
+		4BD77A71218EA2FA0045E8D4 /* CustomerBackgroundAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A70218EA2FA0045E8D4 /* CustomerBackgroundAttributes.m */; };
+		4BD77A74218EA7890045E8D4 /* CustomerBackgroundReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A73218EA7890045E8D4 /* CustomerBackgroundReusableView.m */; };
 		738A57F120F4852A00B2F8BC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 738A57F020F4852A00B2F8BC /* AppDelegate.m */; };
 		738A57F920F4852B00B2F8BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 738A57F820F4852B00B2F8BC /* Assets.xcassets */; };
 		738A57FF20F4852B00B2F8BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 738A57FE20F4852B00B2F8BC /* main.m */; };
@@ -157,6 +159,10 @@
 		4BD77A6A218B3E980045E8D4 /* ProductDetailSkuCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductDetailSkuCellModel.m; sourceTree = "<group>"; };
 		4BD77A6C218B3F020045E8D4 /* ProductSkuCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductSkuCollectionViewCell.h; sourceTree = "<group>"; };
 		4BD77A6D218B3F020045E8D4 /* ProductSkuCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductSkuCollectionViewCell.m; sourceTree = "<group>"; };
+		4BD77A6F218EA2FA0045E8D4 /* CustomerBackgroundAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerBackgroundAttributes.h; sourceTree = "<group>"; };
+		4BD77A70218EA2FA0045E8D4 /* CustomerBackgroundAttributes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerBackgroundAttributes.m; sourceTree = "<group>"; };
+		4BD77A72218EA7890045E8D4 /* CustomerBackgroundReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerBackgroundReusableView.h; sourceTree = "<group>"; };
+		4BD77A73218EA7890045E8D4 /* CustomerBackgroundReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerBackgroundReusableView.m; sourceTree = "<group>"; };
 		738A57EC20F4852A00B2F8BC /* XProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		738A57EF20F4852A00B2F8BC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		738A57F020F4852A00B2F8BC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -509,6 +515,10 @@
 				738D90D72122643E000544AF /* CustomerLayoutSectionModuleProtocol.h */,
 				738D90D92122643E000544AF /* CustomerLayout.h */,
 				738D90D82122643E000544AF /* CustomerLayout.m */,
+				4BD77A6F218EA2FA0045E8D4 /* CustomerBackgroundAttributes.h */,
+				4BD77A70218EA2FA0045E8D4 /* CustomerBackgroundAttributes.m */,
+				4BD77A72218EA7890045E8D4 /* CustomerBackgroundReusableView.h */,
+				4BD77A73218EA7890045E8D4 /* CustomerBackgroundReusableView.m */,
 				738D90DC21226464000544AF /* CustomerMathTools.h */,
 				738D90DB21226463000544AF /* CustomerMathTools.m */,
 			);
@@ -1335,6 +1345,7 @@
 				FA30D8F9215290D1000D2F9F /* ProductSKUCell.m in Sources */,
 				73FE3FB32125AB9E00381CFA /* XLAddressDetailCellModel.m in Sources */,
 				73C43A7721561179009F053A /* WMProgressView.m in Sources */,
+				4BD77A71218EA2FA0045E8D4 /* CustomerBackgroundAttributes.m in Sources */,
 				7398DF64213E0C7100F66BD6 /* XLCollectionViewAsingleCellModel.m in Sources */,
 				FA35C7D22157812700BEE500 /* XLMineTableViewCell.m in Sources */,
 				FA395786215BD63F000BE03E /* CheckOrderApi.m in Sources */,
@@ -1381,6 +1392,7 @@
 				FA37D7C6215E6F8C00088A3E /* IQPreviousNextView.m in Sources */,
 				FA37D794215E5D4900088A3E /* ChangeInfoApi.m in Sources */,
 				FA37D7D1215E71E900088A3E /* ChangePasswordViewController.m in Sources */,
+				4BD77A74218EA7890045E8D4 /* CustomerBackgroundReusableView.m in Sources */,
 				FA37D7C4215E6F8C00088A3E /* IQBarButtonItem.m in Sources */,
 				FA5947042151388E0038EECA /* AccountManager.m in Sources */,
 				73C43A7821561179009F053A /* WMScrollView.m in Sources */,

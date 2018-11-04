@@ -54,7 +54,7 @@
         }
         
         CGFloat xOffset = padding;
-        CGFloat yOffset = padding + bottomoffset;
+        CGFloat yOffset = bottomPadding + bottomoffset;
         CGFloat width = customerSize.width;
         CGFloat height = customerSize.height;
         warpIndex ++;

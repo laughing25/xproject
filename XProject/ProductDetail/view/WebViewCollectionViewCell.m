@@ -9,6 +9,7 @@
 #import "WebViewCollectionViewCell.h"
 #import <WebKit/WebKit.h>
 #import "ProductModel.h"
+#import "ProductDetailCellModel.h"
 
 @interface WebViewCollectionViewCell ()
 <
@@ -75,13 +76,15 @@
 
 -(void)setModel:(id<CollectionDatasourceProtocol>)model
 {
-    if (_model == model) {
-        return;
-    }
     _model = model;
     if ([_model.dataSource isKindOfClass:[ProductModel class]]) {
-        ProductModel *product = (ProductModel *)_model.dataSource;
-        [self.webView loadHTMLString:product.descriptions baseURL:nil];
+        if ([_model isKindOfClass:[ProductDetailCellModel class]]) {
+            ProductDetailCellModel *cellModel = _model;
+            if (!cellModel.isReload) {
+                ProductModel *product = (ProductModel *)_model.dataSource;
+                [self.webView loadHTMLString:product.descriptions baseURL:nil];
+            }
+        }
     }
 }
 

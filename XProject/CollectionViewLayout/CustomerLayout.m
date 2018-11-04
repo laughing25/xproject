@@ -7,6 +7,7 @@
 //
 
 #import "CustomerLayout.h"
+#import "CustomerBackgroundReusableView.h"
 
 #define defaultBottomPadding 20
 
@@ -29,6 +30,9 @@
 
 @property (nonatomic, assign) NSInteger reloadSection;
 
+///存储背景颜色or图片的attributes
+@property (nonatomic, strong) NSMutableArray *customBackgroundAttributes;
+
 @end
 
 @implementation CustomerLayout
@@ -39,6 +43,7 @@
     
     if (self) {
         self.reloadSection = -1;
+        [self registerClass:[CustomerBackgroundReusableView class] forDecorationViewOfKind:CollectionViewSectionBackground];
     }
     return self;
 }
@@ -89,6 +94,7 @@
         [self.visibleItems removeAllObjects];
         [self.headerSectionHeight removeAllObjects];
         [self.footerSectionHeight removeAllObjects];
+        [self.customBackgroundAttributes removeAllObjects];
     }
     
     NSInteger sections = [self.collectionView numberOfSections];
@@ -119,6 +125,17 @@
             NSArray *sectionAttributelist = [sectionModule childRowsCalculateFramesWithBottomOffset:lastSectionHeight section:i];
             [sectionAttributes addObjectsFromArray:sectionAttributelist];
             
+            //自定义背景section attributes
+            if (self.dataSource && [self.dataSource respondsToSelector:@selector(customerLayoutSectionAttributes:layout:indexPath:)]) {
+                CustomerBackgroundAttributes *cusSectionAttributes = [self.dataSource customerLayoutSectionAttributes:self.collectionView layout:self indexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
+                cusSectionAttributes.frame = CGRectMake(0, lastSectionHeight, KScreenWidth, [sectionModule sectionBottom] - lastSectionHeight - cusSectionAttributes.bottomOffset);
+                cusSectionAttributes.zIndex = -1;
+                if (cusSectionAttributes) {
+                    [self.customBackgroundAttributes addObject:cusSectionAttributes];
+                    [sectionAttributes addObject:cusSectionAttributes];
+                }
+            }
+            
             self.columnHeights[i] = @([sectionModule sectionBottom]);
  
             CGFloat sectionFooter = 0;
@@ -136,7 +153,7 @@
             }
             
             lastSectionHeight = MAX(sectionFooter, [[self.columnHeights lastObject] floatValue]);
-
+   
             [self.attributesList addObject:sectionAttributes];
             [self.allAttributesItemList addObjectsFromArray:sectionAttributes];
         }
@@ -183,7 +200,7 @@
             [attrs addObject:attr];
         }
     }
-    
+
     return [NSArray arrayWithArray:attrs];
 }
 
@@ -209,6 +226,14 @@
         attributes = self.footerSectionHeight[@(indexPath.section)];
     }
     return attributes;
+}
+
+- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:(NSString*)elementKind atIndexPath:(NSIndexPath *)indexPath
+{
+    if ([elementKind isEqualToString:CollectionViewSectionBackground]) {
+        return [self.customBackgroundAttributes objectAtIndex:indexPath.section];
+    }
+    return [super layoutAttributesForDecorationViewOfKind:elementKind atIndexPath:indexPath];
 }
 
 // 返回collectionView的ContentSize
@@ -306,6 +331,14 @@
         _footerSectionHeight = [[NSMutableDictionary alloc] init];
     }
     return _footerSectionHeight;
+}
+
+-(NSMutableArray *)customBackgroundAttributes
+{
+    if (!_customBackgroundAttributes) {
+        _customBackgroundAttributes = [[NSMutableArray alloc] init];
+    }
+    return _customBackgroundAttributes;
 }
 
 @end

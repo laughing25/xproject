@@ -81,13 +81,12 @@
 
 -(void)requestProductDetail
 {
-    self.productId = @"27";
     GainProductDetailApi *api = [[GainProductDetailApi alloc] initWithProductId:self.productId];
     [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
     [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)
-        if ([request requestSuccess]) {
+//        if ([request requestSuccess]) {
             id params = [request requestResponseData];
             if ([params isKindOfClass:[NSArray class]]) {
                 NSArray *list = (NSArray *)params;
@@ -127,8 +126,21 @@
 //            [selectModule.sectionDataList addObject:selectCellModel];
 //            [self.dataList addObject:selectModule];
             for (int i = 0; i < 5; i++) {
+                XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
+                asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
+                TitleModel *titleModel = [[TitleModel alloc] init];
+                titleModel.title = @"屏幕";
+                titleModel.alignment = NSTextAlignmentLeft;
+                titleModel.titleColor = [UIColor colorWithHexColorString:@"666666"];
+                titleModel.backgroundColor = [UIColor whiteColor];
+                asingleCellModel.dataSource = titleModel;
+                YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
+                asingleModule.minimumInteritemSpacing = 1;
+                [asingleModule.sectionDataList addObject:asingleCellModel];
+                [self.dataList addObject:asingleModule];
+                
                 ProductDetailSkuModule *skuModule = [[ProductDetailSkuModule alloc] init];
-                skuModule.minimumInteritemSpacing = 10;
+                skuModule.minimumInteritemSpacing = 20;
                 for (int j = 0; j < 5; j++) {
                     NSInteger random = arc4random()%10 + 5;
                     ProductDetailSkuCellModel *cellModel = [[ProductDetailSkuCellModel alloc] init];
@@ -136,6 +148,9 @@
                     NSString *sku = @"这是一个SKU这是一个SKU这是一个SKU这是一个SKU这是一个SKU这是一个SKU";
                     cellModel.skuName = [sku substringWithRange:NSMakeRange(0, random)];
                     [skuModule.sectionDataList addObject:cellModel];
+                    if (j == 2) {
+                        cellModel.isSelect = YES;
+                    }
                 }
                 [self.dataList addObject:skuModule];
             }
@@ -158,9 +173,9 @@
             [self.dataList addObject:webModule];
             
             [self.collectionView reloadData];
-        }else{
-            NSLog(@"%@", [request requestResponseData]);
-        }
+//        }else{
+//            NSLog(@"%@", [request requestResponseData]);
+//        }
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         
     }];
@@ -237,6 +252,19 @@
     return module;
 }
 
+-(CustomerBackgroundAttributes *)customerLayoutSectionAttributes:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)layout indexPath:(NSIndexPath *)indexPath
+{
+    id<CustomerLayoutSectionModuleProtocol>sectionModule = self.dataList[indexPath.section];
+    id<CollectionDatasourceProtocol>cellModel = sectionModule.sectionDataList[indexPath.row];
+    if ([cellModel isKindOfClass:[ProductDetailSkuCellModel class]]) {
+        CustomerBackgroundAttributes *attribues = [CustomerBackgroundAttributes layoutAttributesForDecorationViewOfKind:CollectionViewSectionBackground withIndexPath:indexPath];
+        attribues.backgroundColor = [UIColor greenColor];
+        attribues.bottomOffset = 10;
+        return attribues;
+    }
+    return nil;
+}
+
 #pragma mark - cell delegate
 
 -(void)ProductSelectNumCellSelectNums:(NSInteger)num
@@ -252,6 +280,9 @@
     if ([cellModel isKindOfClass:[ProductDetailCellModel class]]) {
         ProductDetailCellModel *productCellModel = (ProductDetailCellModel *)cellModel;
         productCellModel.modelSize = CGSizeMake(KScreenWidth, height);
+        if ([self.collectionView.visibleCells containsObject:cell]) {
+            productCellModel.isReload = YES;
+        }
         [self.layout reloadSection:indexPath.section];
         [self.collectionView reloadData];
     }    
@@ -270,7 +301,7 @@
             collectionView.showsVerticalScrollIndicator = YES;
             collectionView.dataSource = self;
             collectionView.delegate = self;
-            collectionView.backgroundColor = [UIColor whiteColor];
+            collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
             collectionView.contentInset = UIEdgeInsetsMake(0, 0, 5, 0);
             collectionView;
         });
