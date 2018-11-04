@@ -169,28 +169,6 @@
 {
     if (!_dataList) {
         _dataList = [[NSMutableArray alloc] init];
-        
-//        XLCollectionViewBannerCellModel *model = [[XLCollectionViewBannerCellModel alloc] init];
-//        model.dataSource = @[@1,@2,@3,@4];
-//        YSAsingleViewModule *bannerModule = [[YSAsingleViewModule alloc] init];
-//        [bannerModule.sectionDataList addObject:model];
-//        [_dataList addObject:bannerModule];
-//
-//        XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
-//        asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
-//        asingleCellModel.dataSource = @[@1];
-//        YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
-//        [asingleModule.sectionDataList addObject:asingleCellModel];
-//        [_dataList addObject:asingleModule];
-//
-//        YSEquilateralSquareViewModule *squareModule = [[YSEquilateralSquareViewModule alloc] init];
-//        [@[@1,@2,@3,@4,@5,@6,@7,@7] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            XLCollectionViewAsingleCellModel *cellModel = [[XLCollectionViewAsingleCellModel alloc] init];
-//            cellModel.dataSource = obj;
-//            cellModel.specialIdentifier = [YSTopicCollectionViewCell cellIdentifierl];
-//            [squareModule.sectionDataList addObject:cellModel];
-//        }];
-//        [_dataList addObject:squareModule];
     }
     return _dataList;
 }

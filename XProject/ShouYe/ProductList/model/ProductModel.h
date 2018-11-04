@@ -8,8 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@interface ProductAttrItemModel : NSObject
+
+@property (nonatomic, copy) NSString *AttrValue;
+@property (nonatomic, copy) NSString *AttrPrice;
+
+@end
+
 @interface ProductAttrModel : NSObject
 @property (nonatomic, copy) NSString *AttrName;
+@property (nonatomic, strong) NSArray<ProductAttrItemModel *>*list;
 @property (nonatomic, copy) NSString *AttrValue;
 @end
 

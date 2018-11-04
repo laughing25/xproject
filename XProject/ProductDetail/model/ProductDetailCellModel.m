@@ -30,8 +30,13 @@
 {
     NSString *klassString = NSStringFromClass([self CollectionDatasourceClass]);
     if ([klassString isEqualToString:@"ProductDetailNameCell"]) {
-//        ProductModel *model = (ProductModel *)self.dataSource;
-        return CGSizeMake(KScreenWidth, 80);
+        ProductModel *model = (ProductModel *)self.dataSource;
+        if (model.shortDesc) {
+            model.shortDesc = @"s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名s商品名";
+            CGFloat height = [model.shortDesc boundingRectWithSize:CGSizeMake(KScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[self sizeAttributes] context:nil].size.height + 10 + 10 + 10;
+            return CGSizeMake(KScreenWidth, height);
+        }
+        return CGSizeMake(KScreenWidth, 50);
     }else if ([klassString isEqualToString:@"ProductSKUCell"]){
         return CGSizeMake(KScreenWidth, 44);
     }else if ([klassString isEqualToString:@"ProductSelectNumCell"]){
@@ -48,6 +53,14 @@
 -(void)registerCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath specialIdentifier:(NSString *)specialIdentifier
 {
     [collectionView registerClass:[self CollectionDatasourceClass] forCellWithReuseIdentifier:[self CollectionDatasourceCellIdentifier:indexPath]];
+}
+
+- (NSDictionary *)sizeAttributes
+{
+    NSDictionary *params = @{
+                             NSFontAttributeName : [UIFont systemFontOfSize:14]
+                             };
+    return params;
 }
 
 @end

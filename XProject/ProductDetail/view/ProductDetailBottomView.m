@@ -56,13 +56,26 @@
     }
 }
 
+#pragma mark - public
+
+- (void)reloadPrice:(NSArray<ProductAttrItemModel*>*)list
+{
+    __block CGFloat price = 0;
+    [list enumerateObjectsUsingBlock:^(ProductAttrItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        price += obj.AttrPrice.floatValue;
+    }];
+    self.numsLabel.text = [NSString stringWithFormat:@"价格:¥ %.2f", price];
+}
+
+
+#pragma mark - setter
+
 -(void)setModel:(ProductModel *)model
 {
     _model = model;
     if (_model) {
         self.hidden = NO;
     }
-    self.numsLabel.text = [NSString stringWithFormat:@"数量:100个"];
 }
 
 -(UILabel *)numsLabel
@@ -70,7 +83,7 @@
     if (!_numsLabel) {
         _numsLabel = ({
             UILabel *label = [[UILabel alloc] init];
-            label.text = @"数量";
+            label.text = @"价格:¥ 0";
             label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor blackColor];
             label.font = [UIFont systemFontOfSize:12];

@@ -46,8 +46,10 @@
         self.nameLabel.text = cellModel.skuName;
         if (cellModel.isSelect) {
             self.backgroundColor = [UIColor colorWithHexColorString:@"ff4873"];
+            self.nameLabel.textColor = [UIColor whiteColor];
         }else{
             self.backgroundColor = [UIColor colorWithHexColorString:@"f4f4f4"];
+            self.nameLabel.textColor = [UIColor colorWithHexColorString:@"666666"];;
         }
     }
 }

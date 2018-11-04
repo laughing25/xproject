@@ -17,11 +17,25 @@
              };
 }
 
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"productattrlist" : [ProductAttrModel class]
+             };
+}
+
 @end
 
 
 @implementation ProductAttrModel
 
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"list" : [ProductAttrItemModel class]
+             };
+}
+
+@end
+
+
+@implementation ProductAttrItemModel
 
 
 @end

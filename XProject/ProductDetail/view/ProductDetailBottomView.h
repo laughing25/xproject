@@ -15,4 +15,6 @@ typedef void(^buyNowBlock)(void);
 @property (nonatomic, copy) buyNowBlock buyBlock;
 @property (nonatomic, strong) ProductModel *model;
 
+- (void)reloadPrice:(NSArray<ProductAttrItemModel*>*)list;
+
 @end

@@ -31,7 +31,7 @@
     if ([klassString isEqualToString:@"YSAsingleCollectionViewCell"]) {
         return CGSizeMake(KScreenWidth, 180);
     }else if ([klassString isEqualToString:@"XLTitleCollectionViewCell"]){
-        return CGSizeMake(KScreenWidth, 44);
+        return CGSizeMake(KScreenWidth, 34);
     }else if ([klassString isEqualToString:@"YSTopicCollectionViewCell"]){
         ///传0,在module里面做了特殊的运算
         return CGSizeMake(0, 80);

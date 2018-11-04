@@ -38,11 +38,11 @@
             make.leading.top.mas_equalTo(whiteView).mas_offset(10);
             make.trailing.mas_equalTo(whiteView.mas_trailing).mas_offset(-10);
         }];
-        
-        [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(whiteView.mas_bottom).mas_offset(-5);
-            make.leading.trailing.mas_equalTo(self.nameLabel);
-        }];
+//
+//        [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.mas_equalTo(whiteView.mas_bottom).mas_offset(-5);
+//            make.leading.trailing.mas_equalTo(self.nameLabel);
+//        }];
     }
     return self;
 }
@@ -58,7 +58,11 @@
     
     if ([_model.dataSource isKindOfClass:[ProductModel class]]) {
         ProductModel *pModel = (ProductModel *)_model.dataSource;
-        self.nameLabel.text = pModel.shortDesc;
+        if (pModel.shortDesc.length) {
+            self.nameLabel.text = pModel.shortDesc;
+        }else{
+            self.nameLabel.text = @"商品名";
+        }
         self.priceLabel.text = [NSString stringWithFormat:@"¥ %@", pModel.salePrice];
     }
 }
@@ -72,6 +76,7 @@
             label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor blackColor];
             label.font = [UIFont systemFontOfSize:14];
+            label.numberOfLines = 0;
             label;
         });
     }
