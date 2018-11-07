@@ -5,7 +5,7 @@
 
 @interface OrderModel : NSObject
 
-@property (nonatomic, copy) NSString * OrderNo;
+@property (nonatomic, copy) NSString * order_no;
 @property (nonatomic, assign) NSInteger PageCount;
 @property (nonatomic, copy) NSString * addDate;
 @property (nonatomic, assign) NSInteger brandid;
@@ -23,4 +23,6 @@
 @property (nonatomic, copy) NSString * specialOffer;
 @property (nonatomic, copy) NSString * thumbnailsUrll;
 
+@property (nonatomic, copy) NSString *add_time;
+@property (nonatomic, copy) NSString *message;
 @end

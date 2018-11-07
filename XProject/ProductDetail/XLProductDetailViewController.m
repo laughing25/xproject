@@ -22,6 +22,7 @@
 #import "WebViewCollectionViewCell.h"
 #import "ProductDetailBottomView.h"
 #import "LoginViewController.h"
+#import "MBProgressHUD.h"
 
 @interface XLProductDetailViewController ()
 <
@@ -201,9 +202,29 @@
 -(void)buyNow
 {
     if ([[AccountManager shareInstance] isLogin]) {
-        NSArray *list = @[@{@"ProductID":self.bottomView.model.productId,
+        if (![self.selectAttrItemList count]) {
+            MBProgressHUD *hud = [WINDOW viewWithTag:1004];
+            if (hud) {
+                [hud hideAnimated:NO];
+            }
+            hud = [[MBProgressHUD alloc] initWithView:WINDOW];
+            hud.tag = 1004;
+            hud.mode = MBProgressHUDModeText;
+            hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+            hud.bezelView.backgroundColor = [UIColor blackColor];
+            hud.label.textColor = [UIColor whiteColor];
+            hud.userInteractionEnabled = NO;
+            hud.label.text = @"请选择配件";
+            [WINDOW addSubview:hud];
+            [hud showAnimated:YES];
+            [hud hideAnimated:YES afterDelay:2];
+            return;
+        }
+        NSArray *list = @[@{@"categoryId":self.bottomView.model.categoryId,
                             @"Price":self.bottomView.model.salePrice,
-                            @"Quantity":[NSString stringWithFormat:@"%ld", self.selectNums]}];
+                            @"Quantity":[NSString stringWithFormat:@"%ld", self.selectNums],
+                            @"AttrList":[self.selectAttrItemList yy_modelToJSONObject]
+                            }];
         CheckOrderApi *api = [[CheckOrderApi alloc] initWithProductId:list];
         [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
         [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {

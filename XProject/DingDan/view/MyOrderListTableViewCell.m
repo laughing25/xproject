@@ -7,6 +7,7 @@
 //
 
 #import "MyOrderListTableViewCell.h"
+#import "ProductModel.h"
 
 @interface MyOrderListTableViewCell ()
 
@@ -42,13 +43,13 @@
         CGFloat padding = 10;
         UIView *contentView = self.contentView;
         [self.orderTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.leading.mas_equalTo(contentView.mas_leading).mas_offset(padding);
-            make.top.mas_equalTo(contentView.mas_top).mas_offset(padding);
+            make.leading.mas_equalTo(self.orderStatusLabel);
+            make.top.mas_equalTo(self.orderStatusLabel.mas_bottom).mas_offset(5);
         }];
         
         [self.orderStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.trailing.mas_equalTo(contentView.mas_trailing).mas_offset(-padding);
-            make.centerY.mas_equalTo(self.orderTimeLabel.mas_centerY);
+            make.leading.mas_equalTo(contentView.mas_leading).mas_offset(padding);
+            make.top.mas_equalTo(contentView.mas_top).mas_offset(padding);
         }];
         
         [self.middleContentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,11 +88,35 @@
 {
     _orderModel = orderModel;
     
+    if (_orderModel.message.length) {
+        NSData *jsonData = [_orderModel.message dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSArray *attrList = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        NSDictionary *attrParams = [attrList firstObject];
+        if ([attrParams isKindOfClass:[NSDictionary class]]) {
+            NSString *quantity = attrParams[@"Quantity"];
+            NSString *price = attrParams[@"Price"];
+            self.conteLabel.text = [NSString stringWithFormat:@"共%@件商品  价格: ¥%@", quantity, price];
+            
+            NSArray *paramList = attrParams[@"AttrList"];
+            if ([paramList isKindOfClass:[NSArray class]]) {
+                NSMutableString *skuString = [[NSMutableString alloc] init];
+                [paramList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSDictionary *param = obj;
+                    NSString *skuName = param[@"AttrValue"];
+                    NSString *skuValue = param[@"AttrPrice"];
+                    [skuString appendFormat:@"%@(¥%@)", skuName, skuValue];
+                }];
+                self.productLabel.text = skuString;
+            }
+        }
+    }
+    
     [self.productImageView yy_setImageWithURL:[NSURL URLWithString:_orderModel.focusImgUrl] placeholder:nil];
-    self.orderTimeLabel.text = [NSString stringWithFormat:@"下单日期: %@", _orderModel.addDate];
-//    self.orderStatusLabel.text = _orderModel.OrderNo;
-    self.productLabel.text = _orderModel.shortDesc;
-    self.conteLabel.text = [NSString stringWithFormat:@"共%ld件商品  价格: ¥%@", 1, _orderModel.salePrice];
+    self.orderTimeLabel.text = [NSString stringWithFormat:@"下单日期: %@", _orderModel.add_time];
+    self.orderStatusLabel.text = [NSString stringWithFormat:@"订单号: %@", _orderModel.order_no];
 }
 
 -(UILabel *)orderTimeLabel
@@ -114,9 +139,9 @@
     if (!_orderStatusLabel) {
         _orderStatusLabel = ({
             UILabel *label = [[UILabel alloc] init];
-            label.textAlignment = NSTextAlignmentRight;
-            label.textColor = [UIColor grayColor];
-            label.font = [UIFont systemFontOfSize:16];
+            label.textAlignment = NSTextAlignmentLeft;
+            label.textColor = [UIColor blackColor];
+            label.font = [UIFont systemFontOfSize:14];
             label;
         });
     }
@@ -157,6 +182,7 @@
             label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor blackColor];
             label.font = [UIFont systemFontOfSize:13];
+            label.numberOfLines = 0;
             label;
         });
     }

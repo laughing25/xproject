@@ -65,6 +65,7 @@
         price += obj.AttrPrice.floatValue;
     }];
     self.numsLabel.text = [NSString stringWithFormat:@"价格:¥ %.2f", price];
+    self.model.salePrice = [NSString stringWithFormat:@"%.2f", price];
 }
 
 

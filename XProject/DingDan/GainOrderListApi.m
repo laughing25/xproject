@@ -32,7 +32,7 @@
 
 - (id)requestArgument {
     return @{
-             @"userid": @"38",//[AccountManager shareInstance].accountModel.userId,
+             @"userid": [AccountManager shareInstance].accountModel.userId,
              @"orderno": _orderNum
              };
 }
