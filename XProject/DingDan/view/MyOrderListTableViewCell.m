@@ -18,9 +18,8 @@
 @property (nonatomic, strong) YYAnimatedImageView *productImageView;
 @property (nonatomic, strong) UILabel *productLabel;
 
-
 @property (nonatomic, strong) UILabel *conteLabel;
-
+@property (nonatomic, strong) UILabel *remarkLabel;
 @end
 
 @implementation MyOrderListTableViewCell
@@ -39,6 +38,7 @@
         [self.middleContentView addSubview:self.productLabel];
         
         [self.contentView addSubview:self.conteLabel];
+        [self.contentView addSubview:self.remarkLabel];
         
         CGFloat padding = 10;
         UIView *contentView = self.contentView;
@@ -71,7 +71,15 @@
             make.top.mas_equalTo(self.productImageView.mas_top);
         }];
         
+        [self.remarkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.mas_equalTo(self.productLabel);
+            make.trailing.mas_equalTo(self.productLabel.mas_trailing);
+            make.top.mas_equalTo(self.productLabel.mas_bottom).mas_offset(8);
+            make.bottom.mas_lessThanOrEqualTo(self.conteLabel.mas_top).mas_offset(-20);
+        }];
+        
         self.productLabel.preferredMaxLayoutWidth = KScreenWidth - 80 - padding*2;
+        self.remarkLabel.preferredMaxLayoutWidth = self.productLabel.preferredMaxLayoutWidth;
         
         [self.conteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.trailing.mas_equalTo(contentView.mas_trailing).mas_offset(-padding);
@@ -117,6 +125,8 @@
     [self.productImageView yy_setImageWithURL:[NSURL URLWithString:_orderModel.focusImgUrl] placeholder:nil];
     self.orderTimeLabel.text = [NSString stringWithFormat:@"下单日期: %@", _orderModel.add_time];
     self.orderStatusLabel.text = [NSString stringWithFormat:@"订单号: %@", _orderModel.order_no];
+    NSString *string = [NSString stringWithFormat:@"备注:%@", @" 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度"];
+    self.remarkLabel.text = string;
 }
 
 -(UILabel *)orderTimeLabel
@@ -187,6 +197,22 @@
         });
     }
     return _productLabel;
+}
+
+-(UILabel *)remarkLabel
+{
+    if (!_remarkLabel) {
+        _remarkLabel = ({
+            UILabel *label = [[UILabel alloc] init];
+            label.text = @"test";
+            label.textAlignment = NSTextAlignmentLeft;
+            label.textColor = [UIColor blackColor];
+            label.font = [UIFont systemFontOfSize:13];
+            label.numberOfLines = 0;
+            label;
+        });
+    }
+    return _remarkLabel;
 }
 
 -(UILabel *)conteLabel

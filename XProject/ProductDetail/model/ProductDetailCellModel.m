@@ -45,6 +45,8 @@
             return CGSizeMake(KScreenWidth, 80);
         }
         return self.modelSize;
+    } else if ([klassString isEqualToString:@"ProductRemarksCell"]) {
+        return CGSizeMake(KScreenWidth, 45);
     }
     return CGSizeMake(KScreenWidth, 60);
 }

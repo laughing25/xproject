@@ -15,6 +15,7 @@
 		4BD77A6E218B3F020045E8D4 /* ProductSkuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A6D218B3F020045E8D4 /* ProductSkuCollectionViewCell.m */; };
 		4BD77A71218EA2FA0045E8D4 /* CustomerBackgroundAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A70218EA2FA0045E8D4 /* CustomerBackgroundAttributes.m */; };
 		4BD77A74218EA7890045E8D4 /* CustomerBackgroundReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A73218EA7890045E8D4 /* CustomerBackgroundReusableView.m */; };
+		4BD77A77224A561A0045E8D4 /* ProductRemarksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A76224A561A0045E8D4 /* ProductRemarksCell.m */; };
 		738A57F120F4852A00B2F8BC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 738A57F020F4852A00B2F8BC /* AppDelegate.m */; };
 		738A57F920F4852B00B2F8BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 738A57F820F4852B00B2F8BC /* Assets.xcassets */; };
 		738A57FF20F4852B00B2F8BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 738A57FE20F4852B00B2F8BC /* main.m */; };
@@ -163,6 +164,8 @@
 		4BD77A70218EA2FA0045E8D4 /* CustomerBackgroundAttributes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerBackgroundAttributes.m; sourceTree = "<group>"; };
 		4BD77A72218EA7890045E8D4 /* CustomerBackgroundReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerBackgroundReusableView.h; sourceTree = "<group>"; };
 		4BD77A73218EA7890045E8D4 /* CustomerBackgroundReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerBackgroundReusableView.m; sourceTree = "<group>"; };
+		4BD77A75224A561A0045E8D4 /* ProductRemarksCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductRemarksCell.h; sourceTree = "<group>"; };
+		4BD77A76224A561A0045E8D4 /* ProductRemarksCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductRemarksCell.m; sourceTree = "<group>"; };
 		738A57EC20F4852A00B2F8BC /* XProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		738A57EF20F4852A00B2F8BC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		738A57F020F4852A00B2F8BC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -757,6 +760,8 @@
 				FA3C2D872153C84700D9A0B6 /* ProductSelectNumCell.m */,
 				4BD77A6C218B3F020045E8D4 /* ProductSkuCollectionViewCell.h */,
 				4BD77A6D218B3F020045E8D4 /* ProductSkuCollectionViewCell.m */,
+				4BD77A75224A561A0045E8D4 /* ProductRemarksCell.h */,
+				4BD77A76224A561A0045E8D4 /* ProductRemarksCell.m */,
 				FA37D7D521631B0600088A3E /* WebViewCollectionViewCell.h */,
 				FA37D7D621631B0600088A3E /* WebViewCollectionViewCell.m */,
 				FA35C7D32157DF4B00BEE500 /* ProductDetailBottomView.h */,
@@ -1397,6 +1402,7 @@
 				FA5947042151388E0038EECA /* AccountManager.m in Sources */,
 				73C43A7821561179009F053A /* WMScrollView.m in Sources */,
 				739108142121A2DD00CCAEE8 /* XLPeiJianViewController.m in Sources */,
+				4BD77A77224A561A0045E8D4 /* ProductRemarksCell.m in Sources */,
 				7391081A2121A2F500CCAEE8 /* XLFaXianViewController.m in Sources */,
 				73B2795721464259003034F0 /* XLProductDetailViewController.m in Sources */,
 				73FE3F9621259CF900381CFA /* ZFBottomToolView.m in Sources */,

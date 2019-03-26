@@ -11,6 +11,7 @@
 #import "ProductDetailNameCell.h"
 #import "ProductSKUCell.h"
 #import "ProductSelectNumCell.h"
+#import "ProductRemarksCell.h"
 
 @interface ProductDetailCellModel : NSObject
 <

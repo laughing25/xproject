@@ -143,36 +143,15 @@
                 [self.dataList addObject:skuModule];
             }
             
-//            for (int i = 0; i < 10; i++) {
-//                ProductAttrModel *attrModel = [[ProductAttrModel alloc] init];
-//                XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
-//                asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
-//                TitleModel *titleModel = [[TitleModel alloc] init];
-//                titleModel.title = @"测试名字";//attrModel.AttrName;
-//                titleModel.alignment = NSTextAlignmentLeft;
-//                titleModel.titleColor = [UIColor colorWithHexColorString:@"666666"];
-//                titleModel.backgroundColor = [UIColor whiteColor];
-//                asingleCellModel.dataSource = titleModel;
-//                YSAsingleViewModule *asingleModule = [[YSAsingleViewModule alloc] init];
-//                [asingleModule.sectionDataList addObject:asingleCellModel];
-//                [self.dataList addObject:asingleModule];
-//
-//                ProductDetailSkuModule *skuModule = [[ProductDetailSkuModule alloc] init];
-//                skuModule.minimumInteritemSpacing = 10;
-//                for (int j = 0; j < 5; j++) {
-//                    ProductAttrItemModel *attrItemModel = [[ProductAttrItemModel alloc] init];
-//                    attrItemModel.AttrValue = @"测试SKU";
-//                    attrItemModel.AttrPrice = @"128";
-//                    ProductDetailSkuCellModel *cellModel = [[ProductDetailSkuCellModel alloc] init];
-//                    cellModel.specialIdentifier = NSStringFromClass(ProductSkuCollectionViewCell.class);
-//                    NSString *sku = [NSString stringWithFormat:@"%@(¥%@)", attrItemModel.AttrValue, attrItemModel.AttrPrice];
-//                    cellModel.skuName = sku;
-//                    cellModel.dataSource = attrItemModel;
-//                    [skuModule.sectionDataList addObject:cellModel];
-//                }
-//                [self.dataList addObject:skuModule];
-//            }
-
+            //输入备注的按钮
+            XLCollectionViewAsingleCellModel *tfCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
+            tfCellModel.specialIdentifier = [ProductRemarksCell cellIdentifierl];
+            ProductRemarksModel *remarkModel = [[ProductRemarksModel alloc] init];
+            tfCellModel.dataSource = remarkModel;
+            YSAsingleViewModule *tfModule = [[YSAsingleViewModule alloc] init];
+            [tfModule.sectionDataList addObject:tfCellModel];
+            [self.dataList addObject:tfModule];
+            
             XLCollectionViewAsingleCellModel *asingleCellModel = [[XLCollectionViewAsingleCellModel alloc] init];
             asingleCellModel.specialIdentifier = [XLTitleCollectionViewCell cellIdentifierl];
             TitleModel *titleModel = [[TitleModel alloc] init];
@@ -387,7 +366,10 @@
         _backButton = ({
             UIButton *button = [[UIButton alloc] init];
             [button addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
-            [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+            UIImage *image = [UIImage imageNamed:@"back"];
+            image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            button.imageView.tintColor = ColorHex_Alpha(0x000000, 0.3);
+            [button setImage:image forState:UIControlStateNormal];
             button;
         });
     }

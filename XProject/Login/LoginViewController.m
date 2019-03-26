@@ -85,7 +85,7 @@
     }];
     
     self.accountTextView.inputTextField.text = @"xiaokou";
-    self.passwordTextView.inputTextField.text = @"123";
+    self.passwordTextView.inputTextField.text = @"111111";
 }
 
 - (void)loginButtonAction
