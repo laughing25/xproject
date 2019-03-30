@@ -93,6 +93,7 @@
     NSString *account = self.accountTextView.inputTextField.text;
     __block NSString *password = self.passwordTextView.inputTextField.text;
     LoginApi *loginApi = [[LoginApi alloc] initWithlogin:account password:password];
+    [loginApi addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
     [loginApi startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)

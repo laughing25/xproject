@@ -11,17 +11,19 @@
 @interface CheckOrderApi ()
 
 @property (nonatomic, strong) NSArray *params;
+@property (nonatomic, copy) NSString *remarkes;
 
 @end
 
 @implementation CheckOrderApi
 
--(instancetype)initWithProductId:(NSArray *)productparams
+-(instancetype)initWithProductId:(NSArray *)productparams remarkes:(NSString *)remark
 {
     self = [super init];
     
     if (self) {
         self.params = productparams;
+        self.remarkes = remark;
     }
     return self;
 }
@@ -38,7 +40,8 @@
     return @{
              @"userid": [AccountManager shareInstance].accountModel.userId,
              @"productlist" : [self.params yy_modelToJSONString],
-             @"order_amount" : @"150"
+             @"order_amount" : @"150",
+             @"remark" : self.remarkes
              };
 }
 

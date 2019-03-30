@@ -25,4 +25,5 @@
 
 @property (nonatomic, copy) NSString *add_time;
 @property (nonatomic, copy) NSString *message;
+@property (nonatomic, copy) NSString *remark;
 @end

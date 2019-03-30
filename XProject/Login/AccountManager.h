@@ -23,6 +23,8 @@
 
 -(BOOL)isLogin;
 
+-(void)loginOut;
+
 -(NSString *)oldUserId;
 
 -(NSString *)oldPassword;

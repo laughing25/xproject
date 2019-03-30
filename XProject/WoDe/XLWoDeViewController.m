@@ -14,6 +14,7 @@
 #import "XLMineTableViewCell.h"
 #import "XLAddressDetailViewController.h"
 #import "ChangePasswordViewController.h"
+#import "XLTabBarController.h"
 
 @interface XLWoDeViewController ()
 <
@@ -71,6 +72,20 @@
     }
 }
 
+- (void)loginout
+{
+    //退出登录
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否退出登录" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        AccountManager *manager = [AccountManager shareInstance];
+        [manager loginOut];
+        XLTabBarController *tabbar = (XLTabBarController *)WINDOW.rootViewController;
+        [tabbar setSelectedIndex:0];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - setter and getter
 
 - (UITableView *)tableView
@@ -89,6 +104,27 @@
             tableView.tableHeaderView = self.tableHeaderView;
             tableView.tableFooterView = [UIView new];
             [tableView registerClass:[XLMineTableViewCell class] forCellReuseIdentifier:@"Cell"];
+            tableView.tableFooterView = ({
+                UIView *footView = [[UIView alloc] init];
+                footView.frame = CGRectMake(0, 0, KScreenWidth, 80);
+                footView.backgroundColor = [UIColor whiteColor];
+                
+                UIButton *loginoutButton = [[UIButton alloc] init];
+                [footView addSubview:loginoutButton];
+                [loginoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
+                loginoutButton.layer.cornerRadius = 5;
+                [loginoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                loginoutButton.backgroundColor = [UIColor colorWithHexColorString:@"276ecd"];
+                [loginoutButton addTarget:self action:@selector(loginout) forControlEvents:UIControlEventTouchUpInside];
+                [loginoutButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.leading.mas_equalTo(footView.mas_leading).mas_offset(25);
+                    make.trailing.mas_equalTo(footView.mas_trailing).mas_offset(-25);
+                    make.height.mas_offset(44);
+                    make.centerY.mas_equalTo(footView);
+                }];
+                
+                footView;
+            });
             tableView;
         });
     }

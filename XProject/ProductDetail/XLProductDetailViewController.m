@@ -31,7 +31,8 @@
     CustomerLayoutDatasource,
     YSCollectionViewBannerCellDelegate,
     ProductSelectNumCellDelegate,
-    WebViewCollectionViewCellDelegate
+    WebViewCollectionViewCellDelegate,
+    ProductRemarksCellDelegate
 >
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray<id<CustomerLayoutSectionModuleProtocol>>*dataList;
@@ -41,6 +42,7 @@
 @property (nonatomic, strong) CustomerLayout *layout;
 @property (nonatomic, strong) NSMutableArray<ProductAttrItemModel *> *selectAttrItemList;
 @property (nonatomic, assign) CGFloat productDetailheight;
+@property (nonatomic, copy) NSString *remarkes;
 @end
 
 @implementation XLProductDetailViewController
@@ -202,9 +204,9 @@
         NSArray *list = @[@{@"categoryId":self.bottomView.model.categoryId,
                             @"Price":self.bottomView.model.salePrice,
                             @"Quantity":[NSString stringWithFormat:@"%ld", self.selectNums],
-                            @"AttrList":[self.selectAttrItemList yy_modelToJSONObject]
+                            @"AttrList":[self.selectAttrItemList yy_modelToJSONObject],
                             }];
-        CheckOrderApi *api = [[CheckOrderApi alloc] initWithProductId:list];
+        CheckOrderApi *api = [[CheckOrderApi alloc] initWithProductId:list remarkes:ZFToString(self.remarkes)];
         [api addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
         [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
             if ([request requestSuccess]) {
@@ -302,6 +304,11 @@
 -(void)ProductSelectNumCellSelectNums:(NSInteger)num
 {
     self.selectNums = num;
+}
+
+- (void)ProductRemarksCellDidDoneInputText:(NSString *)text
+{
+    self.remarkes = text;
 }
 
 -(void)WebViewCollectionViewCellReloadHeight:(UICollectionViewCell *)cell height:(CGFloat)height

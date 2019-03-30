@@ -125,10 +125,11 @@
     [self.productImageView yy_setImageWithURL:[NSURL URLWithString:_orderModel.focusImgUrl] placeholder:nil];
     self.orderTimeLabel.text = [NSString stringWithFormat:@"下单日期: %@", _orderModel.add_time];
     self.orderStatusLabel.text = [NSString stringWithFormat:@"订单号: %@", _orderModel.order_no];
-    NSString *string = [NSString stringWithFormat:@"备注:%@", @" 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度test 备注信息长度"];
-    self.remarkLabel.text = string;
+    if (ZFToString(_orderModel.remark).length) {
+        NSString *string = [NSString stringWithFormat:@"备注:%@", _orderModel.remark];
+        self.remarkLabel.text = string;
+    }
 }
-
 -(UILabel *)orderTimeLabel
 {
     if (!_orderTimeLabel) {

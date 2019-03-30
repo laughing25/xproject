@@ -79,4 +79,9 @@
     return NO;
 }
 
+-(void)loginOut
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:kUserName];
+}
+
 @end

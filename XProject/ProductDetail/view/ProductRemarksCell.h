@@ -9,12 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "CollectionCellProtocol.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@protocol ProductRemarksCellDelegate <CollectionCellDelegate>
+
+- (void)ProductRemarksCellDidDoneInputText:(NSString *)text;
+
+@end
 
 @interface ProductRemarksCell : UICollectionViewCell
 <
     CollectionCellProtocol
 >
+@property (nonatomic, weak) id<ProductRemarksCellDelegate>delegate;
 @end
 
 @interface ProductRemarksModel : NSObject
@@ -23,4 +28,3 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END

@@ -40,12 +40,15 @@
     return NSStringFromClass(self.class);
 }
 
--(void)textFieldDidEndEditing:(UITextField *)textField
+- (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField.text.length) {
-        if ([_model isKindOfClass:[ProductRemarksModel class]]) {
-            ProductRemarksModel *remarkModel = _model;
+        if ([_model.dataSource isKindOfClass:[ProductRemarksModel class]]) {
+            ProductRemarksModel *remarkModel = (ProductRemarksModel *)_model.dataSource;
             remarkModel.remakrContent = textField.text;
+            if ([self.delegate respondsToSelector:@selector(ProductRemarksCellDidDoneInputText:)]) {
+                [self.delegate ProductRemarksCellDidDoneInputText:textField.text];
+            }
         }
     }
 }
@@ -56,8 +59,8 @@
 {
     _model = model;
     
-    if ([_model isKindOfClass:[ProductRemarksModel class]]) {
-        ProductRemarksModel *remarkModel = _model;
+    if ([_model.dataSource isKindOfClass:[ProductRemarksModel class]]) {
+        ProductRemarksModel *remarkModel = (ProductRemarksModel *)_model.dataSource;
         if (remarkModel.remakrContent.length) {
             self.inputTextField.text = remarkModel.remakrContent;
         }

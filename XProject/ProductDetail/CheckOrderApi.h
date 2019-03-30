@@ -10,6 +10,6 @@
 
 @interface CheckOrderApi : YTKRequest
 
--(instancetype)initWithProductId:(NSArray *)productparams;
+-(instancetype)initWithProductId:(NSArray *)productparams remarkes:(NSString *)remark;
 
 @end
