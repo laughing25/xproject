@@ -24,16 +24,21 @@
 #import "XLProductListViewController.h"
 #import "WKWebViewController.h"
 #import "UINavigationController+FDFullscreenPopGesture.h"
+#import "UIScrollView+EmptyDataSet.h"
 
 @interface XLShouYeViewController ()
 <
     UICollectionViewDelegate,
     UICollectionViewDataSource,
     CustomerLayoutDatasource,
-    YSCollectionViewBannerCellDelegate
+    YSCollectionViewBannerCellDelegate,
+    YTKChainRequestDelegate,
+    DZNEmptyDataSetSource,
+    DZNEmptyDataSetDelegate
 >
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray<id<CustomerLayoutSectionModuleProtocol>>*dataList;
+@property (nonatomic, assign) BOOL loading;
 @end
 
 @implementation XLShouYeViewController
@@ -45,18 +50,24 @@
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
+    self.loading = YES;
     [self requestHomeData];
+    self.collectionView.emptyDataSetDelegate = self;
+    self.collectionView.emptyDataSetSource = self;
 }
 
 #pragma mark - request
 
 -(void)requestHomeData
 {
-    HomeDataListApi *api = [[HomeDataListApi alloc] initWithPageIndex:@"1" pageSize:@"5"];
+    [self.dataList removeAllObjects];
+    
+    HomeDataListApi *api = [[HomeDataListApi alloc] initWithPageIndex:@"1" pageSize:@"15"];
     
     GainCategoryListApi *categoryApi = [[GainCategoryListApi alloc] init];
     
     YTKChainRequest *chainRequest = [[YTKChainRequest alloc] init];
+    chainRequest.delegate = self;
     [chainRequest addAccessory:[[YSRequestAccessory alloc] initWithApperOnView:self.view]];
     @weakify(self)
     [chainRequest addRequest:api callback:^(YTKChainRequest * _Nonnull chainRequest, YTKBaseRequest * _Nonnull baseRequest) {
@@ -88,6 +99,13 @@
     }];
     
     [chainRequest start];
+}
+
+- (void)chainRequestFailed:(YTKChainRequest *)chainRequest failedBaseRequest:(YTKBaseRequest*)request
+{
+    [self.dataList removeAllObjects];
+    self.loading = NO;
+    [self.collectionView reloadData];
 }
 
 #pragma mark - data source
@@ -127,6 +145,33 @@
     }
 }
 
+-(BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    if (self.loading) {
+        return NO;
+    }
+    return YES;
+}
+
+- (nullable NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+{
+    NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"点击重试"];
+    return attri;
+}
+
+- (nullable NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"网络异常"];
+    return attri;
+}
+
+-(void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button
+{
+    self.loading = YES;
+    [scrollView reloadEmptyDataSet];
+    [self requestHomeData];
+}
+
 #pragma mark - layout datasource
 
 -(id<CustomerLayoutSectionModuleProtocol>)customerLayoutDatasource:(UICollectionView *)collectionView sectionNum:(NSInteger)section
@@ -159,6 +204,9 @@
             collectionView.delegate = self;
             collectionView.alwaysBounceVertical = YES;
             collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            if (@available(iOS 11, *)) {
+                collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            }
             collectionView;
         });
     }

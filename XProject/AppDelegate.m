@@ -21,7 +21,7 @@
     // Override point for customization after application launch.
     [[CMHKLanguagesManager shareManager] initUserLanguage];
     
-    [YTKNetworkConfig sharedConfig].baseUrl = @"http://api.fortechservise.online/";
+    [YTKNetworkConfig sharedConfig].baseUrl = @"https://api.fortechservise.online/";
     [YTKNetworkConfig sharedConfig].debugLogEnabled = YES;
     [IQKeyboardManager sharedManager].enable = YES;
     

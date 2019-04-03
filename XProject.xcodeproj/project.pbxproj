@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3FF72725994877353F02EA7D /* Pods_XProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8AD7D7CD28AF76A2086887 /* Pods_XProject.framework */; };
+		4B0712662254E6C4006B9B01 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0712652254E6C4006B9B01 /* UIScrollView+EmptyDataSet.m */; };
 		4BD77A5F217613C50045E8D4 /* GainProductBranchListApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A5E217613C50045E8D4 /* GainProductBranchListApi.m */; };
 		4BD77A62217617010045E8D4 /* ProductBranchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A61217617010045E8D4 /* ProductBranchModel.m */; };
 		4BD77A68218B3A9D0045E8D4 /* ProductDetailSkuModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD77A67218B3A9D0045E8D4 /* ProductDetailSkuModule.m */; };
@@ -150,6 +151,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B0712642254E6C3006B9B01 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
+		4B0712652254E6C4006B9B01 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		4BD77A5D217613C50045E8D4 /* GainProductBranchListApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GainProductBranchListApi.h; sourceTree = "<group>"; };
 		4BD77A5E217613C50045E8D4 /* GainProductBranchListApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GainProductBranchListApi.m; sourceTree = "<group>"; };
 		4BD77A60217617010045E8D4 /* ProductBranchModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductBranchModel.h; sourceTree = "<group>"; };
@@ -583,6 +586,8 @@
 				73FE3FA82125A8FC00381CFA /* NSString+Extended.m */,
 				FA59470521513B9D0038EECA /* UINavigationController+FDFullscreenPopGesture.h */,
 				FA59470621513B9D0038EECA /* UINavigationController+FDFullscreenPopGesture.m */,
+				4B0712642254E6C3006B9B01 /* UIScrollView+EmptyDataSet.h */,
+				4B0712652254E6C4006B9B01 /* UIScrollView+EmptyDataSet.m */,
 				73C43A572155D50F009F053A /* YTKBaseRequest+Tools.h */,
 				73C43A582155D50F009F053A /* YTKBaseRequest+Tools.m */,
 				73C43A5A2155DC0F009F053A /* YSRequestAccessory.h */,
@@ -1359,6 +1364,7 @@
 				73C43A7921561179009F053A /* WMPageController.m in Sources */,
 				FA3C2D972153E61700D9A0B6 /* ProductDetailModel.m in Sources */,
 				FA35C7D8215882F500BEE500 /* GainUserInfoApi.m in Sources */,
+				4B0712662254E6C4006B9B01 /* UIScrollView+EmptyDataSet.m in Sources */,
 				73C43A7421561179009F053A /* UIViewController+WMPageController.m in Sources */,
 				FA5946F8215125FD0038EECA /* LoginViewController.m in Sources */,
 				FA3C2D8B2153CDB400D9A0B6 /* HomeDataListApi.m in Sources */,
